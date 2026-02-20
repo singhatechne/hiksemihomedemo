@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>HIKSEMI | Storage & Technology Solutions</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="index.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandRed: '#E60012',
+                        brandGray: '#555555',
+                        brandTeal: '#00A99D',
+                        bgOffWhite: '#F8F9FA',
+                        textDark: '#111111'
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Translate  -->
+    <script>
+        (function() {
+            "use strict";
+            const MAP = { "en": "en", "np": "ne" };
+            const STORAGE_KEY = "hiksemi_lang";
+
+            function uniqueTargets() { return Array.from(new Set(Object.values(MAP))).join(','); }
+            function setHtmlLangDir(code) { document.documentElement.lang = code; document.documentElement.dir = "ltr"; }
+            function getSavedLang() { const saved = localStorage.getItem(STORAGE_KEY); return (saved && MAP[saved]) ? saved : "en"; }
+
+            function setLanguage(appValue, reload = true) {
+                const target = MAP[appValue] || "en";
+                setHtmlLangDir(target);
+                localStorage.setItem(STORAGE_KEY, appValue);
+                const cookieVal = "/auto/" + target;
+                const expires = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toUTCString();
+                document.cookie = "googtrans=" + cookieVal + "; expires=" + expires + "; path=/";
+                document.cookie = "googtrans=" + cookieVal + "; expires=" + expires + "; path=/; domain=" + location.hostname;
+                
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    const val = btn.getAttribute('data-lang');
+                    if (val === appValue) btn.classList.add('active-lang');
+                    else btn.classList.remove('active-lang');
+                });
+                if (reload) location.reload();
+            }
+
+            window.googleTranslateElementInit = function() {
+                new google.translate.TranslateElement({
+                    pageLanguage: 'en',
+                    includedLanguages: uniqueTargets(),
+                    autoDisplay: false,
+                    multilanguagePage: true
+                }, 'google_translate_element');
+                const saved = getSavedLang();
+                setLanguage(saved, false);
+                setTimeout(() => {
+                    const select = document.querySelector('select.goog-te-combo');
+                    if (select) { select.value = MAP[saved] || "en"; select.dispatchEvent(new Event('change')); }
+                }, 300);
+            };
+
+            const s = document.createElement('script');
+            s.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+            s.defer = true;
+            document.head.appendChild(s);
+
+            window.triggerLanguage = function(langKey) { if (MAP[langKey]) setLanguage(langKey, true); };
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const saved = getSavedLang();
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    const val = btn.getAttribute('data-lang');
+                    if (val === saved) btn.classList.add('active-lang');
+                    btn.addEventListener('click', (e) => { e.preventDefault(); triggerLanguage(btn.getAttribute('data-lang')); });
+                });
+            });
+        })();
+    </script>
+    <div id="google_translate_element" style="display:none"></div>
+</head>
+<body class="font-sans text-textDark bg-white">
+
+    <!-- Mobile Menu Overlay  -->
+    <div class="mobile-menu-overlay" id="menuOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="flex justify-end mb-8">
+            <button id="closeMobileMenu" class="text-2xl text-gray-500">&times;</button>
+        </div>
+        <ul class="space-y-4 text-lg font-medium" id="mobile-main-menu">
+            <li><a href="#" class="block py-2 hover:text-brandRed">Home</a></li>
+            <li>
+                <div class="flex justify-between items-center py-2 mobile-nav-trigger" data-target="products">
+                    <span>Products</span>
+                    <i class="fa-solid fa-chevron-down text-sm transition-transform dropdown-icon"></i>
+                </div>
+                <div class="mobile-submenu" id="submenu-products">
+                    <ul>
+                        <li>Industrial SSDs</li>
+                        <li>Surveillance Cards</li>
+                        <li>Data Center SSDs</li>
+                        <li>Embedded Storage</li>
+                        <li>Consumer Drives</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <div class="flex justify-between items-center py-2 mobile-nav-trigger" data-target="solutions">
+                    <span>Solutions</span>
+                    <i class="fa-solid fa-chevron-down text-sm transition-transform dropdown-icon"></i>
+                </div>
+                <div class="mobile-submenu" id="submenu-solutions">
+                    <ul>
+                        <li>Industrial Control</li>
+                        <li>Video Surveillance</li>
+                        <li>Data Centers</li>
+                        <li>Consumer Electronics</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <div class="flex justify-between items-center py-2 mobile-nav-trigger" data-target="support">
+                    <span>Support</span>
+                    <i class="fa-solid fa-chevron-down text-sm transition-transform dropdown-icon"></i>
+                </div>
+                <div class="mobile-submenu" id="submenu-support">
+                    <ul>
+                        <li>Overview</li>
+                        <li>Firmware Updates</li>
+                        <li>Warranty Status</li>
+                        <li>Technical Support</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <div class="flex justify-between items-center py-2 mobile-nav-trigger" data-target="company">
+                    <span>Company</span>
+                    <i class="fa-solid fa-chevron-down text-sm transition-transform dropdown-icon"></i>
+                </div>
+                <div class="mobile-submenu" id="submenu-company">
+                    <ul>
+                        <li>Brand Story</li>
+                        <li>Certifications</li>
+                        <li>Newsroom</li>
+                        <li>Contact Us</li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Navigation Bar -->
+    <nav id="main-nav" class="flex items-center justify-between px-6 lg:px-12 py-4 bg-white sticky top-0 z-50">
+        <a href="#" class="flex items-center">
+            <img src="assets/hiksemi logo bg removed.png" alt="HIKSEMI logo" class="h-10 w-auto">
+        </a>
+
+        <ul class="hidden md:flex items-center gap-10 text-[15px] font-medium text-gray-700">
+            <li><button class="nav-trigger hover:text-brandRed transition-colors">Home</button></li>
+            <li><button class="nav-trigger hover:text-brandRed transition-colors" data-target="products">Products</button></li>
+            <li><button class="nav-trigger hover:text-brandRed transition-colors" data-target="solutions">Solutions</button></li>
+            <li><button class="nav-trigger hover:text-brandRed transition-colors" data-target="support">Support</button></li>
+            <li><button class="nav-trigger hover:text-brandRed transition-colors" data-target="company">Company</button></li>
+        </ul>
+
+        <div class="hidden md:flex items-center gap-6">
+            <div class="flex items-center bg-gray-100 rounded-full p-1 text-sm font-medium notranslate" translate="no">
+                <button data-lang="en" class="lang-btn px-4 py-1.5 rounded-full transition hover:text-white hover:bg-brandRed">EN</button>
+                <button data-lang="np" class="lang-btn px-4 py-1.5 rounded-full transition hover:text-white hover:bg-brandRed">NP</button>
+            </div>
+            <span class="text-xs text-gray-400 notranslate" translate="no">इन / नेप</span>
+            <button aria-label="Search" class="text-gray-700 hover:text-black">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </button>
+        </div>
+
+        <!-- Mobile right section: language + hamburger -->
+        <div class="flex items-center md:hidden gap-2">
+            <div class="mobile-lang-bar notranslate" translate="no">
+                <button data-lang="en" class="lang-btn px-2 py-1 text-xs">EN</button>
+                <button data-lang="np" class="lang-btn px-2 py-1 text-xs">NP</button>
+            </div>
+            <button id="mobile-menu-btn" class="text-textDark text-2xl">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- mega menu desktop -->
+    <div id="mega-menu" class="hidden fixed top-[72px] inset-x-0 bg-white z-40 border-t shadow-2xl overflow-hidden opacity-0 -translate-y-2">
+        <div class="max-w-7xl mx-auto flex h-[450px]">
+            <div class="w-1/3 border-r py-8 px-12">
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6" id="menu-category-label">Category</p>
+                <ul class="space-y-4" id="menu-list"></ul>
+            </div>
+            <div class="w-1/3 bg-gray-50 p-12 border-r">
+                <ul class="space-y-4 text-sm font-medium text-gray-600" id="sub-menu-list">
+                    <li class="border-b pb-2 hover:text-black cursor-pointer">Advisory Board</li>
+                    <li class="border-b pb-2 hover:text-black cursor-pointer">Resources</li>
+                </ul>
+            </div>
+            <div class="w-1/3 p-12 flex flex-col justify-center">
+                <div class="relative rounded-xl overflow-hidden aspect-video bg-black group cursor-pointer shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform" alt="Video Preview">
+                    <div class="absolute inset-0 flex items-center justify-center"><div class="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center pl-1 shadow-md"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div>
+                </div>
+                <p class="text-xs text-gray-500 mt-4 text-center">See the advantages you get with HIKSEMI</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero (from first code)-->
+    <header class="relative w-full h-[600px] md:h-[750px] overflow-hidden bg-black">
+        <!-- Slide 1 - Industrial Control -->
+        <div class="hero-slide active" data-index="0" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('assets/hero/nas.png') center/cover;">
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4 mt-[-100px]">
+                <p class="text-sm tracking-wide mb-4">Industrial Control & Automation</p>
+                <h1 class="text-5xl md:text-7xl font-semibold mb-4 tracking-tight">Robust SSDs</h1>
+                <p class="text-xl md:text-2xl font-bold mb-8">Reliability for Critical Systems</p>
+                <div class="flex gap-4"><button class="px-6 py-2 rounded-full border border-white/70 hover:bg-white hover:text-black transition-all text-sm font-medium backdrop-blur-sm">Learn More ></button><button class="px-6 py-2 rounded-full border border-white/70 hover:bg-white hover:text-black transition-all text-sm font-medium backdrop-blur-sm">Buy Now ></button></div>
+            </div>
+        </div>
+        <!-- Slide 2 - Video Surveillance -->
+        <div class="hero-slide" data-index="1" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('assets/hero/core\ ssd.png') center/cover;">
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4"><p class="text-sm tracking-wide mb-4">24/7 Video Surveillance</p><h1 class="text-5xl md:text-7xl font-semibold mb-4 tracking-tight">High-Endurance Cards</h1><p class="text-xl md:text-2xl font-bold mb-8">Capture Every Moment</p><button class="px-8 py-3 rounded-full bg-brandRed hover:bg-red-700 transition-colors text-sm font-bold">Discover Surveillance Storage ></button></div>
+        </div>
+        <!-- Slide 3 - Data Center -->
+        <div class="hero-slide" data-index="2" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('assets/hero/sd\ card.png') center/cover;">
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4"><p class="text-sm tracking-wide mb-4">Data Center & Cloud</p><h1 class="text-5xl md:text-7xl font-semibold mb-4 tracking-tight">Enterprise SSDs</h1><p class="text-xl md:text-2xl font-bold mb-8">Scale with Performance</p><button class="px-6 py-2 rounded-full border border-white hover:bg-white hover:text-black transition-all">View Ecosystem</button></div>
+        </div>
+        <!-- Slide 4 - Consumer Electronics -->
+        <div class="hero-slide" data-index="3" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('assets/hero/tf\ card.png') center/cover;">
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4"><p class="text-sm tracking-wide mb-4">Consumer Electronics</p><h1 class="text-5xl md:text-7xl font-semibold mb-4 tracking-tight">Portable Drives</h1><p class="text-xl md:text-2xl font-bold mb-8">Fast Storage for Everyday Use</p><button class="px-6 py-2 rounded-full border border-white hover:bg-white hover:text-black transition-all">Shop Now ></button></div>
+        </div>
+        <!-- Slide 5 - Embedded Storage -->
+        <div class="hero-slide" data-index="4" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('assets/hero/pssd.png') center/cover;">
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4"><p class="text-sm tracking-wide mb-4">Embedded Systems</p><h1 class="text-5xl md:text-7xl font-semibold mb-4 tracking-tight">Integrated Storage</h1><p class="text-xl md:text-2xl font-bold mb-8">eMMC & BGA SSDs</p><button class="px-6 py-2 rounded-full border border-white hover:bg-white hover:text-black transition-all">Learn More ></button></div>
+        </div>
+        <!-- Slide 6 - Memory Cards -->
+        <div class="hero-slide" data-index="5" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('assets/hero/pro\ ssd.png') center/cover;">
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4"><p class="text-sm tracking-wide mb-4">Memory Solutions</p><h1 class="text-5xl md:text-7xl font-semibold mb-4 tracking-tight">Reliable Cards</h1><p class="text-xl md:text-2xl font-bold mb-8">For Diverse Applications</p><button class="px-6 py-2 rounded-full border border-white hover:bg-white hover:text-black transition-all">View Collection ></button></div>
+        </div>
+
+        <button id="heroPrev" class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 md:w-14 md:h-14 bg-black/30 backdrop-blur-sm border border-white/30 rounded-full flex items-center justify-center text-white text-3xl arrow-3d">&#10094;</button>
+        <button id="heroNext" class="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 md:w-14 md:h-14 bg-black/30 backdrop-blur-sm border border-white/30 rounded-full flex items-center justify-center text-white text-3xl arrow-3d">&#10095;</button>
+
+        <div class="absolute bottom-8 left-8 z-20 flex flex-col gap-2 text-white/50 text-sm font-medium" id="carousel-dots">
+            <span class="dot active text-white flex items-center gap-2"><div class="w-1 h-3 bg-white"></div> Industrial SSDs</span>
+            <span class="dot">Surveillance Cards</span>
+            <span class="dot">Enterprise SSDs</span>
+            <span class="dot">Portable Drives</span>
+            <span class="dot">Embedded Storage</span>
+            <span class="dot">Memory Cards</span>
+        </div>
+    </header>
+
+    <!-- marquee -->
+    <section class="bg-bgOffWhite py-20 overflow-hidden">
+        <h2 class="text-3xl md:text-[2.75rem] font-bold text-center leading-tight mb-16 tracking-tight text-black">Trusted by Industry Leaders.</h2>
+        <div class="marquee-container">
+            <div class="animate-marquee-custom whitespace-nowrap gap-16 md:gap-24 grayscale opacity-60">
+                <div class="flex items-center gap-16 md:gap-24">
+                    <div class="flex flex-col items-center w-24"><div class="w-12 h-16 border-2 border-black rounded-b-xl flex items-center justify-center text-[10px] font-bold text-center leading-tight relative"><div class="absolute top-0 w-full border-b-2 border-black"></div>INDUSTRIAL<br>CONTROL</div></div>
+                    <div class="flex items-center h-12"><span class="text-2xl font-black italic tracking-tighter">VIDEO</span><span class="ml-1 text-sm font-bold italic tracking-tighter mt-4">SURVEILLANCE</span></div>
+                    <div class="flex flex-col items-center"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 12h20L12 2zm0 20l10-10H2l10 10z"/></svg><span class="text-[10px] font-bold tracking-widest mt-1">DATA CENTER</span></div>
+                    <div class="flex items-center gap-2 font-bold leading-none"><span>CONSUMER<br>ELECTRONICS®</span></div>
+                    <div class="w-12 h-14 border-2 border-black rounded-b-[40%] flex items-center justify-center text-[8px] font-bold text-center">EMBEDDED</div>
+                </div>
+                <div class="flex items-center gap-16 md:gap-24">
+                    <div class="flex flex-col items-center w-24"><div class="w-12 h-16 border-2 border-black rounded-b-xl flex items-center justify-center text-[10px] font-bold text-center leading-tight relative"><div class="absolute top-0 w-full border-b-2 border-black"></div>INDUSTRIAL<br>CONTROL</div></div>
+                    <div class="flex items-center h-12"><span class="text-2xl font-black italic tracking-tighter">VIDEO</span><span class="ml-1 text-sm font-bold italic tracking-tighter mt-4">SURVEILLANCE</span></div>
+                    <div class="flex flex-col items-center"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 12h20L12 2zm0 20l10-10H2l10 10z"/></svg><span class="text-[10px] font-bold tracking-widest mt-1">DATA CENTER</span></div>
+                    <div class="flex items-center gap-2 font-bold leading-none"><span>CONSUMER<br>ELECTRONICS®</span></div>
+                    <div class="w-12 h-14 border-2 border-black rounded-b-[40%] flex items-center justify-center text-[8px] font-bold text-center">EMBEDDED</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Journey Section  -->
+    <section class="journey-section section-base py-24 px-6 lg:px-12 overflow-hidden" id="journeySection">
+        <h2 class="text-4xl md:text-6xl font-bold mb-16 tracking-tight">Explore our storage solutions.</h2>
+        
+        <!-- Pagination dots for mobile -->
+        <div class="mobile-pagination md:hidden" id="mobileCardPagination"></div>
+        
+        <div class="journey-grid gap-4 mb-4" id="journeyGrid">
+            <!-- ROW 1 -->
+            <div class="journey-row" data-row="0">
+                <a href="#" target="_blank" class="journey-card group relative rounded-2xl overflow-hidden cursor-pointer block h-[400px] md:h-[500px]" data-col="left" data-index="0">
+                    <img src="assets/products/data backup.png" alt="Industrial Control" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent transition-all duration-300 group-hover:from-black/90"></div>
+                    <div class="absolute top-10 left-10"><h3 class="text-5xl md:text-5xl font-light italic tracking-widest ">Industrial</h3></div>
+                    <div class="absolute bottom-10 left-10 right-10 flex justify-between items-end">
+                        <div><span class="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded text-xs mb-4">SSDs</span><p class="text-sm font-light opacity-80 text-white">Rugged, reliable storage for automation</p></div>
+                        <div class="flex items-center gap-3"><span class="text-sm font-medium opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-500 text-white">Explore</span><div class="w-10 h-10 border border-white/50 rounded-full flex items-center justify-center text-white group-hover:text-white group-hover:border-white transition-all duration-300"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
+                    </div>
+                </a>
+                <a href="#" target="_blank" class="journey-card group relative rounded-2xl overflow-hidden cursor-pointer block h-[400px] md:h-[500px]" data-col="right" data-index="1">
+                    <img src="assets/products/survelience.png" alt="Surveillance" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div class="absolute top-10 left-10"><h3 class="text-5xl md:text-5xl font-light italic tracking-widest">Surveillance</h3></div>
+                    <div class="absolute bottom-10 left-10 right-10 flex justify-between items-end">
+                        <div><div class="flex gap-2 mb-4"><span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded text-xs">High Endurance</span><span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded text-xs">24/7 Recording</span></div><p class="text-sm font-light opacity-80 text-white">Memory cards for continuous duty</p></div>
+                        <div class="flex items-center gap-3"><span class="text-sm font-medium opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition">Explore</span><div class="w-10 h-10 border border-white/50 rounded-full flex items-center justify-center"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
+                    </div>
+                </a>
+            </div>
+            <!-- ROW 2 -->
+            <div class="journey-row" data-row="1">
+                <a href="#" class="journey-card group relative rounded-2xl overflow-hidden cursor-pointer block h-[400px] md:h-[500px]" data-col="left" data-index="2">
+                    <img src="assets/products/data center.jpg" alt="Data Center" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div class="absolute top-10 left-10"><h3 class="text-5xl font-light italic tracking-widest">Data Center</h3></div>
+                    <div class="absolute bottom-10 left-10 right-10 flex justify-between items-end">
+                        <div><span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded text-xs mb-4">Enterprise SSDs</span><p class="text-sm font-light opacity-80 text-white">High-performance, low-latency storage</p></div>
+                        <div class="flex items-center gap-3"><span class="text-sm font-medium opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition text-white">Explore</span><div class="w-10 h-10 border border-white/50 rounded-full flex items-center justify-center text-white group-hover:text-white group-hover:border-white transition-all duration-300"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
+                    </div>
+                </a>
+                <a href="#" class="journey-card group relative rounded-2xl overflow-hidden cursor-pointer block h-[400px] md:h-[500px]" data-col="right" data-index="3">
+                    <img src="assets/products/portable.webp" alt="Consumer Electronics" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div class="absolute top-10 left-10"><h3 class="text-5xl font-light italic tracking-widest">Consumer</h3></div>
+                    <div class="absolute bottom-10 left-10 right-10 flex justify-between items-end">
+                        <div><span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded text-xs mb-4">Portable Drives</span><p class="text-sm font-light opacity-80 text-white">Fast, compact storage for everyday use</p></div>
+                        <div class="flex items-center gap-3"><span class="text-sm font-medium opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition">Explore</span><div class="w-10 h-10 border border-white/50 rounded-full flex items-center justify-center"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
+                    </div>
+                </a>
+            </div>
+            <!-- ROW 3 -->
+             
+            <div class="journey-row" data-row="2">
+                <a href="#" class="journey-card group relative rounded-2xl overflow-hidden cursor-pointer block h-[400px] md:h-[500px]" data-col="left" data-index="4">
+                    <img src=" assets/products/gaming.png" alt="Embedded Storage" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div class="absolute top-10 left-10"><h3 class="text-5xl font-light italic tracking-widest">Embedded</h3></div>
+                    <div class="absolute bottom-10 left-10 right-10 flex justify-between items-end">
+                        <div><span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded text-xs mb-4">eMMC, BGA SSDs</span><p class="text-sm font-light opacity-80 text-white">Integrated storage for embedded systems</p></div>
+                        <div class="flex items-center gap-3"><span class="text-sm font-medium opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition text-white">Explore</span><div class="w-10 h-10 border border-white/50 rounded-full flex items-center justify-center text-white group-hover:text-white group-hover:border-white transition-all duration-300"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
+                    </div>
+                </a>
+                <a href="#" class="journey-card group relative rounded-2xl overflow-hidden cursor-pointer block h-[400px] md:h-[500px]" data-col="right" data-index="5">
+                    <img src="assets/products/memory card.png" alt="Memory Cards" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div class="absolute top-10 left-10"><h3 class="text-5xl font-light italic tracking-widest">Memory</h3></div>
+                    <div class="absolute bottom-10 left-10 right-10 flex justify-between items-end">
+                        <div><span class="px-3 py-1 bg-white/20 backdrop-blur-md rounded text-xs mb-4">Cards & Modules</span><p class="text-sm font-light opacity-80 text-white">Reliable storage for diverse applications</p></div>
+                        <div class="flex items-center gap-3"><span class="text-sm font-medium opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition">Explore</span><div class="w-10 h-10 border border-white/50 rounded-full flex items-center justify-center"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video slider section -->
+    <section class="video-section section-base relative py-20" id="videoSection">
+        <div class="relative h-[60vh] md:h-[80vh] overflow-hidden flex items-center justify-center">
+            <!-- LEFT STATIC PANEL with thumbnail -->
+            <div class="side-panel left-panel hidden md:flex" id="leftPanel">
+                <div class="panel-content">
+                    <img id="leftThumbnail" class="panel-thumbnail" src="" alt="Previous video thumbnail">
+                    <div class="panel-overlay">
+                        <span id="leftPanelText" class="panel-text"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- main center video frame -->
+            <div id="slider" class="relative video-frame bg-black">
+                <!-- Loading indicator -->
+                <div class="video-loading" id="videoLoading">
+                    <i class="fas fa-spinner fa-spin text-3xl"></i>
+                </div>
+                
+                <!-- dynamic video container with slide animation -->
+                <div id="video-wrapper" class="video-wrapper">
+                    <div id="videoSlideContainer" class="video-slide-container">
+                        <!-- Video slides will be injected here dynamically -->
+                    </div>
+                </div>
+                
+                <!-- overlay text -->
+                <div id="slide-text" class="slide-overlay">
+                    <div id="textContainer">
+                        <h2 id="slide-sub" class="text-3xl md:text-5xl font-light tracking-tight mb-2 text-slide">Powered by</h2>
+                        <h1 id="slide-main" class="text-4xl md:text-6xl font-bold mb-4 text-slide">HIKSEMI TECH</h1>
+                        <div class="flex space-x-6 text-sm md:text-base font-medium text-slide">
+                            <a href="#" class="hover:underline">Explore Solutions ></a>
+                            <a href="#" class="hover:underline">Contact Us ></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- prev/next buttons -->
+                <button class="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:text-white" id="prevBtn">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+                <button class="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:text-white" id="nextBtn">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+
+                <!-- dots container -->
+                <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2 z-30" id="dotsContainer"></div>
+            </div>
+
+            <!-- RIGHT STATIC PANEL with thumbnail -->
+            <div class="side-panel right-panel hidden md:flex" id="rightPanel">
+                <div class="panel-content">
+                    <img id="rightThumbnail" class="panel-thumbnail" src="" alt="Next video thumbnail">
+                    <div class="panel-overlay">
+                        <span id="rightPanelText" class="panel-text"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose HIKSEMI cards -->
+    <section class="why-choose-section section-base py-20 w-full text-center" id="whyChooseSection">
+        <div class="confined-cards">
+            <h2 class="text-2xl md:text-3xl font-semibold mb-2">Why Choose HIKSEMI</h2>
+            <div class="w-64 h-1 bg-gray-300 mx-auto mb-16 opacity-80"></div>
+        </div>
+        <div class="confined-cards">
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- 20+ Years Experience -->
+                <div class="bg-[#D3D9E0] p-8 rounded-xl flex flex-col items-start text-left zoom-card text-white">
+                
+                    <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-6 text-3xl text-yellow-200">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <h3 class="text-4xl font-bold mb-2">20+</h3>
+                    <p class="text-xs uppercase tracking-widest font-semibold mb-2">Years of Innovation</p>
+                    <p class="text-gray-800 text-xs leading-relaxed">Decades of expertise in memory and storage technology for critical applications.</p>
+                </div>
+                <!-- Industrial-Grade Reliability -->
+                <div class="bg-[#D3D9E0] p-8 rounded-xl flex flex-col items-start text-left zoom-card text-white">
+                    <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-6 text-3xl text-emerald-200">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="text-4xl font-bold mb-2">Industrial</h3>
+                    <p class="text-xs uppercase tracking-widest font-semibold mb-2">Grade Reliability</p>
+                    <p class="text-gray-800 text-xs leading-relaxed">Designed for harsh environments, 24/7 operation, and extended lifecycles.</p>
+                </div>
+                <!-- Global Partnerships -->
+                <div class="bg-[#D3D9E0] p-8 rounded-xl flex flex-col items-start text-left zoom-card text-white">
+                    <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-6 text-3xl text-blue-200">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3 class="text-4xl font-bold mb-2">Global</h3>
+                    <p class="text-xs uppercase tracking-widest font-semibold mb-2">Partner Network</p>
+                    <p class="text-gray-800 text-xs leading-relaxed">Trusted by integrators and data centers worldwide for quality and support.</p>
+                </div>
+                <!-- End-to-End Solutions -->
+                <div class="bg-[#D3D9E0] p-8 rounded-xl flex flex-col items-start text-left zoom-card text-white">
+                    <div class="w-10 h-10 rounded-lg flex items-center justify-center mb-6 text-3xl text-lime-200">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3 class="text-4xl font-bold mb-2">End-to-End</h3>
+                    <p class="text-xs uppercase tracking-widest font-semibold mb-2">Solutions</p>
+                    <p class="text-gray-800 text-xs leading-relaxed">From embedded NAND to enterprise SSDs, covering the full spectrum of storage.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Where to Buy section -->
+    <section class="where-to-buy-section section-base py-16 w-full mx-auto" id="whereToBuySection">
+        <div class="confined-cards">
+            <h2 class="text-3xl font-bold text-center mb-2">Where to Buy</h2>
+        
+            <div class="w-64 h-1 bg-gray-300 mx-auto mb-16 opacity-80"></div>
+
+        </div>
+        <div class="confined-cards where-to-buy-grid grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- column content unchanged  -->
+            <div class="col-button border border-gray-400 rounded-2xl p-8 shadow-sm flex flex-col items-start text-left">
+                <div class="w-12 h-12 bg-[#4b5563] rounded-xl mb-6 flex items-center justify-center text-white"><i class="fas fa-globe text-xl"></i></div>
+                <h3 class="text-xl font-bold mb-2">🌐 Online Retailers</h3>
+                <p class="text-gray-500 text-sm mb-4">Shop via preferred e‑commerce</p>
+                <div class="w-full space-y-3 mb-6">
+                    <div><label class="text-xs font-semibold text-gray-500 block mb-1">Your country</label><input type="text" placeholder="e.g. United States" value="Nepal" class="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm bg-gray-50"></div>
+                    <div><label class="text-xs font-semibold text-gray-500 block mb-1">Preferred platform</label><select class="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm bg-gray-50"><option>Amazon</option><option>eBay</option><option>Official Hiksemi Store</option><option>Local site</option></select></div>
+                </div>
+                <ul class="space-y-2 mb-8 text-sm w-full">
+                    <li class="flex items-center text-gray-700"><i class="fas fa-check-circle text-green-500 mr-2 text-sm"></i> Amazon Global</li>
+                    <li class="flex items-center text-gray-700"><i class="fas fa-check-circle text-green-500 mr-2 text-sm"></i> Local e‑commerce sites</li>
+                    <li class="flex items-center text-gray-700"><i class="fas fa-check-circle text-green-500 mr-2 text-sm"></i> Official Hiksemi Store</li>
+                </ul>
+                <div class="button-container w-full">
+                    <button class="w-full bg-[#1a1c1e] h-12 rounded-lg flex items-center justify-center text-white text-sm font-medium hover:bg-[#2d2f31] transition"><i class="fas fa-search mr-2"></i> Check availability</button>
+                </div>
+            </div>
+            <div class="col-button border border-gray-400 rounded-2xl p-8 shadow-sm flex flex-col items-start text-left">
+                <div class="w-12 h-12 bg-[#4b5563] rounded-xl mb-6 flex items-center justify-center text-white"><i class="fas fa-truck text-xl"></i></div>
+                <h3 class="text-xl font-bold mb-2">📦 Find a Distributor</h3>
+                <p class="text-gray-500 text-sm mb-4">Locate authorized Hiksemi distributors</p>
+                <div class="w-full space-y-3 mb-6">
+                    <div><label class="text-xs font-bold text-gray-500 block mb-1">Country *</label><select class="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm bg-gray-50"><option>Nepal</option><option>India</option><option>Bangladesh</option><option>China</option><option>United States</option></select></div>
+                    <div><label class="text-xs font-bold text-gray-500 block mb-1">City / region</label><input type="text" placeholder="Kathmandu, Lalitpur..." class="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm bg-gray-50"></div>
+                </div>
+                <div class="w-full bg-gray-50 p-3 rounded-lg text-xs text-gray-500 mb-8 flex items-center space-x-2"><i class="fas fa-building"></i> <span>10+ distributors in South Asia</span></div>
+                <div class="button-container w-full">
+                    <button class="w-full border-2 border-[#1a1c1e] h-12 rounded-lg flex items-center justify-center text-[#1a1c1e] font-medium hover:bg-[#1a1c1e] hover:text-white transition"><i class="fas fa-location-dot mr-2"></i> Search near me</button>
+                </div>
+            </div>
+            <div class="col-button border border-gray-400 rounded-2xl p-8 shadow-sm flex flex-col items-start text-left">
+                <div class="w-12 h-12 bg-[#4b5563] rounded-xl mb-6 flex items-center justify-center text-white"><i class="fas fa-handshake text-xl"></i></div>
+                <h3 class="text-xl font-bold mb-2">🤝 Authorized Partners</h3>
+                <p class="text-gray-500 text-sm mb-4">Hiksemi verified resellers & integrators</p>
+                <div class="w-full space-y-3 mb-4">
+                    <div><label class="text-xs font-bold text-gray-500 block mb-1">Your name / company</label><input type="text" placeholder="e.g. Industrial Solutions" class="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"></div>
+                    <div><label class="text-xs font-bold text-gray-500 block mb-1">Partner type</label><select class="w-full border border-gray-200 rounded-lg px-4 py-2 text-sm"><option>Reseller</option><option>System integrator</option><option>Distributor</option></select></div>
+                </div>
+                <div class="w-full bg-[#f0f7ff] rounded-lg p-4 mb-8 flex items-center space-x-3 border border-gray-200"><div class="w-8 h-8 bg-[#4b5563] rounded-md flex items-center justify-center text-white text-xs font-bold">H</div><div><div class="font-semibold text-sm">Hiksemi Platinum Partner</div><div class="text-xs text-gray-500">since 2024 · 5 in your region</div></div></div>
+                <div class="button-container w-full">
+                    <button class="w-full border-2 border-[#1a1c1e] h-12 rounded-lg flex items-center justify-center text-[#1a1c1e] font-medium hover:bg-[#1a1c1e] hover:text-white transition"><i class="fas fa-paper-plane mr-2"></i> Request partnership</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA strip -->
+<section class="cta-section section-base py-12 px-6" id="ctaSection">
+    <div class="max-w-7xl mx-auto">
+        <div class="bg-[#868B92] rounded-2xl p-8 md:p-12 shadow-xl">
+            <div class="text-center">
+                <h2 class="text-white text-2xl md:text-3xl font-bold mb-4">Need Help Finding a Retailer?</h2>
+                <div class="w-80 h-1 bg-gray-300 mx-auto mb-16 opacity-80"></div>
+                <a href="https://wa.me/9779708095535" target="_blank" class="inline-block bg-gray-300 text-white px-8 py-3 rounded-lg text-sm font-bold shadow-lg hover:bg-gray-100 transition-colors ">
+                    <i class="fab fa-whatsapp mr-2"></i> Contact Sales Team
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+   
+
+    <!-- FOOTER -->
+    <footer class="footer-section text-white pt-16 pb-8 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/20 pb-16">
+            <div class="space-y-6">
+                <h4 class="text-lg font-bold">About Hiksemi</h4>
+                <p class="text-sm leading-relaxed text-gray-200">As a global provider of ultimate storage products and solutions, we are committed to continuous innovation to meet the diverse needs of applications including industrial control, video surveillance, data centers, and consumer electronics.</p>
+                <div class="flex space-x-3">
+                    <a href="#" class="footer-social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="footer-social-icon"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="footer-social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="footer-social-icon"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            <div class="space-y-4"><h4 class="text-lg font-bold">Products</h4><ul class="text-sm space-y-2 text-gray-200"><li><a href="#" class="hover:underline">Industrial SSDs</a></li><li><a href="#" class="hover:underline">Surveillance Cards</a></li><li><a href="#" class="hover:underline">Data Center SSDs</a></li><li><a href="#" class="hover:underline">Embedded Storage</a></li><li><a href="#" class="hover:underline">Consumer Drives</a></li><li><a href="#" class="hover:underline">Memory Modules</a></li></ul></div>
+            <div class="space-y-4"><h4 class="text-lg font-bold">Support</h4><ul class="text-sm space-y-2 text-gray-200"><li><a href="#" class="hover:underline">Warranty Info</a></li><li><a href="#" class="hover:underline">Terms & Condition</a></li><li><a href="#" class="hover:underline">Get In Touch</a></li></ul></div>
+            <div class="space-y-4"><h4 class="text-lg font-bold">Company Address</h4><p class="text-sm leading-relaxed text-gray-200">Room 307, Unit B, Building 2, No. 399 Danfeng Road, Binjiang District, Hangzhou, Zhejiang Province, China</p><p class="text-sm font-bold mt-4">970-809-5535</p></div>
+        </div>
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center mt-8 space-y-4 md:space-y-0 text-sm text-gray-300">
+            <p>© 2026 HIKSEMI Tech. All rights reserved.</p>
+<img src="assets/hiksemi logo bg removed.png" alt="HIKSEMI logo" class="h-10 w-auto">        </div>
+    </footer>
+
+    <!-- floating WhatsApp -->
+    <a href="https://wa.me/9779708095535" class="floating-wa" target="_blank" title="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+
+    <!-- SMART BOT WITH EMBEDDED GEMINI/GOOGLE BROWSER-->
+    <div class="floating-bot" id="botCircle" title="Ask about Hiksemi"><i class="fas fa-robot"></i></div>
+
+    <div class="bot-popup" id="botPopup">
+        <div class="bot-header">
+            <div class="bot-avatar"><i class="fas fa-microchip"></i></div>
+            <div class="bot-title">Hiksemi expert <span>with Gemini</span></div>
+        </div>
+
+        <!-- Tab Navigation -->
+        <div class="tab-container">
+            <div class="tab active" data-tab="qa">
+                <i class="fas fa-question-circle"></i> Q&A Database
+            </div>
+            
+            <div class="tab" data-tab="google">
+                <i class="fab fa-google"></i> Google Search
+            </div>
+        </div>
+
+        <!-- Q&A Panel -->
+        <div class="panel active" id="qaPanel">
+            <div class="qa-panel">
+                <div class="answer-box" id="answerDisplay">
+                    <strong>⚡ Ask me about HIKSEMI</strong><br>Click a question below or search.
+                </div>
+
+                <div class="search-container">
+                    <input type="text" class="bot-search" id="qaSearch" placeholder="🔍 Filter questions..." autocomplete="off">
+                </div>
+
+                <div class="qa-list" id="qaListContainer"></div>
+            </div>
+        </div>
+
+        <!-- Google Search Panel -->
+        <div class="panel" id="googlePanel">
+            <div class="browser-panel">
+                <div class="browser-header">
+                    <input type="text" class="browser-url" id="googleUrlInput" placeholder="Search Google..." value="https://www.google.com">
+                    <div class="browser-controls">
+                        <button class="browser-btn" id="googleSearchBtn"><i class="fas fa-search"></i> Search</button>
+                        <button class="browser-btn" id="googleBackBtn"><i class="fas fa-arrow-left"></i></button>
+                        <button class="browser-btn" id="googleForwardBtn"><i class="fas fa-arrow-right"></i></button>
+                        <button class="browser-btn" id="googleRefreshBtn"><i class="fas fa-redo"></i></button>
+                    </div>
+                </div>
+                <iframe class="browser-frame" id="googleFrame" 
+                    src="https://www.google.com/webhp?igu=1"
+                    sandbox="allow-same-origin allow-scripts allow-popups allow-forms allow-modals allow-top-navigation allow-popups-to-escape-sandbox">
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- External JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
