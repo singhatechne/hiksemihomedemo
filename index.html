@@ -10,10 +10,914 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+ 
+        .goog-te-banner-frame, #goog-gt-tt, .goog-te-gadget-icon, .goog-te-gadget-simple, .skiptranslate {
+            display: none !important;
+        }
+        body { top: 0 !important; }
+        .notranslate, [translate="no"] { unicode-bidi: isolate; }
+        .lang-btn.active-lang {
+            background: #E60012 !important;
+            border-color: #E60012 !important;
+            color: white !important;
+        }
+        nav { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        #mega-menu { transition: transform 0.3s ease, opacity 0.3s ease; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Hero slides - fade + slide  */
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            opacity: 0;
+            transform: scale(1.02) translateX(0);
+            transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1), transform 0.9s cubic-bezier(0.23, 1, 0.32, 1);
+            pointer-events: none;
+        }
+        .hero-slide.active {
+            opacity: 1;
+            transform: scale(1) translateX(0);
+            z-index: 10;
+            pointer-events: auto;
+        }
+        .hero-slide.incoming-next {
+            opacity: 0;
+            transform: scale(1.02) translateX(6%);
+            z-index: 5;
+        }
+        .hero-slide.incoming-prev {
+            opacity: 0;
+            transform: scale(1.02) translateX(-6%);
+            z-index: 5;
+        }
+        .hero-slide.outgoing-next {
+            opacity: 0;
+            transform: scale(0.98) translateX(-6%);
+            z-index: 5;
+        }
+        .hero-slide.outgoing-prev {
+            opacity: 0;
+            transform: scale(0.98) translateX(6%);
+            z-index: 5;
+        }
+        .arrow-3d {
+            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.5));
+        }
+
+        .journey-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+ 
+        .journey-row {
+            display: flex;
+            width: 100%;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .journey-card {
+            flex: 1 1 calc(50% - 0.5rem);
+            max-width: calc(50% - 0.5rem);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+            will-change: flex, max-width;
+            margin: 0;
+        }
+        
+
+        .journey-row.hovered .journey-card.hovered {
+            flex: 1 1 calc(55% - 0.5rem) !important;
+            max-width: calc(55% - 0.5rem) !important;
+            z-index: 30;
+        }
+        
+        .journey-row.hovered .journey-card.hovered-adjacent {
+            flex: 1 1 calc(45% - 0.5rem) !important;
+            max-width: calc(45% - 0.5rem) !important;
+            opacity: 0.9;
+            filter: brightness(0.95);
+        }
+        
+        .journey-row.hovered .journey-card:not(.hovered):not(.hovered-adjacent) {
+            flex: 1 1 calc(50% - 0.5rem) !important;
+            max-width: calc(50% - 0.5rem) !important;
+        }
+        
+        /* default state */
+        .journey-card {
+            flex: 1 1 calc(50% - 0.5rem);
+            max-width: calc(50% - 0.5rem);
+        }
+
+     
+        @media (max-width: 768px) {
+       
+            .journey-grid {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory;
+                gap: 1rem;
+                padding-bottom: 1.5rem;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: thin;
+                scrollbar-color: #E60012 rgba(255,255,255,0.2);
+            }
+            .journey-row {
+                display: contents;
+            }
+            .journey-card {
+                flex: 0 0 85vw !important;
+                max-width: 85vw !important;
+                scroll-snap-align: start;
+                height: 400px;
+                margin-right: 0;
+            }
+       
+            .journey-grid::-webkit-scrollbar {
+                height: 4px;
+                background: rgba(255,255,255,0.2);
+                border-radius: 20px;
+            }
+            .journey-grid::-webkit-scrollbar-thumb {
+                background: #E60012;
+                border-radius: 20px;
+            }
+            
     
-    <!-- External CSS -->
-    <link rel="stylesheet" href="index.css">
+            .mobile-pagination {
+                display: flex;
+                justify-content: center;
+                gap: 0.5rem;
+                margin-top: 1rem;
+                margin-bottom: 0.5rem;
+            }
+            .mobile-pagination .dot-indicator {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: rgba(255,255,255,0.3);
+                transition: all 0.2s;
+                cursor: pointer;
+            }
+            .mobile-pagination .dot-indicator.active {
+                background: #E60012;
+                width: 24px;
+                border-radius: 12px;
+            }
+            
+            .journey-card .absolute.inset-0.bg-gradient-to-t {
+                background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 70%) !important;
+            }
+            .journey-card .absolute.bottom-10 { bottom: 0.75rem; }
+            .journey-card .absolute.top-10 { top: 0.75rem; left: 0.75rem; }
+            .journey-card .absolute.top-10 h3 { font-size: 2rem !important; }
+            .journey-card .bottom-10 .flex.items-center.gap-3 {
+                margin-left: auto;
+                padding-right: 0.5rem;
+            }
+         
+            .journey-card.hovered, .journey-card.hovered-adjacent {
+                flex: 0 0 85vw !important;
+                max-width: 85vw !important;
+                opacity: 1;
+                filter: none;
+            }
+        }
+
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 75%;
+            max-width: 320px;
+            height: 100vh;
+            background: white;
+            z-index: 1000;
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: -5px 0 30px rgba(0,0,0,0.15);
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+        }
+        .mobile-menu.open { right: 0; }
+        .mobile-menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(3px);
+            z-index: 999;
+            display: none;
+        }
+        .mobile-menu-overlay.open { display: block; }
+        .mobile-submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: #f9f9f9;
+            border-radius: 0.5rem;
+            margin-top: 0.25rem;
+            margin-bottom: 0.25rem;
+        }
+        .mobile-submenu.open {
+            max-height: 300px;
+        }
+        .mobile-submenu ul {
+            padding: 0.75rem 1rem;
+        }
+        .mobile-submenu li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+        .mobile-submenu li:last-child { border-bottom: none; }
+
+        .nav-trigger.active-mega {
+            color: #E60012;
+            font-weight: 600;
+            position: relative;
+        }
+        .nav-trigger.active-mega::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #E60012;
+            border-radius: 2px;
+        }
+        
+
+        .marquee-container {
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+            overflow: hidden;
+            mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(90deg, transparent, black 10%, black 90%, transparent);
+        }
+        .animate-marquee-custom {
+            display: flex;
+            animation: marquee 20s linear infinite;
+            width: max-content;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        
+
+        .mobile-lang-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            background: #f1f1f1;
+            border-radius: 30px;
+            padding: 0.2rem;
+            margin-right: 0.5rem;
+        }
+        .mobile-lang-bar .lang-btn {
+            padding: 0.25rem 0.7rem;
+            font-size: 0.8rem;
+            border-radius: 30px;
+            border: none;
+            background: transparent;
+        }
+        .mobile-lang-bar .lang-btn.active-lang {
+            background: #E60012;
+            color: white;
+        }
+
+
+        .video-frame {
+            width: 75%;
+            height: 100%;
+            margin: 0 auto;
+            position: relative;
+            background: #000;
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        
+        .video-slide-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        
+        .video-slide {
+            flex: 0 0 100%;
+            height: 100%;
+            position: relative;
+        }
+        
+        .video-slide video, .video-slide iframe {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            pointer-events: none;
+        }
+        
+        .slide-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding-top: 3rem;
+            text-align: center;
+            color: white;
+            z-index: 20;
+            pointer-events: none;
+            text-shadow: 0 4px 12px rgba(0,0,0,0.6);
+            background: rgba(0,0,0,0.2);
+            backdrop-filter: brightness(0.7);
+            border-radius: 1rem;
+        }
+        .slide-overlay a { pointer-events: auto; }
+
+        .side-panel {
+            position: absolute;
+            top: 0;
+            width: 10%;
+            height: 100%;
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .left-panel {
+            left: 0;
+            background: linear-gradient(90deg, #1a1a1a 0%, #2a2a2a 100%);
+        }
+        
+        .right-panel {
+            right: 0;
+            background: linear-gradient(270deg, #1a1a1a 0%, #2a2a2a 100%);
+        }
+        
+        .panel-content {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .panel-thumbnail {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.5;
+            transition: opacity 0.3s ease;
+        }
+        
+        .panel-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+        
+        .panel-text {
+            color: white;
+            font-size: 1.4rem;
+            line-height: 2.2rem;
+            letter-spacing: 6px;
+            font-weight: 300;
+            text-transform: uppercase;
+            transform: rotate(180deg);
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            opacity: 0.8;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .left-panel .panel-overlay {
+            background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%);
+        }
+        
+        .right-panel .panel-overlay {
+            background: linear-gradient(270deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 100%);
+        }
+
+        .dot { cursor: pointer; }
+        
+        #prevBtn, #nextBtn {
+            transition: all 0.3s ease;
+            background: rgba(0,0,0,0.3);
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+        
+        #prevBtn:hover, #nextBtn:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .video-loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            z-index: 25;
+            display: none;
+        }
+        
+        .video-loading.active {
+            display: block;
+        }
+
+        .text-slide {
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .text-slide.exit-left {
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .text-slide.exit-right {
+            opacity: 0;
+            transform: translateX(50px);
+        }
+
+        .text-slide.enter-left {
+            animation: slideInLeft 0.5s ease forwards;
+        }
+
+        .text-slide.enter-right {
+            animation: slideInRight 0.5s ease forwards;
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .upload-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 50;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(8px);
+            padding: 10px 20px;
+            border-radius: 50px;
+            color: white;
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
+        }
+
+        .upload-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: scale(1.05);
+        }
+
+        .upload-btn input {
+            display: none;
+        }
+
+        /* ----- floating buttons (from third code) ----- */
+        .floating-wa {
+            position: fixed; bottom: 24px; right: 24px; background: #25D366; width: 60px; height: 60px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2); z-index: 50; transition: 0.2s; color: white; font-size: 30px;
+            text-decoration: none;
+        }
+        .floating-wa:hover { background: #20b859; transform: scale(1.05); }
+        .floating-bot {
+            position: fixed; bottom: 100px; right: 24px; background: #1a1c1e; width: 60px; height: 60px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15); z-index: 50; cursor: pointer; border: 2px solid #4b5563;
+            transition: 0.2s; color: white; font-size: 28px;
+        }
+        .floating-bot:hover { background: #2d3748; }
+
+   
+        .bot-popup {
+            position: fixed;
+            bottom: 100px;
+            right: 100px;
+            width: 380px; 
+            max-width: 90vw;
+            height: 500px;
+            max-height: 70vh;
+            background: #ffffff;
+            border-radius: 24px 24px 24px 8px;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.25);
+            padding: 0;
+            z-index: 55;
+            border: 1px solid #d4d4d8;
+            display: none;
+            border-top: 4px solid #4b5563;
+            overflow: hidden;
+            flex-direction: column;
+        }
+        .bot-popup::after {
+            content: ''; position: absolute; bottom: -10px; right: 20px;
+            border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 12px solid white;
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.05));
+        }
+      
+        @media (max-width: 640px) {
+            .bot-popup {
+                right: 10px !important;
+                bottom: 90px !important;
+                width: 300px !important;  
+                max-width: calc(100vw - 20px);
+                border-radius: 20px 20px 20px 6px;
+                font-size: 0.85rem;
+            }
+            .bot-popup::after {
+                right: 30px;
+            }
+            .bot-header { padding: 12px 14px; }
+            .bot-title { font-size: 0.9rem; }
+            .tab { padding: 10px 14px; font-size: 0.8rem; }
+            .qa-panel { padding: 10px; }
+            .qa-item { font-size: 0.8rem; padding: 8px 12px; }
+            .answer-box { font-size: 0.8rem; padding: 10px; }
+        }
+
+        .bot-header { 
+            display: flex; align-items: center; gap: 10px; padding: 16px 20px;
+            background: #f8fafc; border-bottom: 1px solid #e2e8f0;
+        }
+        .bot-avatar {
+            background: #1e293b; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center;
+            justify-content: center; color: white; font-size: 1.4rem;
+        }
+        .bot-title { font-weight: 700; color: #0f172a; letter-spacing: -0.01em; }
+        .bot-title span { font-size: 0.75rem; background: #e2e8f0; color: #334155; padding: 2px 8px; border-radius: 20px; font-weight: 500; margin-left: 8px; }
+
+        .tab-container {
+            display: flex; border-bottom: 1px solid #e2e8f0; background: white;
+        }
+        .tab {
+            padding: 12px 20px; cursor: pointer; font-weight: 500; font-size: 0.9rem;
+            display: flex; align-items: center; gap: 6px; color: #64748b;
+            border-bottom: 2px solid transparent; transition: 0.1s;
+        }
+        .tab.active {
+            color: #1e293b; border-bottom: 2px solid #1e293b; background: #f8fafc;
+        }
+        .tab i { font-size: 0.9rem; }
+
+        .panel {
+            display: none; flex: 1; overflow: hidden;
+        }
+        .panel.active {
+            display: flex; flex-direction: column;
+        }
+
+        .qa-panel { 
+            padding: 16px; flex: 1; display: flex; flex-direction: column; overflow: hidden;
+        }
+        .answer-box {
+            background: #f1f5f9; padding: 14px 12px; border-radius: 16px; font-size: 0.85rem;
+            border-left: 3px solid #1e293b; color: #0f172a; max-height: 200px; overflow-y: auto;
+            margin-bottom: 16px;
+        }
+        .answer-box strong { color: #1e293b; font-weight: 600; }
+
+        .search-container {
+            display: flex; gap: 8px; margin-bottom: 16px;
+        }
+        .bot-search {
+            flex: 1; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 40px; 
+            font-size: 0.85rem; background: #f8fafc;
+        }
+        .bot-search:focus { outline: none; border-color: #4b5563; }
+
+        .qa-list { 
+            flex: 1; overflow-y: auto; border: 1px solid #e9eef2; border-radius: 12px;
+            background: #fafafa;
+        }
+        .qa-item {
+            padding: 12px 16px; border-bottom: 1px solid #edf2f6; cursor: pointer; transition: 0.1s;
+            font-size: 0.85rem; font-weight: 500; color: #1e293b; display: flex; align-items: center; gap: 12px;
+        }
+        .qa-item:hover { background: #f1f5f9; }
+        .qa-item i { color: #4b5563; font-size: 0.9rem; width: 20px; }
+
+        .browser-panel {
+            display: flex; flex-direction: column; height: 100%; background: white;
+        }
+        .browser-header {
+            padding: 12px 16px; background: #f1f5f9; border-bottom: 1px solid #e2e8f0;
+            display: flex; gap: 8px; align-items: center;
+        }
+        .browser-url {
+            flex: 1; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 30px;
+            font-size: 0.8rem; background: white;
+        }
+        .browser-controls {
+            display: flex; gap: 4px;
+        }
+        .browser-btn {
+            padding: 8px 12px; background: white; border: 1px solid #cbd5e1;
+            border-radius: 30px; cursor: pointer; font-size: 0.8rem;
+            display: flex; align-items: center; gap: 4px;
+        }
+        .browser-btn:hover { background: #e2e8f0; }
+        .browser-frame {
+            flex: 1; width: 100%; border: none; background: white;
+        }
+        .gemini-prompt {
+            padding: 16px; background: #f8fafc; border-top: 1px solid #e2e8f0;
+        }
+        .gemini-input-group {
+            display: flex; gap: 8px;
+        }
+        .gemini-input {
+            flex: 1; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 40px;
+            font-size: 0.85rem;
+        }
+
+        .footer-social-icon { background: #1a1c1e; padding: 8px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; }
+        .footer-social-icon i { color: white; font-size: 16px; }
+
+        .qa-list::-webkit-scrollbar, .answer-box::-webkit-scrollbar { width: 4px; }
+        .qa-list::-webkit-scrollbar-track { background: #e2e8f0; border-radius: 8px; }
+        .qa-list::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 8px; }
+
+        /* ===== NEW STYLES FOR MOBILE CARD ROW ===== */
+        @media (max-width: 768px) {
+            /* Make the 4 cards scroll horizontally in one row */
+            .grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-4 {
+                display: flex !important;
+                flex-wrap: nowrap !important;
+                overflow-x: auto !important;
+                gap: 1rem;
+                padding-bottom: 1rem;
+                -webkit-overflow-scrolling: touch;
+                scroll-snap-type: x mandatory;
+            }
+            .grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-4 > div {
+                flex: 0 0 70vw !important; 
+                scroll-snap-align: start;
+                min-width: 240px; 
+            }
+       
+            .grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-4::-webkit-scrollbar {
+                display: none;
+            }
+        }
+
     
+        @media (max-width: 768px) {
+            section.relative.py-20.bg-\[\#2d3136\] {
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+            }
+            .video-frame {
+                width: 100% !important;
+                border-radius: 0 !important;
+            }
+            .side-panel {
+                display: none !important; 
+            }
+            .slide-overlay {
+                border-radius: 0 !important;
+            }
+        }
+
+  
+        .section-base {
+            transition: background-color 0.5s ease, color 0.3s ease;
+        }
+        
+    
+        .journey-section {
+            background-color: white;
+            color: #111111;
+        }
+        .journey-section.scrolled {
+            background-color: #F0F2F5 !important;  
+            color: #111111 !important;
+        }
+        .journey-section.scrolled .text-black {
+            color: #111111 !important;
+        }
+        
+    
+        .video-section {
+            background-color: white;
+        }
+        .video-section.scrolled {
+            background-color: #F0F2F5 !important;
+        }
+        
+
+        .why-choose-section {
+            background-color: #F0F2F5;  
+            color: #111111;
+        }
+        .why-choose-section .text-white {
+            color: #111111 !important;
+        }
+        .why-choose-section .bg-gray-300 {
+            background-color: rgba(0,0,0,0.2) !important;
+        }
+        .why-choose-section.scrolled {
+            background-color: white !important;
+            color: #111111 !important;
+        }
+   
+        .why-choose-section.scrolled .bg-\[\#3b4046\] {
+            background-color: #3b4046 !important; 
+        }
+        .why-choose-section.scrolled .text-gray-300 {
+            color: #d1d5db !important;
+        }
+        
+        .where-to-buy-section {
+            background-color: #F0F2F5;
+            color: #111111;
+        }
+        .where-to-buy-section .text-gray-500,
+        .where-to-buy-section .text-gray-700,
+        .where-to-buy-section .text-\[\#1a1c1e\] {
+            color: #111111 !important;
+        }
+        .where-to-buy-section .border-gray-100,
+        .where-to-buy-section .border-\[\#1a1c1e\] {
+            border-color: rgba(0,0,0,0.1) !important;
+        }
+        .where-to-buy-section .bg-gray-50 {
+            background-color: rgba(255,255,255,0.8) !important;
+        }
+        .where-to-buy-section.scrolled {
+            background-color: white !important;
+            color: #111111 !important;
+        }
+        .where-to-buy-section.scrolled .text-gray-500,
+        .where-to-buy-section.scrolled .text-gray-700,
+        .where-to-buy-section.scrolled .text-\[\#1a1c1e\] {
+            color: #6b7280 !important;
+        }
+        .where-to-buy-section.scrolled .border-gray-100,
+        .where-to-buy-section.scrolled .border-\[\#1a1c1e\] {
+            border-color: #f3f4f6 !important;
+        }
+        .where-to-buy-section.scrolled .bg-gray-50 {
+            background-color: #f9fafb !important;
+        }
+        
+   
+        .cta-section {
+            background-color: #F0F2F5 !important;
+            transition: background-color 0.5s ease;
+        }
+        .cta-section.scrolled {
+            background-color: white !important;
+        }
+        .cta-section .text-white { 
+            color: #111111 !important; 
+        }
+        .cta-section .bg-white {
+            background-color: #111111 !important;
+            color: white !important;
+        }
+        .cta-section.scrolled .bg-white {
+            background-color: #F0F2F5 !important;
+            color: #111111 !important;
+        }
+        .cta-section.scrolled .text-white {
+            color: #111111 !important;
+        }
+      
+        .footer-section {
+            background-color: #505050 !important;
+        }
+
+
+        .where-to-buy-grid .col-button {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        .where-to-buy-grid .button-container {
+            margin-top: auto;
+            width: 100%;
+        }
+
+        .confined-cards {
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        @media (max-width: 768px) {
+            .confined-cards {
+                width: 100%;  
+            }
+       
+            .why-choose-section .grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-4 {
+                gap: 0.5rem;
+            }
+            .why-choose-section .grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-4 > div {
+                flex: 0 0 60vw !important;  
+                min-width: 180px;
+                padding: 1rem !important;
+            }
+            .why-choose-section .grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-4 h3 {
+                font-size: 1.5rem !important;
+            }
+            .why-choose-section .grid-cols-1.sm\:grid-cols-2.lg\:grid-cols-4 p {
+                font-size: 0.7rem !important;
+            }
+        }
+
+        .zoom-card {
+    transition: transform 2s cubic-bezier(0.19, 1, 0.22, 1), 
+                box-shadow 2s cubic-bezier(0.19, 1, 0.22, 1);
+    will-change: transform, box-shadow;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased; 
+}
+
+.zoom-card:hover {
+    transform: scale(1.05) translateZ(0);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+.zoom-card1 {
+    transition: transform 2s cubic-bezier(0.19, 1, 0.22, 1), 
+                box-shadow 2s cubic-bezier(0.19, 1, 0.22, 1);
+    will-change: transform, box-shadow;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+.zoom-card1:hover {
+    transform: scale(1.05) translateZ(0);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+    </style>
+
     <script>
         tailwind.config = {
             theme: {
@@ -31,7 +935,7 @@
         }
     </script>
 
-    <!-- Google Translate  -->
+
     <script>
         (function() {
             "use strict";
@@ -95,14 +999,13 @@
 </head>
 <body class="font-sans text-textDark bg-white">
 
-    <!-- Mobile Menu Overlay  -->
     <div class="mobile-menu-overlay" id="menuOverlay"></div>
     <div class="mobile-menu" id="mobileMenu">
         <div class="flex justify-end mb-8">
             <button id="closeMobileMenu" class="text-2xl text-gray-500">&times;</button>
         </div>
         <ul class="space-y-4 text-lg font-medium" id="mobile-main-menu">
-            <li><a href="#" class="block py-2 hover:text-brandRed">Home</a></li>
+            <li><a href="index.html" class="block py-2 hover:text-brandRed">Home</a></li>
             <li>
                 <div class="flex justify-between items-center py-2 mobile-nav-trigger" data-target="products">
                     <span>Products</span>
@@ -110,11 +1013,13 @@
                 </div>
                 <div class="mobile-submenu" id="submenu-products">
                     <ul>
-                        <li>Industrial SSDs</li>
-                        <li>Surveillance Cards</li>
-                        <li>Data Center SSDs</li>
-                        <li>Embedded Storage</li>
-                        <li>Consumer Drives</li>
+                        <li><a href="/industrial-ssds" class="block hover:text-brandRed">Industrial SSDs</a></li>
+                        <li><a href="/surveillance-cards" class="block hover:text-brandRed">Surveillance Cards</a></li>
+                        <li><a href="/data-center-ssds" class="block hover:text-brandRed">Data Center SSDs</a></li>
+                        <li><a href="/embedded-storage" class="block hover:text-brandRed">Embedded Storage</a></li>
+                        <li><a href="/consumer-drives" class="block hover:text-brandRed">Consumer Drives</a></li>
+                        <li><a href="/advisory-board" class="block hover:text-brandRed">Advisory Board</a></li>
+                        <li><a href="/resources" class="block hover:text-brandRed">Resources</a></li>
                     </ul>
                 </div>
             </li>
@@ -125,10 +1030,12 @@
                 </div>
                 <div class="mobile-submenu" id="submenu-solutions">
                     <ul>
-                        <li>Industrial Control</li>
-                        <li>Video Surveillance</li>
-                        <li>Data Centers</li>
-                        <li>Consumer Electronics</li>
+                        <li><a href="/industrial-control" class="block hover:text-brandRed">Industrial Control</a></li>
+                        <li><a href="/video-surveillance" class="block hover:text-brandRed">Video Surveillance</a></li>
+                        <li><a href="/data-centers" class="block hover:text-brandRed">Data Centers</a></li>
+                        <li><a href="/consumer-electronics" class="block hover:text-brandRed">Consumer Electronics</a></li>
+                        <li><a href="/advisory-board" class="block hover:text-brandRed">Advisory Board</a></li>
+                        <li><a href="/resources" class="block hover:text-brandRed">Resources</a></li>
                     </ul>
                 </div>
             </li>
@@ -139,10 +1046,12 @@
                 </div>
                 <div class="mobile-submenu" id="submenu-support">
                     <ul>
-                        <li>Overview</li>
-                        <li>Firmware Updates</li>
-                        <li>Warranty Status</li>
-                        <li>Technical Support</li>
+                        <li><a href="terms.html" class="block hover:text-brandRed">Overview</a></li>
+                        <li><a href="/firmware-updates" class="block hover:text-brandRed">Firmware Updates</a></li>
+                        <li><a href="/warranty-status" class="block hover:text-brandRed">Warranty Status</a></li>
+                        <li><a href="/technical-support" class="block hover:text-brandRed">Technical Support</a></li>
+                        <li><a href="/advisory-board" class="block hover:text-brandRed">Advisory Board</a></li>
+                        <li><a href="/resources" class="block hover:text-brandRed">Resources</a></li>
                     </ul>
                 </div>
             </li>
@@ -153,10 +1062,12 @@
                 </div>
                 <div class="mobile-submenu" id="submenu-company">
                     <ul>
-                        <li>Brand Story</li>
-                        <li>Certifications</li>
-                        <li>Newsroom</li>
-                        <li>Contact Us</li>
+                        <li><a href="/brand-story" class="block hover:text-brandRed">Brand Story</a></li>
+                        <li><a href="/certifications" class="block hover:text-brandRed">Certifications</a></li>
+                        <li><a href="/newsroom" class="block hover:text-brandRed">Newsroom</a></li>
+                        <li><a href="/contact-us" class="block hover:text-brandRed">Contact Us</a></li>
+                        <li><a href="/advisory-board" class="block hover:text-brandRed">Advisory Board</a></li>
+                        <li><a href="/resources" class="block hover:text-brandRed">Resources</a></li>
                     </ul>
                 </div>
             </li>
@@ -200,7 +1111,7 @@
         </div>
     </nav>
 
-    <!-- mega menu desktop -->
+    <!-- mega menu desktop  -->
     <div id="mega-menu" class="hidden fixed top-[72px] inset-x-0 bg-white z-40 border-t shadow-2xl overflow-hidden opacity-0 -translate-y-2">
         <div class="max-w-7xl mx-auto flex h-[450px]">
             <div class="w-1/3 border-r py-8 px-12">
@@ -209,8 +1120,8 @@
             </div>
             <div class="w-1/3 bg-gray-50 p-12 border-r">
                 <ul class="space-y-4 text-sm font-medium text-gray-600" id="sub-menu-list">
-                    <li class="border-b pb-2 hover:text-black cursor-pointer">Advisory Board</li>
-                    <li class="border-b pb-2 hover:text-black cursor-pointer">Resources</li>
+                    <li class="border-b pb-2 hover:text-black cursor-pointer"><a href="/advisory-board" class="block">Advisory Board</a></li>
+                    <li class="border-b pb-2 hover:text-black cursor-pointer"><a href="/resources" class="block">Resources</a></li>
                 </ul>
             </div>
             <div class="w-1/3 p-12 flex flex-col justify-center">
@@ -223,7 +1134,7 @@
         </div>
     </div>
 
-    <!-- Hero (from first code)-->
+    <!-- Hero-->
     <header class="relative w-full h-[600px] md:h-[750px] overflow-hidden bg-black">
         <!-- Slide 1 - Industrial Control -->
         <div class="hero-slide active" data-index="0" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('assets/hero/nas.png') center/cover;">
@@ -231,28 +1142,28 @@
                 <p class="text-sm tracking-wide mb-4">Industrial Control & Automation</p>
                 <h1 class="text-5xl md:text-7xl font-semibold mb-4 tracking-tight">Robust SSDs</h1>
                 <p class="text-xl md:text-2xl font-bold mb-8">Reliability for Critical Systems</p>
-                <div class="flex gap-4"><button class="px-6 py-2 rounded-full border border-white/70 hover:bg-white hover:text-black transition-all text-sm font-medium backdrop-blur-sm">Learn More ></button><button class="px-6 py-2 rounded-full border border-white/70 hover:bg-white hover:text-black transition-all text-sm font-medium backdrop-blur-sm">Buy Now ></button></div>
+                <div class="flex gap-4"><a href="/industrial-ssds" class="px-6 py-2 rounded-full border border-white/70 hover:bg-white hover:text-black transition-all text-sm font-medium backdrop-blur-sm">Learn More ></a><a href="/where-to-buy" class="px-6 py-2 rounded-full border border-white/70 hover:bg-white hover:text-black transition-all text-sm font-medium backdrop-blur-sm">Buy Now ></a></div>
             </div>
         </div>
         <!-- Slide 2 - Video Surveillance -->
         <div class="hero-slide" data-index="1" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.6)), url('assets/hero/core\ ssd.png') center/cover;">
-            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4"><p class="text-sm tracking-wide mb-4">24/7 Video Surveillance</p><h1 class="text-5xl md:text-7xl font-semibold mb-4 tracking-tight">High-Endurance Cards</h1><p class="text-xl md:text-2xl font-bold mb-8">Capture Every Moment</p><button class="px-8 py-3 rounded-full bg-brandRed hover:bg-red-700 transition-colors text-sm font-bold">Discover Surveillance Storage ></button></div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4"><p class="text-sm tracking-wide mb-4">24/7 Video Surveillance</p><h1 class="text-5xl md:text-7xl font-semibold mb-4 tracking-tight">High-Endurance Cards</h1><p class="text-xl md:text-2xl font-bold mb-8">Capture Every Moment</p><a href="/surveillance-cards" class="px-8 py-3 rounded-full bg-brandRed hover:bg-red-700 transition-colors text-sm font-bold">Discover Surveillance Storage ></a></div>
         </div>
         <!-- Slide 3 - Data Center -->
         <div class="hero-slide" data-index="2" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('assets/hero/sd\ card.png') center/cover;">
-            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4"><p class="text-sm tracking-wide mb-4">Data Center & Cloud</p><h1 class="text-5xl md:text-7xl font-semibold mb-4 tracking-tight">Enterprise SSDs</h1><p class="text-xl md:text-2xl font-bold mb-8">Scale with Performance</p><button class="px-6 py-2 rounded-full border border-white hover:bg-white hover:text-black transition-all">View Ecosystem</button></div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4"><p class="text-sm tracking-wide mb-4">Data Center & Cloud</p><h1 class="text-5xl md:text-7xl font-semibold mb-4 tracking-tight">Enterprise SSDs</h1><p class="text-xl md:text-2xl font-bold mb-8">Scale with Performance</p><a href="/data-center-ssds" class="px-6 py-2 rounded-full border border-white hover:bg-white hover:text-black transition-all">View Ecosystem</a></div>
         </div>
         <!-- Slide 4 - Consumer Electronics -->
         <div class="hero-slide" data-index="3" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('assets/hero/tf\ card.png') center/cover;">
-            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4"><p class="text-sm tracking-wide mb-4">Consumer Electronics</p><h1 class="text-5xl md:text-7xl font-semibold mb-4 tracking-tight">Portable Drives</h1><p class="text-xl md:text-2xl font-bold mb-8">Fast Storage for Everyday Use</p><button class="px-6 py-2 rounded-full border border-white hover:bg-white hover:text-black transition-all">Shop Now ></button></div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4"><p class="text-sm tracking-wide mb-4">Consumer Electronics</p><h1 class="text-5xl md:text-7xl font-semibold mb-4 tracking-tight">Portable Drives</h1><p class="text-xl md:text-2xl font-bold mb-8">Fast Storage for Everyday Use</p><a href="/consumer-drives" class="px-6 py-2 rounded-full border border-white hover:bg-white hover:text-black transition-all">Shop Now ></a></div>
         </div>
         <!-- Slide 5 - Embedded Storage -->
         <div class="hero-slide" data-index="4" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('assets/hero/pssd.png') center/cover;">
-            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4"><p class="text-sm tracking-wide mb-4">Embedded Systems</p><h1 class="text-5xl md:text-7xl font-semibold mb-4 tracking-tight">Integrated Storage</h1><p class="text-xl md:text-2xl font-bold mb-8">eMMC & BGA SSDs</p><button class="px-6 py-2 rounded-full border border-white hover:bg-white hover:text-black transition-all">Learn More ></button></div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4"><p class="text-sm tracking-wide mb-4">Embedded Systems</p><h1 class="text-5xl md:text-7xl font-semibold mb-4 tracking-tight">Integrated Storage</h1><p class="text-xl md:text-2xl font-bold mb-8">eMMC & BGA SSDs</p><a href="/embedded-storage" class="px-6 py-2 rounded-full border border-white hover:bg-white hover:text-black transition-all">Learn More ></a></div>
         </div>
         <!-- Slide 6 - Memory Cards -->
         <div class="hero-slide" data-index="5" style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)), url('assets/hero/pro\ ssd.png') center/cover;">
-            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4"><p class="text-sm tracking-wide mb-4">Memory Solutions</p><h1 class="text-5xl md:text-7xl font-semibold mb-4 tracking-tight">Reliable Cards</h1><p class="text-xl md:text-2xl font-bold mb-8">For Diverse Applications</p><button class="px-6 py-2 rounded-full border border-white hover:bg-white hover:text-black transition-all">View Collection ></button></div>
+            <div class="absolute inset-0 flex flex-col items-center justify-center text-white text-center px-4"><p class="text-sm tracking-wide mb-4">Memory Solutions</p><h1 class="text-5xl md:text-7xl font-semibold mb-4 tracking-tight">Reliable Cards</h1><p class="text-xl md:text-2xl font-bold mb-8">For Diverse Applications</p><a href="/resources" class="px-6 py-2 rounded-full border border-white hover:bg-white hover:text-black transition-all">View Collection ></a></div>
         </div>
 
         <button id="heroPrev" class="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-30 w-12 h-12 md:w-14 md:h-14 bg-black/30 backdrop-blur-sm border border-white/30 rounded-full flex items-center justify-center text-white text-3xl arrow-3d">&#10094;</button>
@@ -268,7 +1179,7 @@
         </div>
     </header>
 
-    <!-- marquee -->
+    <!-- marquee  -->
     <section class="bg-bgOffWhite py-20 overflow-hidden">
         <h2 class="text-3xl md:text-[2.75rem] font-bold text-center leading-tight mb-16 tracking-tight text-black">Trusted by Industry Leaders.</h2>
         <div class="marquee-container">
@@ -280,7 +1191,7 @@
                     <div class="flex items-center gap-2 font-bold leading-none"><span>CONSUMER<br>ELECTRONICS®</span></div>
                     <div class="w-12 h-14 border-2 border-black rounded-b-[40%] flex items-center justify-center text-[8px] font-bold text-center">EMBEDDED</div>
                 </div>
-                <div class="flex items-center gap-16 md:gap-24">
+                <div class="flex items-center gap-16 md:gap-24"><!-- duplicate same for marquee effect -->
                     <div class="flex flex-col items-center w-24"><div class="w-12 h-16 border-2 border-black rounded-b-xl flex items-center justify-center text-[10px] font-bold text-center leading-tight relative"><div class="absolute top-0 w-full border-b-2 border-black"></div>INDUSTRIAL<br>CONTROL</div></div>
                     <div class="flex items-center h-12"><span class="text-2xl font-black italic tracking-tighter">VIDEO</span><span class="ml-1 text-sm font-bold italic tracking-tighter mt-4">SURVEILLANCE</span></div>
                     <div class="flex flex-col items-center"><svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 12h20L12 2zm0 20l10-10H2l10 10z"/></svg><span class="text-[10px] font-bold tracking-widest mt-1">DATA CENTER</span></div>
@@ -291,7 +1202,7 @@
         </div>
     </section>
 
-    <!-- Journey Section  -->
+    <!-- Journey Section -->
     <section class="journey-section section-base py-24 px-6 lg:px-12 overflow-hidden" id="journeySection">
         <h2 class="text-4xl md:text-6xl font-bold mb-16 tracking-tight">Explore our storage solutions.</h2>
         
@@ -301,7 +1212,7 @@
         <div class="journey-grid gap-4 mb-4" id="journeyGrid">
             <!-- ROW 1 -->
             <div class="journey-row" data-row="0">
-                <a href="#" target="_blank" class="journey-card group relative rounded-2xl overflow-hidden cursor-pointer block h-[400px] md:h-[500px]" data-col="left" data-index="0">
+                <a href="/industrial-ssds" target="_blank" class="journey-card group relative rounded-2xl overflow-hidden cursor-pointer block h-[400px] md:h-[500px]" data-col="left" data-index="0">
                     <img src="assets/products/data backup.png" alt="Industrial Control" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent transition-all duration-300 group-hover:from-black/90"></div>
                     <div class="absolute top-10 left-10"><h3 class="text-5xl md:text-5xl font-light italic tracking-widest ">Industrial</h3></div>
@@ -310,7 +1221,7 @@
                         <div class="flex items-center gap-3"><span class="text-sm font-medium opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition-all duration-500 text-white">Explore</span><div class="w-10 h-10 border border-white/50 rounded-full flex items-center justify-center text-white group-hover:text-white group-hover:border-white transition-all duration-300"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
                     </div>
                 </a>
-                <a href="#" target="_blank" class="journey-card group relative rounded-2xl overflow-hidden cursor-pointer block h-[400px] md:h-[500px]" data-col="right" data-index="1">
+                <a href="/surveillance-cards" target="_blank" class="journey-card group relative rounded-2xl overflow-hidden cursor-pointer block h-[400px] md:h-[500px]" data-col="right" data-index="1">
                     <img src="assets/products/survelience.png" alt="Surveillance" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div class="absolute top-10 left-10"><h3 class="text-5xl md:text-5xl font-light italic tracking-widest">Surveillance</h3></div>
@@ -322,7 +1233,7 @@
             </div>
             <!-- ROW 2 -->
             <div class="journey-row" data-row="1">
-                <a href="#" class="journey-card group relative rounded-2xl overflow-hidden cursor-pointer block h-[400px] md:h-[500px]" data-col="left" data-index="2">
+                <a href="/data-center-ssds" class="journey-card group relative rounded-2xl overflow-hidden cursor-pointer block h-[400px] md:h-[500px]" data-col="left" data-index="2">
                     <img src="assets/products/data center.jpg" alt="Data Center" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div class="absolute top-10 left-10"><h3 class="text-5xl font-light italic tracking-widest">Data Center</h3></div>
@@ -331,7 +1242,7 @@
                         <div class="flex items-center gap-3"><span class="text-sm font-medium opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition text-white">Explore</span><div class="w-10 h-10 border border-white/50 rounded-full flex items-center justify-center text-white group-hover:text-white group-hover:border-white transition-all duration-300"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
                     </div>
                 </a>
-                <a href="#" class="journey-card group relative rounded-2xl overflow-hidden cursor-pointer block h-[400px] md:h-[500px]" data-col="right" data-index="3">
+                <a href="/consumer-drives" class="journey-card group relative rounded-2xl overflow-hidden cursor-pointer block h-[400px] md:h-[500px]" data-col="right" data-index="3">
                     <img src="assets/products/portable.webp" alt="Consumer Electronics" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div class="absolute top-10 left-10"><h3 class="text-5xl font-light italic tracking-widest">Consumer</h3></div>
@@ -344,7 +1255,7 @@
             <!-- ROW 3 -->
              
             <div class="journey-row" data-row="2">
-                <a href="#" class="journey-card group relative rounded-2xl overflow-hidden cursor-pointer block h-[400px] md:h-[500px]" data-col="left" data-index="4">
+                <a href="/embedded-storage" class="journey-card group relative rounded-2xl overflow-hidden cursor-pointer block h-[400px] md:h-[500px]" data-col="left" data-index="4">
                     <img src=" assets/products/gaming.png" alt="Embedded Storage" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div class="absolute top-10 left-10"><h3 class="text-5xl font-light italic tracking-widest">Embedded</h3></div>
@@ -353,7 +1264,7 @@
                         <div class="flex items-center gap-3"><span class="text-sm font-medium opacity-0 group-hover:opacity-100 -translate-x-4 group-hover:translate-x-0 transition text-white">Explore</span><div class="w-10 h-10 border border-white/50 rounded-full flex items-center justify-center text-white group-hover:text-white group-hover:border-white transition-all duration-300"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div></div>
                     </div>
                 </a>
-                <a href="#" class="journey-card group relative rounded-2xl overflow-hidden cursor-pointer block h-[400px] md:h-[500px]" data-col="right" data-index="5">
+                <a href="/resources" class="journey-card group relative rounded-2xl overflow-hidden cursor-pointer block h-[400px] md:h-[500px]" data-col="right" data-index="5">
                     <img src="assets/products/memory card.png" alt="Memory Cards" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                     <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
                     <div class="absolute top-10 left-10"><h3 class="text-5xl font-light italic tracking-widest">Memory</h3></div>
@@ -366,7 +1277,7 @@
         </div>
     </section>
 
-    <!-- Video slider section -->
+    <!-- Video slider section  -->
     <section class="video-section section-base relative py-20" id="videoSection">
         <div class="relative h-[60vh] md:h-[80vh] overflow-hidden flex items-center justify-center">
             <!-- LEFT STATIC PANEL with thumbnail -->
@@ -381,7 +1292,6 @@
 
             <!-- main center video frame -->
             <div id="slider" class="relative video-frame bg-black">
-                <!-- Loading indicator -->
                 <div class="video-loading" id="videoLoading">
                     <i class="fas fa-spinner fa-spin text-3xl"></i>
                 </div>
@@ -399,8 +1309,8 @@
                         <h2 id="slide-sub" class="text-3xl md:text-5xl font-light tracking-tight mb-2 text-slide">Powered by</h2>
                         <h1 id="slide-main" class="text-4xl md:text-6xl font-bold mb-4 text-slide">HIKSEMI TECH</h1>
                         <div class="flex space-x-6 text-sm md:text-base font-medium text-slide">
-                            <a href="#" class="hover:underline">Explore Solutions ></a>
-                            <a href="#" class="hover:underline">Contact Us ></a>
+                            <a href="/solutions" class="hover:underline">Explore Solutions ></a>
+                            <a href="/contact-us" class="hover:underline">Contact Us ></a>
                         </div>
                     </div>
                 </div>
@@ -417,7 +1327,7 @@
                     </svg>
                 </button>
 
-                <!-- dots container -->
+            
                 <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2 z-30" id="dotsContainer"></div>
             </div>
 
@@ -433,7 +1343,7 @@
         </div>
     </section>
 
-    <!-- Why Choose HIKSEMI cards -->
+
     <section class="why-choose-section section-base py-20 w-full text-center" id="whyChooseSection">
         <div class="confined-cards">
             <h2 class="text-2xl md:text-3xl font-semibold mb-2">Why Choose HIKSEMI</h2>
@@ -483,7 +1393,7 @@
         </div>
     </section>
 
-    <!-- Where to Buy section -->
+ 
     <section class="where-to-buy-section section-base py-16 w-full mx-auto" id="whereToBuySection">
         <div class="confined-cards">
             <h2 class="text-3xl font-bold text-center mb-2">Where to Buy</h2>
@@ -539,7 +1449,7 @@
         </div>
     </section>
 
-    <!-- CTA strip -->
+   
 <section class="cta-section section-base py-12 px-6" id="ctaSection">
     <div class="max-w-7xl mx-auto">
         <div class="bg-[#868B92] rounded-2xl p-8 md:p-12 shadow-xl">
@@ -569,8 +1479,8 @@
                     <a href="#" class="footer-social-icon"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
-            <div class="space-y-4"><h4 class="text-lg font-bold">Products</h4><ul class="text-sm space-y-2 text-gray-200"><li><a href="#" class="hover:underline">Industrial SSDs</a></li><li><a href="#" class="hover:underline">Surveillance Cards</a></li><li><a href="#" class="hover:underline">Data Center SSDs</a></li><li><a href="#" class="hover:underline">Embedded Storage</a></li><li><a href="#" class="hover:underline">Consumer Drives</a></li><li><a href="#" class="hover:underline">Memory Modules</a></li></ul></div>
-            <div class="space-y-4"><h4 class="text-lg font-bold">Support</h4><ul class="text-sm space-y-2 text-gray-200"><li><a href="#" class="hover:underline">Warranty Info</a></li><li><a href="#" class="hover:underline">Terms & Condition</a></li><li><a href="#" class="hover:underline">Get In Touch</a></li></ul></div>
+            <div class="space-y-4"><h4 class="text-lg font-bold">Products</h4><ul class="text-sm space-y-2 text-gray-200"><li><a href="/industrial-ssds" class="hover:underline">Industrial SSDs</a></li><li><a href="/surveillance-cards" class="hover:underline">Surveillance Cards</a></li><li><a href="/data-center-ssds" class="hover:underline">Data Center SSDs</a></li><li><a href="/embedded-storage" class="hover:underline">Embedded Storage</a></li><li><a href="/consumer-drives" class="hover:underline">Consumer Drives</a></li><li><a href="/advisory-board" class="hover:underline">Advisory Board</a></li><li><a href="/resources" class="hover:underline">Resources</a></li></ul></div>
+            <div class="space-y-4"><h4 class="text-lg font-bold">Support</h4><ul class="text-sm space-y-2 text-gray-200"><li><a href="terms.html" class="hover:underline">Overview</a></li><li><a href="/firmware-updates" class="hover:underline">Firmware Updates</a></li><li><a href="/warranty-status" class="hover:underline">Warranty Status</a></li><li><a href="/technical-support" class="hover:underline">Technical Support</a></li><li><a href="/advisory-board" class="hover:underline">Advisory Board</a></li><li><a href="/resources" class="hover:underline">Resources</a></li></ul></div>
             <div class="space-y-4"><h4 class="text-lg font-bold">Company Address</h4><p class="text-sm leading-relaxed text-gray-200">Room 307, Unit B, Building 2, No. 399 Danfeng Road, Binjiang District, Hangzhou, Zhejiang Province, China</p><p class="text-sm font-bold mt-4">970-809-5535</p></div>
         </div>
         <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center mt-8 space-y-4 md:space-y-0 text-sm text-gray-300">
@@ -578,10 +1488,10 @@
 <img src="assets/hiksemi logo bg removed.png" alt="HIKSEMI logo" class="h-10 w-auto">        </div>
     </footer>
 
-    <!-- floating WhatsApp -->
+  
     <a href="https://wa.me/9779708095535" class="floating-wa" target="_blank" title="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
 
-    <!-- SMART BOT WITH EMBEDDED GEMINI/GOOGLE BROWSER-->
+
     <div class="floating-bot" id="botCircle" title="Ask about Hiksemi"><i class="fas fa-robot"></i></div>
 
     <div class="bot-popup" id="botPopup">
@@ -590,7 +1500,7 @@
             <div class="bot-title">Hiksemi expert <span>with Gemini</span></div>
         </div>
 
-        <!-- Tab Navigation -->
+       
         <div class="tab-container">
             <div class="tab active" data-tab="qa">
                 <i class="fas fa-question-circle"></i> Q&A Database
@@ -636,7 +1546,786 @@
         </div>
     </div>
 
-    <!-- External JavaScript -->
-    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuOverlay = document.getElementById('menuOverlay');
+            const closeMobile = document.getElementById('closeMobileMenu');
+
+            function openMobile() {
+                mobileMenu.classList.add('open');
+                menuOverlay.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeMobileMenuFn() {
+                mobileMenu.classList.remove('open');
+                menuOverlay.classList.remove('open');
+                document.body.style.overflow = '';
+                document.querySelectorAll('.mobile-submenu').forEach(sub => sub.classList.remove('open'));
+            }
+            if (mobileBtn) {
+                mobileBtn.addEventListener('click', openMobile);
+                closeMobile.addEventListener('click', closeMobileMenuFn);
+                menuOverlay.addEventListener('click', closeMobileMenuFn);
+            }
+
+            // Mobile dropdown triggers
+            const mobileTriggers = document.querySelectorAll('.mobile-nav-trigger');
+            mobileTriggers.forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = trigger.dataset.target;
+                    if (!target) return;
+                    const submenu = document.getElementById(`submenu-${target}`);
+                    const icon = trigger.querySelector('.dropdown-icon');
+                    if (submenu) {
+                        submenu.classList.toggle('open');
+                        if (icon) icon.style.transform = submenu.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0)';
+                    }
+                });
+            });
+
+            // Hero carousel - Updated for 6 slides
+            const slides = document.querySelectorAll('.hero-slide');
+            const dots = document.querySelectorAll('.dot');
+            const prevBtn = document.getElementById('heroPrev');
+            const nextBtn = document.getElementById('heroNext');
+            let currentSlide = 0;
+            let isAnimating = false;
+
+            function showSlide(newIndex, direction = 'next') {
+                if (isAnimating) return;
+                if (newIndex < 0) newIndex = slides.length - 1;
+                if (newIndex >= slides.length) newIndex = 0;
+                if (newIndex === currentSlide) return;
+
+                isAnimating = true;
+                const current = slides[currentSlide];
+                const next = slides[newIndex];
+
+                slides.forEach(s => s.classList.remove('incoming-next', 'incoming-prev', 'outgoing-next', 'outgoing-prev'));
+
+                if (direction === 'next') {
+                    current.classList.add('outgoing-next');
+                    next.classList.add('incoming-next');
+                } else {
+                    current.classList.add('outgoing-prev');
+                    next.classList.add('incoming-prev');
+                }
+                
+                setTimeout(() => {
+                    next.classList.add('active');
+                }, 20);
+
+                setTimeout(() => {
+                    slides.forEach(s => s.classList.remove('incoming-next', 'incoming-prev', 'outgoing-next', 'outgoing-prev'));
+                    current.classList.remove('active');
+                    currentSlide = newIndex;
+                    isAnimating = false;
+                }, 850);
+
+                dots.forEach((dot, i) => {
+                    if (i === newIndex) {
+                        dot.classList.add('active', 'text-white');
+                    } else {
+                        dot.classList.remove('active', 'text-white');
+                    }
+                });
+            }
+
+            function nextSlide() { showSlide(currentSlide + 1, 'next'); }
+            function prevSlide() { showSlide(currentSlide - 1, 'prev'); }
+
+            if (prevBtn && nextBtn) {
+                prevBtn.addEventListener('click', prevSlide);
+                nextBtn.addEventListener('click', nextSlide);
+            }
+            setInterval(() => { if (!isAnimating) nextSlide(); }, 4000);
+
+            // Desktop mega menu
+            const megaMenu = document.getElementById('mega-menu');
+            const navTriggers = document.querySelectorAll('.nav-trigger');
+            const menuList = document.getElementById('menu-list');
+            const categoryLabel = document.getElementById('menu-category-label');
+            const menuData = {
+                products: { 
+                    label: "HIKSEMI Storage", 
+                    items: [
+                        { name: "Industrial SSDs", url: "/products/industrial-ssds" },
+                        { name: "Surveillance Cards", url: "/products/surveillance-cards" },
+                        { name: "Data Center SSDs", url: "/products/data-center-ssds" },
+                        { name: "Embedded Storage", url: "/products/embedded-storage" },
+                        { name: "Consumer Drives", url: "/products/consumer-drives" },
+                        { name: "Advisory Board", url: "/advisory-board" },
+                        { name: "Resources", url: "/resources" }
+                    ]
+                },
+                solutions: { 
+                    label: "Applications", 
+                    items: [
+                        { name: "Industrial Control", url: "/solutions/industrial-control" },
+                        { name: "Video Surveillance", url: "/solutions/video-surveillance" },
+                        { name: "Data Centers", url: "/solutions/data-centers" },
+                        { name: "Consumer Electronics", url: "/solutions/consumer-electronics" },
+                        { name: "Advisory Board", url: "/advisory-board" },
+                        { name: "Resources", url: "/resources" }
+                    ]
+                },
+                support: { 
+                    label: "Customer Service", 
+                    items: [
+                        { name: "Overview", url: "terms.html" },
+                        { name: "Firmware Updates", url: "/support/firmware-updates" },
+                        { name: "Warranty Status", url: "/support/warranty-status" },
+                        { name: "Technical Support", url: "/support/technical-support" },
+                        { name: "Advisory Board", url: "/advisory-board" },
+                        { name: "Resources", url: "/resources" }
+                    ]
+                },
+                company: { 
+                    label: "About HIKSEMI", 
+                    items: [
+                        { name: "Brand Story", url: "about.html" },
+                        { name: "Certifications", url: "terms.html" },
+                        { name: "Newsroom", url: "/company/newsroom" },
+                        { name: "Contact Us", url: "/company/contact-us" },
+                        { name: "Advisory Board", url: "/advisory-board" },
+                        { name: "Resources", url: "/resources" }
+                    ]
+                }
+            };
+            
+            function clearActiveTriggers() { navTriggers.forEach(btn => btn.classList.remove('active-mega')); }
+
+            navTriggers.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const target = btn.dataset.target;
+                    if (!target) {
+                        megaMenu.classList.add('opacity-0', '-translate-y-2');
+                        setTimeout(() => megaMenu.classList.add('hidden'), 300);
+                        clearActiveTriggers();
+                        return;
+                    }
+                    const data = menuData[target];
+                    if (data) {
+                        categoryLabel.textContent = data.label;
+                        menuList.innerHTML = data.items.map(item => {return `<li class="group cursor-pointer"><a href="${item.url}" class="text-2xl font-medium block group-hover:translate-x-2 transition-transform hover:text-brandRed">${item.name}</a></li>`;}).join('');
+                        megaMenu.classList.remove('hidden');
+                        setTimeout(() => megaMenu.classList.remove('opacity-0', '-translate-y-2'), 10);
+                        clearActiveTriggers();
+                        btn.classList.add('active-mega');
+                    }
+                });
+            });
+            
+            document.addEventListener('click', (e) => {
+                if (!megaMenu.contains(e.target) && !e.target.classList.contains('nav-trigger')) {
+                    megaMenu.classList.add('opacity-0', '-translate-y-2');
+                    setTimeout(() => megaMenu.classList.add('hidden'), 300);
+                    clearActiveTriggers();
+                }
+            });
+
+            // Nav scroll effect
+            const nav = document.getElementById('main-nav');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) nav.classList.add('bg-white/70', 'backdrop-blur-xl', 'shadow-md');
+                else nav.classList.remove('bg-white/70', 'backdrop-blur-xl', 'shadow-md');
+            });
+
+            // JOURNEY CARD HOVER EFFECT 
+            const journeyRows = document.querySelectorAll('.journey-row');
+            
+            function resetRowClasses(row) {
+                row.classList.remove('hovered');
+                row.querySelectorAll('.journey-card').forEach(card => {
+                    card.classList.remove('hovered', 'hovered-adjacent');
+                });
+            }
+            
+            journeyRows.forEach(row => {
+                const cards = Array.from(row.querySelectorAll('.journey-card'));
+                
+                cards.forEach((card, idx) => {
+                    card.addEventListener('mouseenter', function() {
+                        resetRowClasses(row);
+                        
+                        row.classList.add('hovered');
+                        this.classList.add('hovered');
+                        
+                        const prev = cards[idx - 1];
+                        const next = cards[idx + 1];
+                        if (prev) prev.classList.add('hovered-adjacent');
+                        if (next) next.classList.add('hovered-adjacent');
+                    });
+                    
+                    card.addEventListener('mouseleave', function() {
+                        setTimeout(() => {
+                            if (!row.matches(':hover')) {
+                                resetRowClasses(row);
+                            }
+                        }, 50);
+                    });
+                });
+                
+                row.addEventListener('mouseleave', function() {
+                    resetRowClasses(row);
+                });
+            });
+            
+            // Mobile card pagination
+            const journeyGrid = document.getElementById('journeyGrid');
+            const allCards = document.querySelectorAll('.journey-card');
+            const paginationContainer = document.getElementById('mobileCardPagination');
+            
+            if (window.innerWidth <= 768 && paginationContainer) {
+                const totalCards = allCards.length;
+                for (let i = 0; i < totalCards; i++) {
+                    const dot = document.createElement('span');
+                    dot.classList.add('dot-indicator');
+                    if (i === 0) dot.classList.add('active');
+                    dot.dataset.index = i;
+                    dot.addEventListener('click', () => {
+                        const card = allCards[i];
+                        if (card) {
+                            card.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+                        }
+                    });
+                    paginationContainer.appendChild(dot);
+                }
+                
+                journeyGrid.addEventListener('scroll', () => {
+                    const scrollLeft = journeyGrid.scrollLeft;
+                    const cardWidth = allCards[0]?.offsetWidth || 0;
+                    const activeIndex = Math.round(scrollLeft / (cardWidth + 16));
+                    document.querySelectorAll('.dot-indicator').forEach((dot, idx) => {
+                        dot.classList.toggle('active', idx === activeIndex);
+                    });
+                });
+            }
+
+         
+            let videos = [
+                { 
+                    id: 'Lu5VOe1FOco',
+                    type: 'youtube',
+                    embed: "https://www.youtube.com/embed/Lu5VOe1FOco?autoplay=1&mute=1&loop=1&playlist=Lu5VOe1FOco&controls=0&showinfo=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&fs=0&cc_load_policy=0&enablejsapi=1", 
+                    thumbnail: "https://media.istockphoto.com/id/1410783528/photo/ssd-m2-disk-close-up-on-dark-background.jpg?s=612x612&w=0&k=20&c=grOX3cAVHnC3ZuIiegMxUYf664ZiDsX2g_zMz5aJ8xo=",
+                    sub: "Powered by", 
+                    main: "INDUSTRIAL SSD",
+                },
+                { 
+                    id: 'lz4T2ULAUgM',
+                    type: 'youtube',
+                    embed: "https://www.youtube.com/embed/lz4T2ULAUgM?autoplay=1&mute=1&loop=1&playlist=lz4T2ULAUgM&controls=0&showinfo=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&fs=0&cc_load_policy=0&enablejsapi=1", 
+                    thumbnail: "https://media.istockphoto.com/id/1446045839/photo/outdoor-security-camera-cctv-secure-monitoring-concept-3d-rendering.jpg?s=612x612&w=0&k=20&c=j3TAaHznRCw7sd3C5I1ofTADRchAQdAgeGeEk7w52fc=",
+                    sub: "Reliable for", 
+                    main: "VIDEO SURVEILLANCE",
+                },
+                { 
+                    id: 'TpxKcMREKcg',
+                    type: 'youtube',
+                    embed: "https://www.youtube.com/embed/TpxKcMREKcg?autoplay=1&mute=1&loop=1&playlist=TpxKcMREKcg&controls=0&showinfo=0&modestbranding=1&rel=0&iv_load_policy=3&disablekb=1&fs=0&cc_load_policy=0&enablejsapi=1", 
+                    thumbnail: "https://media.istockphoto.com/id/2163733794/photo/shot-of-data-center-with-multiple-rows-of-fully-operational-server-racks-modern.jpg?s=612x612&w=0&k=20&c=CpEXpq2S-riRAs2aBo2E8Rc105Jxkb0cPqgm9bouplM=",
+                    sub: "Scalable for", 
+                    main: "DATA CENTERS",
+                }
+            ];
+
+            let currentVideoIdx = 0;
+            let isVideoAnimating = false;
+            
+            const videoContainer = document.getElementById('videoSlideContainer');
+            const subEl = document.getElementById('slide-sub');
+            const mainEl = document.getElementById('slide-main');
+            const textElements = document.querySelectorAll('.text-slide');
+            const dotsContainer = document.getElementById('dotsContainer');
+            const prevVideoBtn = document.getElementById('prevBtn');
+            const nextVideoBtn = document.getElementById('nextBtn');
+            const loadingIndicator = document.getElementById('videoLoading');
+            
+            const leftThumbnail = document.getElementById('leftThumbnail');
+            const rightThumbnail = document.getElementById('rightThumbnail');
+            const leftPanelText = document.getElementById('leftPanelText');
+            const rightPanelText = document.getElementById('rightPanelText');
+            
+            const videoUpload = document.getElementById('videoUpload');
+
+            if (videoUpload) {
+                videoUpload.addEventListener('change', function(e) {
+                    const files = Array.from(e.target.files);
+                    
+                    files.forEach((file, index) => {
+                        if (file.type.startsWith('video/')) {
+                            const videoUrl = URL.createObjectURL(file);
+                            const videoId = `local-${Date.now()}-${index}`;
+                            
+                            const video = document.createElement('video');
+                            video.src = videoUrl;
+                            video.addEventListener('loadeddata', function() {
+                                const canvas = document.createElement('canvas');
+                                canvas.width = video.videoWidth;
+                                canvas.height = video.videoHeight;
+                                canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+                                const thumbnailUrl = canvas.toDataURL('image/jpeg');
+                                
+                                videos.push({
+                                    id: videoId,
+                                    type: 'local',
+                                    embed: videoUrl,
+                                    thumbnail: thumbnailUrl,
+                                    sub: "Local Video",
+                                    main: file.name.split('.')[0].toUpperCase(),
+                                });
+                                
+                                initVideoSlides();
+                                updateVideoDots();
+                                updateVideoSidePanels(currentVideoIdx);
+                                
+                                URL.revokeObjectURL(videoUrl);
+                            });
+                        }
+                    });
+                });
+            }
+
+            function initVideoSlides() {
+                if (!videoContainer) return;
+                videoContainer.innerHTML = '';
+                videos.forEach((video, index) => {
+                    const slide = document.createElement('div');
+                    slide.className = 'video-slide';
+                    
+                    if (video.type === 'youtube') {
+                        slide.innerHTML = `
+                            <iframe 
+                                src="${index === currentVideoIdx ? video.embed : video.embed.replace('autoplay=1', 'autoplay=0')}" 
+                                frameborder="0" 
+                                allow="autoplay; encrypted-media; picture-in-picture" 
+                                allowfullscreen
+                                loading="lazy">
+                            </iframe>
+                        `;
+                    } else {
+                        slide.innerHTML = `
+                            <video 
+                                src="${video.embed}"
+                                ${index === currentVideoIdx ? 'autoplay' : ''}
+                                loop
+                                muted
+                                playsinline
+                                style="pointer-events: none; width: 100%; height: 100%; object-fit: cover;">
+                            </video>
+                        `;
+                    }
+                    
+                    videoContainer.appendChild(slide);
+                });
+                
+                videoContainer.style.transform = `translateX(-${currentVideoIdx * 100}%)`;
+            }
+
+            function updateVideoDots() {
+                if (!dotsContainer) return;
+                dotsContainer.innerHTML = '';
+                videos.forEach((_, index) => {
+                    const dot = document.createElement('div');
+                    dot.className = `dot slider-dot h-1 w-4 bg-white/30 rounded-full transition-all cursor-pointer ${index === currentVideoIdx ? 'active' : ''}`;
+                    dot.setAttribute('data-index', index);
+                    if (index === currentVideoIdx) {
+                        dot.style.backgroundColor = 'white';
+                        dot.style.width = '1.5rem';
+                    }
+                    dot.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        const idx = parseInt(dot.getAttribute('data-index'));
+                        if (!isVideoAnimating && idx !== currentVideoIdx) {
+                            const direction = idx > currentVideoIdx ? 'next' : 'prev';
+                            updateVideoSlider(idx, direction);
+                        }
+                    });
+                    dotsContainer.appendChild(dot);
+                });
+            }
+
+            function updateVideoSidePanels(currentIndex) {
+                if (!leftThumbnail || !rightThumbnail) return;
+                const totalVideos = videos.length;
+                
+                const prevIndex = (currentIndex - 1 + totalVideos) % totalVideos;
+                leftThumbnail.src = videos[prevIndex].thumbnail;
+                leftPanelText.textContent = videos[prevIndex].main;
+                
+                const nextIndex = (currentIndex + 1) % totalVideos;
+                rightThumbnail.src = videos[nextIndex].thumbnail;
+                rightPanelText.textContent = videos[nextIndex].main;
+            }
+
+            function showVideoLoading() {
+                if (loadingIndicator) loadingIndicator.classList.add('active');
+            }
+
+            function hideVideoLoading() {
+                if (loadingIndicator) loadingIndicator.classList.remove('active');
+            }
+
+            function updateVideoSlider(newIndex, direction) {
+                if (isVideoAnimating || newIndex === currentVideoIdx || !videoContainer) return;
+                
+                isVideoAnimating = true;
+                showVideoLoading();
+
+                videoContainer.style.transform = `translateX(-${newIndex * 100}%)`;
+
+                textElements.forEach(el => {
+                    el.style.opacity = '0';
+                    el.style.animation = 'none';
+                });
+
+                setTimeout(() => {
+                    if (subEl) subEl.textContent = videos[newIndex].sub;
+                    if (mainEl) mainEl.textContent = videos[newIndex].main;
+
+                    textElements.forEach(el => {
+                        if (direction === 'next') {
+                            el.style.animation = 'slideInRight 0.5s ease forwards';
+                        } else {
+                            el.style.animation = 'slideInLeft 0.5s ease forwards';
+                        }
+                    });
+
+                    const slides = document.querySelectorAll('.video-slide');
+                    slides.forEach((slide, idx) => {
+                        const media = slide.querySelector('iframe, video');
+                        if (media) {
+                            if (idx === newIndex) {
+                                if (media.tagName === 'IFRAME') {
+                                    if (!media.src.includes('autoplay=1')) {
+                                        media.src = media.src.replace('autoplay=0', 'autoplay=1');
+                                    }
+                                } else {
+                                    media.play().catch(e => console.log('Autoplay prevented'));
+                                }
+                            } else {
+                                if (media.tagName === 'IFRAME') {
+                                    media.src = media.src.replace('autoplay=1', 'autoplay=0');
+                                } else {
+                                    media.pause();
+                                }
+                            }
+                        }
+                    });
+
+                    updateVideoSidePanels(newIndex);
+
+                    const dots = document.querySelectorAll('.slider-dot');
+                    dots.forEach((dot, i) => {
+                        if (i === newIndex) {
+                            dot.classList.add('active');
+                            dot.style.backgroundColor = 'white';
+                            dot.style.width = '1.5rem';
+                        } else {
+                            dot.classList.remove('active');
+                            dot.style.backgroundColor = 'rgba(255,255,255,0.3)';
+                            dot.style.width = '1rem';
+                        }
+                    });
+
+                    hideVideoLoading();
+                    
+                    currentVideoIdx = newIndex;
+                    
+                    setTimeout(() => {
+                        isVideoAnimating = false;
+                    }, 500);
+                }, 250);
+            }
+
+            function nextVideoSlide() {
+                if (isVideoAnimating) return;
+                const newIndex = (currentVideoIdx + 1) % videos.length;
+                updateVideoSlider(newIndex, 'next');
+            }
+
+            function prevVideoSlide() {
+                if (isVideoAnimating) return;
+                const newIndex = (currentVideoIdx - 1 + videos.length) % videos.length;
+                updateVideoSlider(newIndex, 'prev');
+            }
+
+            if (prevVideoBtn) prevVideoBtn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); prevVideoSlide(); });
+            if (nextVideoBtn) nextVideoBtn.addEventListener('click', (e) => { e.preventDefault(); e.stopPropagation(); nextVideoSlide(); });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowLeft') {
+                    e.preventDefault();
+                    prevVideoSlide();
+                } else if (e.key === 'ArrowRight') {
+                    e.preventDefault();
+                    nextVideoSlide();
+                }
+            });
+
+            initVideoSlides();
+            updateVideoDots();
+            updateVideoSidePanels(0);
+
+            setTimeout(() => {
+                if (videoContainer) videoContainer.style.transform = `translateX(-${currentVideoIdx * 100}%)`;
+                if (subEl) subEl.textContent = videos[0].sub;
+                if (mainEl) mainEl.textContent = videos[0].main;
+                hideVideoLoading();
+            }, 100);
+
+            // ----- SCROLL-BASED COLOR CHANGE -----
+            const journeySection = document.getElementById('journeySection');
+            const videoSection = document.getElementById('videoSection');
+            const whyChooseSection = document.getElementById('whyChooseSection');
+            const whereToBuySection = document.getElementById('whereToBuySection');
+            const ctaSection = document.getElementById('ctaSection');
+            
+            function checkScroll() {
+                const scrollPosition = window.scrollY + 200; 
+                
+                if (journeySection) {
+                    const journeyTop = journeySection.offsetTop;
+                    const journeyBottom = journeyTop + journeySection.offsetHeight;
+                    if (scrollPosition >= journeyTop && scrollPosition < journeyBottom) {
+                        journeySection.classList.add('scrolled');
+                    } else {
+                        journeySection.classList.remove('scrolled');
+                    }
+                }
+                
+                if (videoSection) {
+                    const videoTop = videoSection.offsetTop;
+                    const videoBottom = videoTop + videoSection.offsetHeight;
+                    if (scrollPosition >= videoTop && scrollPosition < videoBottom) {
+                        videoSection.classList.add('scrolled');
+                    } else {
+                        videoSection.classList.remove('scrolled');
+                    }
+                }
+                
+                if (whyChooseSection) {
+                    const whyTop = whyChooseSection.offsetTop;
+                    const whyBottom = whyTop + whyChooseSection.offsetHeight;
+                    if (scrollPosition >= whyTop && scrollPosition < whyBottom) {
+                        whyChooseSection.classList.add('scrolled');
+                    } else {
+                        whyChooseSection.classList.remove('scrolled');
+                    }
+                }
+                
+                if (whereToBuySection) {
+                    const whereTop = whereToBuySection.offsetTop;
+                    const whereBottom = whereTop + whereToBuySection.offsetHeight;
+                    if (scrollPosition >= whereTop && scrollPosition < whereBottom) {
+                        whereToBuySection.classList.add('scrolled');
+                    } else {
+                        whereToBuySection.classList.remove('scrolled');
+                    }
+                }
+                
+                if (ctaSection) {
+                    const ctaTop = ctaSection.offsetTop;
+                    const ctaBottom = ctaTop + ctaSection.offsetHeight;
+                    if (scrollPosition >= ctaTop && scrollPosition < ctaBottom) {
+                        ctaSection.classList.add('scrolled');
+                    } else {
+                        ctaSection.classList.remove('scrolled');
+                    }
+                }
+            }
+            
+            window.addEventListener('scroll', checkScroll);
+            window.addEventListener('resize', checkScroll);
+            checkScroll(); 
+
+         
+            const massiveQA = [
+                { q: "What does HIKSEMI specialize in?", a: "HIKSEMI is a global provider of ultimate storage products and solutions for industrial control, video surveillance, data centers, and consumer electronics." },
+                { q: "Where is HIKSEMI headquartered?", a: "Headquarters: Room 307, Unit B, Building 2, No. 399 Danfeng Road, Binjiang District, Hangzhou, Zhejiang, China." },
+                { q: "What are HIKSEMI's main product lines?", a: "Industrial SSDs, Surveillance Memory Cards, Data Center SSDs, Embedded Storage (eMMC, BGA SSDs), Consumer Drives, and Memory Modules." },
+                { q: "Does HIKSEMI offer NVMe SSDs?", a: "Yes, HIKSEMI provides NVMe SSDs for high-performance computing, data centers, and industrial applications." },
+                { q: "Are HIKSEMI memory cards reliable for surveillance?", a: "Absolutely. They are designed for 24/7 video surveillance, offering high endurance and continuous recording." },
+                { q: "What is embedded storage used for?", a: "HIKSEMI embedded storage solutions (eMMC, BGA SSDs) are for industrial control, IoT devices, and embedded systems." },
+                { q: "Does HIKSEMI have enterprise SSDs for data centers?", a: "Yes, including high-capacity, low-latency SSDs for server and cloud storage." },
+                { q: "What type of consumer drives does HIKSEMI offer?", a: "They offer portable SSDs, external HDDs, and USB flash drives for everyday use." },
+                { q: "Does HIKSEMI provide warranty on SSDs?", a: "Typically 3 to 5 years limited warranty depending on model and application." },
+                { q: "How to contact HIKSEMI support?", a: "Use the 'Get In Touch' option in the footer or contact the sales team." },
+                { q: "Where can I buy HIKSEMI products?", a: "Through online retailers, local distributors, and authorized partners." },
+                { q: "Does HIKSEMI have distributors in Nepal?", a: "Yes, they serve globally including South Asia." },
+                { q: "What is Singha Techne's relation to HIKSEMI?", a: "Singha Techne is a leading ICT provider that works with HIKSEMI." },
+                { q: "Does HIKSEMI produce industrial-grade storage?", a: "Yes, for industrial control, automation, and harsh environments." },
+                { q: "What is the mission of HIKSEMI?", a: "To enable an intelligent lifestyle through continuous innovation in storage." },
+                { q: "Are HIKSEMI products available in the US?", a: "Yes, through Amazon Global Store and other platforms." },
+                { q: "Does HIKSEMI have a partner program?", a: "Yes, authorized resellers and system integrators." },
+                { q: "What is the latest SSD interface from HIKSEMI?", a: "PCIe Gen4 NVMe SSDs are available for high-performance needs." },
+                { q: "Does HIKSEMI offer 2.5-inch SATA SSDs?", a: "Yes, for upgrades and bulk storage in various applications." },
+                { q: "Are HIKSEMI products RoHS compliant?", a: "Yes, they follow environmental standards." },
+                { q: "What is the capacity range for HIKSEMI SSDs?", a: "From 128GB up to several TB for consumer and enterprise models." },
+                { q: "Does HIKSEMI make USB flash drives?", a: "Yes, external storage includes USB flash drives." },
+                { q: "Is HIKSEMI memory compatible with Mac?", a: "Generally yes, but check format and interface." },
+                { q: "Does HIKSEMI support RAID on industrial SSDs?", a: "Industrial SSDs are designed for reliability in RAID configurations." },
+                { q: "Can I use HIKSEMI memory card in dashcam?", a: "Yes, high endurance cards are suitable." },
+                { q: "Does HIKSEMI have a physical store?", a: "Primarily online and through distributors." },
+                { q: "What is the boot time with HIKSEMI SSD?", a: "Typical boot under 15 seconds with NVMe drives." },
+                { q: "Does HIKSEMI make industrial USB drives?", a: "Yes, as part of embedded and industrial storage line." },
+                { q: "What is 'Smart society' in their motto?", a: "Enabling intelligent lifestyle via ICT solutions." },
+                { q: "Can I find HIKSEMI on social media?", a: "Facebook, Instagram, TikTok, WhatsApp." },
+                { q: "What is the build quality of external SSDs?", a: "Often metal casing, shock-resistant." },
+                { q: "Are HIKSEMI memory cards A2 rated?", a: "Some models support A2 for faster app performance." },
+                { q: "Does HIKSEMI provide custom labeling?", a: "For B2B partners, possibly via sales inquiry." },
+                { q: "What are typical read speeds for HIKSEMI SATA SSDs?", a: "Up to 560 MB/s." },
+                { q: "Do HIKSEMI memory cards come with an SD adapter?", a: "Some bundles include a full-size SD adapter." },
+                { q: "What is power consumption of HIKSEMI NVMe SSD?", a: "Typically 3-5W under active use." },
+                { q: "Does HIKSEMI offer industrial-grade microSD?", a: "Yes, with wide temperature tolerance." },
+                { q: "How to update firmware on HIKSEMI SSD?", a: "Use HIKSEMI SSD Toolbox software." },
+                { q: "Are HIKSEMI products compatible with Linux?", a: "Generally yes for SSDs and memory cards." },
+                { q: "What does HIKSEMI warranty cover?", a: "Manufacturing defects, not data loss." }
+            ];
+
+            const botCircle = document.getElementById('botCircle');
+            const botPopup = document.getElementById('botPopup');
+            const botTabs = document.querySelectorAll('.tab');
+            const botPanels = document.querySelectorAll('.panel');
+            const qaListDiv = document.getElementById('qaListContainer');
+            const answerDisplay = document.getElementById('answerDisplay');
+            const searchInput = document.getElementById('qaSearch');
+            
+            const googleFrame = document.getElementById('googleFrame');
+            const googleUrlInput = document.getElementById('googleUrlInput');
+
+            if (botTabs.length > 0) {
+                botTabs.forEach(tab => {
+                    tab.addEventListener('click', function() {
+                        const targetTab = this.dataset.tab;
+                        
+                        botTabs.forEach(t => t.classList.remove('active'));
+                        botPanels.forEach(p => p.classList.remove('active'));
+                        
+                        this.classList.add('active');
+                        
+                        if (targetTab === 'qa') {
+                            document.getElementById('qaPanel')?.classList.add('active');
+                        } else if (targetTab === 'google') {
+                            document.getElementById('googlePanel')?.classList.add('active');
+                        }
+                    });
+                });
+            }
+
+            function renderQuestions(filter = '') {
+                if (!qaListDiv) return;
+                const filterLower = filter.toLowerCase().trim();
+                const filtered = massiveQA.filter(item => 
+                    item.q.toLowerCase().includes(filterLower) || 
+                    item.a.toLowerCase().includes(filterLower)
+                );
+                
+                if (filtered.length === 0) {
+                    qaListDiv.innerHTML = `<div class="p-4 text-sm text-gray-500">❌ no matching questions</div>`;
+                    return;
+                }
+                
+                let htmlStr = '';
+                filtered.forEach((item) => {
+                    htmlStr += `<div class="qa-item" data-question="${item.q.replace(/"/g, '&quot;')}" data-answer="${item.a.replace(/"/g, '&quot;')}">
+                        <i class="fas fa-question-circle"></i>
+                        <span>${item.q}</span>
+                    </div>`;
+                });
+                qaListDiv.innerHTML = htmlStr;
+
+                document.querySelectorAll('.qa-item').forEach(el => {
+                    el.addEventListener('click', function() {
+                        const question = this.dataset.question;
+                        const answer = this.dataset.answer;
+                        if (answerDisplay) answerDisplay.innerHTML = `<strong>🤖 ${question}</strong><br><br>${answer}`;
+                    });
+                });
+            }
+
+            renderQuestions();
+            
+            if (searchInput) {
+                searchInput.addEventListener('input', function() {
+                    renderQuestions(this.value);
+                });
+            }
+
+            function googleSearch(query) {
+                if (!query.trim() || !googleFrame || !googleUrlInput) return;
+                const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query + ' HIKSEMI')}&igu=1`;
+                googleFrame.src = searchUrl;
+                googleUrlInput.value = searchUrl;
+                
+                const googleTab = document.querySelector('[data-tab="google"]');
+                if (googleTab) googleTab.click();
+            }
+
+            const googleSearchBtn = document.getElementById('googleSearchBtn');
+            if (googleSearchBtn) {
+                googleSearchBtn.addEventListener('click', function() {
+                    googleSearch(googleUrlInput?.value.replace('https://www.google.com/search?q=', '').replace(/\+/g, ' ') || '');
+                });
+            }
+
+            const googleBackBtn = document.getElementById('googleBackBtn');
+            if (googleBackBtn) {
+                googleBackBtn.addEventListener('click', function() {
+                    try { if (googleFrame) googleFrame.contentWindow.history.back(); } catch(e) {}
+                });
+            }
+
+            const googleForwardBtn = document.getElementById('googleForwardBtn');
+            if (googleForwardBtn) {
+                googleForwardBtn.addEventListener('click', function() {
+                    try { if (googleFrame) googleFrame.contentWindow.history.forward(); } catch(e) {}
+                });
+            }
+
+            const googleRefreshBtn = document.getElementById('googleRefreshBtn');
+            if (googleRefreshBtn) {
+                googleRefreshBtn.addEventListener('click', function() {
+                    if (googleFrame) googleFrame.src = googleFrame.src;
+                });
+            }
+
+            if (googleUrlInput) {
+                googleUrlInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        let url = this.value;
+                        if (!url.startsWith('http')) {
+                            url = 'https://www.google.com/search?q=' + encodeURIComponent(url);
+                        }
+                        if (googleFrame) googleFrame.src = url;
+                    }
+                });
+            }
+
+            if (botCircle && botPopup) {
+                botCircle.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    botPopup.style.display = botPopup.style.display === 'flex' ? 'none' : 'flex';
+                });
+
+                document.addEventListener('click', function(event) {
+                    if (!botCircle.contains(event.target) && !botPopup.contains(event.target)) {
+                        botPopup.style.display = 'none';
+                    }
+                });
+
+                botPopup.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                });
+            }
+        });
+    </script>
 </body>
 </html>
