@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>HIKSEMI · About us</title>
+    
+    <!-- Google Fonts & assets -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+       
+        .goog-te-banner-frame, #goog-gt-tt, .goog-te-gadget-icon, .goog-te-gadget-simple, .skiptranslate {
+            display: none !important;
+        }
+        body { 
+            top: 0 !important; 
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.6s ease;
+        }
+        .notranslate, [translate="no"] { unicode-bidi: isolate; }
+        
+        /* Language buttons */
+        .lang-btn.active-lang {
+            background: #E60012 !important;
+            border-color: #E60012 !important;
+            color: white !important;
+        }
+        
+        nav { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        #mega-menu { transition: transform 0.3s ease, opacity 0.3s ease; }
+        
+        /* Mobile menu */
+        .mobile-menu {
+            position: fixed; top: 0; right: -100%; width: 75%; max-width: 320px; height: 100vh;
+            background: white; z-index: 1000; transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: -5px 0 30px rgba(0,0,0,0.15); padding: 2rem 1.5rem; overflow-y: auto;
+        }
+        .mobile-menu.open { right: 0; }
+        .mobile-menu-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(3px); z-index: 999; display: none; }
+        .mobile-menu-overlay.open { display: block; }
+        .mobile-submenu { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; background: #f9f9f9; border-radius: 0.5rem; margin: 0.25rem 0; }
+        .mobile-submenu.open { max-height: 300px; }
+        .mobile-submenu ul { padding: 0.75rem 1rem; }
+        .mobile-submenu li { padding: 0.5rem 0; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+        .nav-trigger.active-mega { color: #E60012; font-weight: 600; position: relative; }
+        .nav-trigger.active-mega::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 2px; background: #E60012; border-radius: 2px; }
+        .mobile-lang-bar { display: flex; align-items: center; gap: 0.25rem; background: #f1f1f1; border-radius: 30px; padding: 0.2rem; margin-right: 0.5rem; }
+        .mobile-lang-bar .lang-btn { padding: 0.25rem 0.7rem; font-size: 0.8rem; border-radius: 30px; border: none; background: transparent; cursor: pointer; }
+        .footer-social-icon { background: #1a1c1e; padding: 8px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; transition: background 0.2s; }
+        .footer-social-icon:hover { background: #E60012; }
+        .footer-section { background-color: #505050 !important; }
+
+        /* animations (scroll) */
+        .fade-up-scroll {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.3, 1), transform 0.8s cubic-bezier(0.2, 0.9, 0.3, 1);
+        }
+        .fade-up-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        .delay-4 { transition-delay: 0.4s; }
+        
+        /* stat counter numbers (hero) */
+        .counter-number { transition: all 0.3s ease; font-feature-settings: "tnum"; }
+        .stat-number {
+            font-size: clamp(3.5rem, 12vw, 7rem);
+            font-weight: 800; line-height: 1;
+            background: linear-gradient(145deg, #fff, #aaa);
+            -webkit-background-clip: text; background-clip: text; color: transparent;
+        }
+        .timeline-progress {
+            height: 4px; background: linear-gradient(90deg, #E60012, #3b82f6);
+            width: 0%; transition: width 1.2s ease;
+        }
+        .milestone-dot { width: 16px; height: 16px; background: #E60012; border-radius: 50%; box-shadow: 0 0 0 4px rgba(230,0,18,0.15); transition: 0.2s; }
+        .dark-card { background: rgba(20,20,20,0.95); border: 1px solid #2a2a2a; border-radius: 2rem; padding: 2rem; }
+        .glass-stat { background: rgba(255,255,255,0.03); backdrop-filter: blur(8px); border: 1px solid rgba(255,255,255,0.08); border-radius: 2rem; }
+        
+      
+        .hero-bg-overlay {
+            background-image: url('https://images.unsplash.com/photo-1563770550538-1110e2b2086c?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover; background-position: center; opacity: 0.4; mix-blend-mode: overlay;
+        }
+
+      
+        .map-bg-image {
+            background-image: url('https://images.unsplash.com/photo-1526778548025-fa2f459cd5ce?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover; background-position: center; 
+        }
+     
+        .hero-memory-img {
+            background-image: url('https://images.unsplash.com/photo-1563770550538-1110e2b2086c?auto=format&fit=crop&w=1600&q=80');
+            background-size: cover; background-position: center;
+        }
+        .hero-memory-overlay {
+            background: linear-gradient(135deg, rgba(0,0,0,0.3) 0%, rgba(0,20,40,0.6) 100%);
+        }
+
+   
+        .section-chameleon {
+            transition: background-color 0.7s ease, color 0.3s ease;
+        }
+      
+        .bg-alt-1 { background-color: #f8fafc; }  
+        .bg-alt-2 { background-color: #ecf0f3; } 
+        .bg-alt-3 { background-color: #e2e8f0; } 
+        .bg-alt-4 { background-color: #d0ddee; }  
+        .text-alt-dark { color: #1e293b; }
+
+
+        .bg-black, .bg-black .section-chameleon { background-color: #0b0f15 !important; }
+        .bg-black .dark-card { background: rgba(20,20,20,0.98); } 
+
+        /* mobile fine-tune */
+        @media (max-width: 640px) {
+            .dark-card, .glass-stat { padding: 1.5rem; }
+            .text-5xl { font-size: 2.8rem; }
+            .max-w-7xl.mx-auto.px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
+            .stat-number { font-size: clamp(2.8rem, 15vw, 4.5rem); }
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { brandRed: '#E60012', brandGray: '#555555', brandTeal: '#00A99D', bgOffWhite: '#F8F9FA', textDark: '#111111' },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+ 
+    <script>
+        (function() {
+            "use strict";
+            const MAP = { "en": "en", "np": "ne" };
+            const STORAGE_KEY = "hiksemi_lang";
+
+            function uniqueTargets() { return Array.from(new Set(Object.values(MAP))).join(','); }
+            function setHtmlLangDir(code) { document.documentElement.lang = code; document.documentElement.dir = "ltr"; }
+            function getSavedLang() { const saved = localStorage.getItem(STORAGE_KEY); return (saved && MAP[saved]) ? saved : "en"; }
+
+            function setLanguage(appValue, reload = true) {
+                const target = MAP[appValue] || "en";
+                setHtmlLangDir(target);
+                localStorage.setItem(STORAGE_KEY, appValue);
+                const cookieVal = "/auto/" + target;
+                const expires = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toUTCString();
+                document.cookie = "googtrans=" + cookieVal + "; expires=" + expires + "; path=/";
+                document.cookie = "googtrans=" + cookieVal + "; expires=" + expires + "; path=/; domain=" + location.hostname;
+                
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    const val = btn.getAttribute('data-lang');
+                    if (val === appValue) btn.classList.add('active-lang');
+                    else btn.classList.remove('active-lang');
+                });
+                if (reload) location.reload();
+            }
+
+            window.googleTranslateElementInit = function() {
+                new google.translate.TranslateElement({
+                    pageLanguage: 'en',
+                    includedLanguages: uniqueTargets(),
+                    autoDisplay: false,
+                    multilanguagePage: true
+                }, 'google_translate_element');
+                const saved = getSavedLang();
+                setLanguage(saved, false);
+                setTimeout(() => {
+                    const select = document.querySelector('select.goog-te-combo');
+                    if (select) { select.value = MAP[saved] || "en"; select.dispatchEvent(new Event('change')); }
+                }, 300);
+            };
+
+            const s = document.createElement('script');
+            s.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+            s.defer = true;
+            document.head.appendChild(s);
+
+            window.triggerLanguage = function(langKey) { if (MAP[langKey]) setLanguage(langKey, true); };
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const saved = getSavedLang();
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    const val = btn.getAttribute('data-lang');
+                    if (val === saved) btn.classList.add('active-lang');
+                    btn.addEventListener('click', (e) => { e.preventDefault(); triggerLanguage(btn.getAttribute('data-lang')); });
+                });
+            });
+        })();
+    </script>
+    <div id="google_translate_element" style="display:none"></div>
+</head>
+<body class="font-sans text-textDark">
+
+    <!-- MOBILE OVERLAY + MENU  -->
+    <div class="mobile-menu-overlay" id="menuOverlay"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="flex justify-end mb-8">
+            <button id="closeMobileMenu" class="text-2xl text-gray-500 hover:text-black">&times;</button>
+        </div>
+        <ul class="space-y-4 text-lg font-medium" id="mobile-main-menu">
+            <li><a href="#" class="block py-2 hover:text-brandRed">Home</a></li>
+            <li><div class="flex justify-between items-center py-2 mobile-nav-trigger cursor-pointer" data-target="products"><span>Products</span><i class="fa-solid fa-chevron-down text-sm transition-transform dropdown-icon"></i></div>
+                <div class="mobile-submenu" id="submenu-products"><ul><li class="cursor-pointer hover:text-brandRed">Industrial SSDs</li><li class="cursor-pointer hover:text-brandRed">Surveillance Cards</li><li class="cursor-pointer hover:text-brandRed">Data Center SSDs</li><li class="cursor-pointer hover:text-brandRed">Embedded Storage</li><li class="cursor-pointer hover:text-brandRed">Consumer Drives</li></ul></div>
+            </li>
+            <li><div class="flex justify-between items-center py-2 mobile-nav-trigger cursor-pointer" data-target="solutions"><span>Solutions</span><i class="fa-solid fa-chevron-down text-sm transition-transform dropdown-icon"></i></div>
+                <div class="mobile-submenu" id="submenu-solutions"><ul><li class="cursor-pointer hover:text-brandRed">Industrial Control</li><li class="cursor-pointer hover:text-brandRed">Video Surveillance</li><li class="cursor-pointer hover:text-brandRed">Data Centers</li><li class="cursor-pointer hover:text-brandRed">Consumer Electronics</li></ul></div>
+            </li>
+            <li><div class="flex justify-between items-center py-2 mobile-nav-trigger cursor-pointer" data-target="support"><span>Support</span><i class="fa-solid fa-chevron-down text-sm transition-transform dropdown-icon"></i></div>
+                <div class="mobile-submenu" id="submenu-support"><ul><li class="cursor-pointer hover:text-brandRed">Overview</li><li class="cursor-pointer hover:text-brandRed">Firmware Updates</li><li class="cursor-pointer hover:text-brandRed">Warranty Status</li><li class="cursor-pointer hover:text-brandRed">Technical Support</li></ul></div>
+            </li>
+            <li><div class="flex justify-between items-center py-2 mobile-nav-trigger cursor-pointer" data-target="company"><span>Company</span><i class="fa-solid fa-chevron-down text-sm transition-transform dropdown-icon"></i></div>
+                <div class="mobile-submenu" id="submenu-company"><ul><li class="cursor-pointer hover:text-brandRed">Brand Story</li><li class="cursor-pointer hover:text-brandRed">Certifications</li><li class="cursor-pointer hover:text-brandRed">Newsroom</li><li class="cursor-pointer hover:text-brandRed">Contact Us</li></ul></div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- NAVIGATION -->
+    <nav id="main-nav" class="flex items-center justify-between px-6 lg:px-12 py-4 bg-white sticky top-0 z-50">
+        <a href="#" class="flex items-center">
+            <img src="assets/hiksemi logo bg removed.png" alt="HIKSEMI logo" class="h-10 w-auto" onerror="this.src='https://via.placeholder.com/120x40?text=HIKSEMI'">
+        </a>
+        <ul class="hidden md:flex items-center gap-10 text-[15px] font-medium text-gray-700">
+            <li><button class="nav-trigger hover:text-brandRed transition-colors">Home</button></li>
+            <li><button class="nav-trigger hover:text-brandRed transition-colors" data-target="products">Products</button></li>
+            <li><button class="nav-trigger hover:text-brandRed transition-colors" data-target="solutions">Solutions</button></li>
+            <li><button class="nav-trigger hover:text-brandRed transition-colors" data-target="support">Support</button></li>
+            <li><button class="nav-trigger hover:text-brandRed transition-colors" data-target="company">Company</button></li>
+        </ul>
+        <div class="hidden md:flex items-center gap-6">
+            <div class="flex items-center bg-gray-100 rounded-full p-1 text-sm font-medium notranslate" translate="no">
+                <button data-lang="en" class="lang-btn px-4 py-1.5 rounded-full transition hover:text-white hover:bg-brandRed">EN</button>
+                <button data-lang="np" class="lang-btn px-4 py-1.5 rounded-full transition hover:text-white hover:bg-brandRed">NP</button>
+            </div>
+            <span class="text-xs text-gray-400 notranslate" translate="no">इन / नेप</span>
+            <button aria-label="Search" class="text-gray-700 hover:text-black"><svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+        </div>
+        <div class="flex items-center md:hidden gap-2">
+            <div class="mobile-lang-bar notranslate" translate="no">
+                <button data-lang="en" class="lang-btn px-2 py-1 text-xs">EN</button>
+                <button data-lang="np" class="lang-btn px-2 py-1 text-xs">NP</button>
+            </div>
+            <button id="mobile-menu-btn" class="text-textDark text-2xl"><i class="fa-solid fa-bars"></i></button>
+        </div>
+    </nav>
+
+    <!-- Mega menu desktop -->
+    <div id="mega-menu" class="hidden fixed top-[72px] inset-x-0 bg-white z-40 border-t shadow-2xl overflow-hidden opacity-0 -translate-y-2">
+        <div class="max-w-7xl mx-auto flex h-[450px]">
+            <div class="w-1/3 border-r py-8 px-12"><p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6" id="menu-category-label">Category</p><ul class="space-y-4" id="menu-list"></ul></div>
+            <div class="w-1/3 bg-gray-50 p-12 border-r"><ul class="space-y-4 text-sm font-medium text-gray-600" id="sub-menu-list"><li class="border-b pb-2 hover:text-black cursor-pointer">Advisory Board</li><li class="border-b pb-2 hover:text-black cursor-pointer">Resources</li></ul></div>
+            <div class="w-1/3 p-12 flex flex-col justify-center"><div class="relative rounded-xl overflow-hidden aspect-video bg-black group cursor-pointer shadow-lg"><img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform" alt="Video Preview"><div class="absolute inset-0 flex items-center justify-center"><div class="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center pl-1 shadow-md"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div></div></div><p class="text-xs text-gray-500 mt-4 text-center">See the advantages you get with HIKSEMI</p></div>
+        </div>
+    </div>
+
+  
+    <section class="relative hero-memory-img bg-cover bg-center" style="background-image:url('assets/products/gaming.png');">
+        <div class="hero-memory-overlay absolute inset-0"></div>
+        <div class="relative z-10 max-w-7xl mx-auto px-6 py-28 md:py-36 text-white">
+            <h1 class="text-5xl md:text-7xl font-bold tracking-tight leading-[1.1] fade-up-scroll visible" style="opacity:1; transform:none;">Powering the world’s<br>digital memory</h1>
+            <p class="text-xl text-gray-100 max-w-2xl mt-8 fade-up-scroll delay-1 visible" style="opacity:1; transform:none;">From consumer devices to mission‑critical infrastructure, we build intelligent storage systems that safeguard data, accelerate performance, and unlock possibility.</p>
+            <div class="flex flex-wrap gap-4 mt-10 fade-up-scroll delay-2 visible" style="opacity:1; transform:none;">
+                <a href="#" class="group bg-black text-white px-8 py-4 rounded-full text-sm font-medium hover:bg-gray-800 transition flex items-center gap-2">Explore technology <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition"></i></a>
+                <a href="#" class="group border border-white/60 text-white px-8 py-4 rounded-full text-sm font-medium hover:border-white transition flex items-center gap-2">See global impact <i class="fa-solid fa-globe"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- stats -->
+    <div class="max-w-7xl mx-auto px-6 pb-20 -mt-12 relative z-20">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 bg-white p-8 md:p-10 rounded-3xl shadow-2xl fade-up-scroll visible">
+            <div class="text-center"><div class="text-4xl md:text-6xl font-bold text-black counter-number" data-target="150">0</div><div class="text-xs md:text-sm uppercase tracking-wider text-gray-500 mt-2">patents & growing</div></div>
+            <div class="text-center"><div class="text-4xl md:text-6xl font-bold text-black counter-number" data-target="100">0</div><div class="text-xs md:text-sm uppercase tracking-wider text-gray-500 mt-2">countries served</div></div>
+            <div class="text-center"><div class="text-4xl md:text-6xl font-bold text-black counter-number" data-target="8">0</div><div class="text-xs md:text-sm uppercase tracking-wider text-gray-500 mt-2">years of innovation</div></div>
+            <div class="text-center"><div class="text-4xl md:text-6xl font-bold text-black counter-number" data-target="1">0</div><div class="text-xs md:text-sm uppercase tracking-wider text-gray-500 mt-2">mission · smarter future</div></div>
+        </div>
+    </div>
+
+  
+    <section class="px-6 py-24 section-chameleon bg-alt-1">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="fade-up-scroll">
+                    <span class="text-sm font-bold tracking-[0.2em] text-brandRed uppercase">About Hiksemi</span>
+                    <h2 class="text-4xl md:text-5xl font-bold mt-6 leading-tight text-alt-dark">Storage preserves beauty, wisdom transforms life</h2>
+                    <div class="w-20 h-1 bg-brandRed mt-8 mb-8"></div>
+                    <p class="text-gray-700 text-lg leading-relaxed">As a global provider of ultimate storage products and solutions, we are committed to continuous innovation to meet our customers' ever-evolving needs. From our first SD card to recent breakthroughs like the Zoned 2.0 algorithm cluster and other advanced technologies, our journey has been defined by relentless progress. Step by step, our dedication to innovation and excellence continues to inspire those who dare to dream. We go above and beyond to embrace the future and strive to build a smarter, more intelligent lifestyle.</p>
+                </div>
+                <div class="fade-up-scroll delay-2 bg-gray-50 p-10 md:p-14 rounded-3xl shadow-sm border border-gray-250 transition-all duration-300 hover:scale-105 hover:shadow-xl">
+                    <i class="fa-solid fa-quote-right text-5xl text-brandRed/30 mb-6"></i>
+                    <h3 class="text-3xl font-semibold mb-6">Vision & Mission</h3>
+                    <p class="text-gray-600 text-lg leading-relaxed">Guided by our founding vision that <span class="font-semibold text-black">"Storage preserves beauty, and wisdom transforms life,"</span> we remain steadfastly user-centric. By gaining deep insights into economic trends, we continuously deliver safe, reliable, and cutting-edge storage devices, systems, and solutions to enterprises and customers worldwide through technological innovation and brand excellence. We aspire to connect with the global community and turn vision into reality.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRODUCT ECOSYSTEM  -->
+    <section class="px-6 py-24 section-chameleon bg-alt-2">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-5xl md:text-7xl font-bold max-w-3xl leading-[1.1] fade-up-scroll text-alt-dark">What we build.<br>Ecosystem of speed.</h2>
+            <div class="grid md:grid-cols-3 gap-6 md:gap-8 mt-20">
+                <div class="fade-up-scroll group" style="transition-delay:0.1s"><div class="aspect-[4/3] rounded-3xl overflow-hidden"><img src="https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition"></div><h3 class="text-2xl font-bold mt-6">Consumer Storage</h3><p class="text-gray-600 mt-2">SSD, memory cards, portable drives — performance for creators.</p><a href="#" class="inline-flex items-center gap-2 mt-4 font-medium border-b border-black pb-0.5 group-hover:gap-3 transition">Discover <i class="fa-solid fa-arrow-right text-sm"></i></a></div>
+                <div class="fade-up-scroll group" style="transition-delay:0.2s"><div class="aspect-[4/3] rounded-3xl overflow-hidden"><img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition"></div><h3 class="text-2xl font-bold mt-6">Industrial & Surveillance</h3><p class="text-gray-600 mt-2">High‑endurance for 24/7 recording and harsh environments.</p><a href="#" class="inline-flex items-center gap-2 mt-4 font-medium border-b border-black pb-0.5 group-hover:gap-3 transition">Discover <i class="fa-solid fa-arrow-right text-sm"></i></a></div>
+                <div class="fade-up-scroll group" style="transition-delay:0.3s"><div class="aspect-[4/3] rounded-3xl overflow-hidden"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=800&q=80" class="w-full h-full object-cover group-hover:scale-105 transition"></div><h3 class="text-2xl font-bold mt-6">Enterprise & Data Systems</h3><p class="text-gray-600 mt-2">Scalable NVMe & SAS SSDs built for AI and cloud.</p><a href="#" class="inline-flex items-center gap-2 mt-4 font-medium border-b border-black pb-0.5 group-hover:gap-3 transition">Discover <i class="fa-solid fa-arrow-right text-sm"></i></a></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TECHNOLOGY LEADERSHIP-->
+    <section class="px-6 py-24 bg-black text-white">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-8"><h2 class="text-5xl md:text-7xl font-bold max-w-3xl">Built on advanced architecture.</h2><p class="text-gray-300 max-w-md text-lg">Self‑research, 150+ patents, and a relentless pursuit of performance.</p></div>
+            <div class="grid md:grid-cols-2 gap-6 mt-20">
+                <div class="dark-card fade-up-scroll p-6 md:p-8" style="transition-delay:0.1s"><i class="fa-solid fa-microchip text-4xl text-[#E60012] mb-6"></i><h3 class="text-2xl font-semibold">Zoned 2.0 Algorithm Cluster</h3><p class="text-gray-400 mt-3">Breakthrough parallelism reduces latency for AI workloads.</p></div>
+                <div class="dark-card fade-up-scroll p-6 md:p-8" style="transition-delay:0.2s"><i class="fa-solid fa-brain text-4xl text-[#E60012] mb-6"></i><h3 class="text-2xl font-semibold">Intelligent Firmware Optimization</h3><p class="text-gray-400 mt-3">Self‑learning algorithms adapt to real‑world access patterns.</p></div>
+                <div class="dark-card fade-up-scroll p-6 md:p-8" style="transition-delay:0.3s"><i class="fa-solid fa-hard-drive text-4xl text-[#E60012] mb-6"></i><h3 class="text-2xl font-semibold">High‑Endurance NAND Engineering</h3><p class="text-gray-400 mt-3">Proprietary controller for industrial-grade reliability.</p></div>
+                <div class="dark-card fade-up-scroll p-6 md:p-8" style="transition-delay:0.4s"><i class="fa-solid fa-file-lines text-4xl text-[#E60012] mb-6"></i><h3 class="text-2xl font-semibold">Self‑Research & 150+ Patents</h3><p class="text-gray-400 mt-3">From cell design to system architecture — we innovate.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GLOBAL FOOTPRINT + TIMELINE  -->
+    <section class="px-6 py-24 section-chameleon bg-white" id="global-timeline-section">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-5xl md:text-7xl font-bold fade-up-scroll text-alt-dark">Trusted worldwide.</h2>
+            <<div class="map-bg-image w-full h-[350px] md:h-[450px] my-16 relative flex items-center justify-center fade-up-scroll rounded-3xl overflow-hidden">
+    <!-- Background image -->
+    <div class="absolute inset-0" style="background-image: url('assets/products/nas.png'); background-size: cover; background-position: center;"></div>
+    <div class="absolute inset-0 bg-black/40"></div> 
+    <div class="relative z-10 text-white text-center px-4"><span class="stat-number">100+</span><p class="text-xl md:text-2xl mt-2 font-light">countries · 1 billion devices</p></div>
+</div>
+            <div class="mt-20 space-y-8 fade-up-scroll">
+                <div class="flex justify-between text-sm font-medium text-gray-600"><span>2017</span><span>2020</span><span>2023</span><span>2025</span><span>2026</span><span>Future</span></div>
+                <div class="w-full h-1 bg-gray-200 rounded-full overflow-hidden"><div class="timeline-progress" id="timelineFill" style="width:0%"></div></div>
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mt-10">
+                    <div class="fade-up-scroll" style="transition-delay:0.1s"><div class="milestone-dot mb-2"></div><p class="font-semibold">2017</p><p class="text-sm text-gray-600">Company founded · first overseas order</p></div>
+                    <div class="fade-up-scroll" style="transition-delay:0.2s"><div class="milestone-dot mb-2"></div><p class="font-semibold">2018–2020</p><p class="text-sm text-gray-600">Global sales network</p></div>
+                    <div class="fade-up-scroll" style="transition-delay:0.3s"><div class="milestone-dot mb-2"></div><p class="font-semibold">2021–2022</p><p class="text-sm text-gray-600">150+ patents · self‑research</p></div>
+                    <div class="fade-up-scroll" style="transition-delay:0.4s"><div class="milestone-dot mb-2"></div><p class="font-semibold">2023–2025</p><p class="text-sm text-gray-600">Global brand · Asian Games</p></div>
+                    <div class="fade-up-scroll" style="transition-delay:0.4s"><div class="milestone-dot mb-2"></div><p class="font-semibold">2025–2026</p><p class="text-sm text-gray-600">AI REvolution · Improved Architecture</p></div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SYSTEM BEHIND PRODUCT -->
+    <section class="px-6 py-24 bg-black text-white">
+        <div class="max-w-7xl mx-auto">
+            <h2 class="text-5xl md:text-7xl font-bold fade-up-scroll">The intelligence behind every byte.</h2>
+            <div class="grid md:grid-cols-3 gap-6 md:gap-8 mt-20">
+                <div class="glass-stat p-6 md:p-8 fade-up-scroll" style="transition-delay:0.1s"><i class="fa-solid fa-flask text-3xl text-[#E60012] mb-4"></i><h3 class="text-xl font-semibold">R&D labs</h3><p class="text-gray-400 mt-2">1,300 m² testing center · 100+ instruments</p></div>
+                <div class="glass-stat p-6 md:p-8 fade-up-scroll" style="transition-delay:0.2s"><i class="fa-solid fa-robot text-3xl text-[#E60012] mb-4"></i><h3 class="text-xl font-semibold">Automated production</h3><p class="text-gray-400 mt-2">Wuhan & Hangzhou smart factories</p></div>
+                <div class="glass-stat p-6 md:p-8 fade-up-scroll" style="transition-delay:0.3s"><i class="fa-solid fa-magnifying-glass-chart text-3xl text-[#E60012] mb-4"></i><h3 class="text-xl font-semibold">QC & traceability</h3><p class="text-gray-400 mt-2">SAP, 6S, RDT — full visibility</p></div>
+            </div>
+            <div class="mt-20 h-80 rounded-3xl overflow-hidden fade-up-scroll"><img src="https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?auto=format&fit=crop&w=2000&q=80" class="w-full h-full object-cover opacity-80"></div>
+        </div>
+    </section>
+
+    <!-- VISION -->
+    <section class="px-6 py-24 section-chameleon bg-white text-center">
+        <div class="max-w-4xl mx-auto fade-up-scroll"><span class="text-sm font-bold tracking-[0.3em] text-[#E60012]">The memory of civilisation</span><h2 class="text-5xl md:text-7xl font-bold mt-8 leading-tight text-alt-dark">Storage preserves beauty.<br>Wisdom transforms life.</h2><div class="mt-12 text-xl text-gray-700 space-y-6 max-w-2xl mx-auto"><p>We believe data is the memory of civilisation. We engineer systems that protect it. We innovate so tomorrow moves faster than today.</p></div></div>
+    </section>
+
+    <!-- FUTURE + WHATSAPP BUTTON-->
+    <section class="px-6 py-24 bg-black text-white">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row justify-between items-start gap-16">
+            <div class="fade-up-scroll"><h2 class="text-4xl md:text-5xl font-bold">Future focus</h2><ul class="mt-8 space-y-4 text-xl text-gray-300"><li class="flex gap-3"><i class="fa-solid fa-globe text-[#E60012] mt-1"></i> Expanding global footprint</li><li class="flex gap-3"><i class="fa-solid fa-microchip text-[#E60012] mt-1"></i> Advancing next‑gen storage</li><li class="flex gap-3"><i class="fa-solid fa-brain text-[#E60012] mt-1"></i> Accelerating AI‑driven systems</li></ul></div>
+            <div class="bg-white/5 p-12 rounded-3xl max-w-md border border-white/10 fade-up-scroll" style="transition-delay:0.2s">
+                <p class="text-3xl font-light">Help us build the next generation of memory.</p>
+               
+                <a href="https://wa.me/9779708095535" target="_blank" class="inline-flex items-center gap-3 mt-8 bg-white text-black px-8 py-4 rounded-full text-lg font-medium hover:gap-5 transition-all">Join the team <i class="fa-solid fa-arrow-right"></i></a>
+                <p class="text-sm text-gray-400 mt-6">Engineers · architects · dreamers</p>
+            </div>
+        </div>
+    </section>
+
+   
+    <footer class="footer-section text-white pt-16 pb-8 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/20 pb-16">
+            <div class="space-y-6"><h4 class="text-lg font-bold">About Hiksemi</h4><p class="text-sm leading-relaxed text-gray-200">As a global provider of ultimate storage products and solutions, we are committed to continuous innovation to meet the diverse needs of applications including industrial control, video surveillance, data centers, and consumer electronics.</p><div class="flex space-x-3"><a href="#" class="footer-social-icon"><i class="fab fa-facebook-f"></i></a><a href="#" class="footer-social-icon"><i class="fab fa-tiktok"></i></a><a href="#" class="footer-social-icon"><i class="fab fa-instagram"></i></a><a href="#" class="footer-social-icon"><i class="fab fa-whatsapp"></i></a></div></div>
+            <div class="space-y-4"><h4 class="text-lg font-bold">Products</h4><ul class="text-sm space-y-2 text-gray-200"><li><a href="#" class="hover:underline hover:text-white">Industrial SSDs</a></li><li><a href="#" class="hover:underline hover:text-white">Surveillance Cards</a></li><li><a href="#" class="hover:underline hover:text-white">Data Center SSDs</a></li><li><a href="#" class="hover:underline hover:text-white">Embedded Storage</a></li><li><a href="#" class="hover:underline hover:text-white">Consumer Drives</a></li><li><a href="#" class="hover:underline hover:text-white">Memory Modules</a></li></ul></div>
+            <div class="space-y-4"><h4 class="text-lg font-bold">Support</h4><ul class="text-sm space-y-2 text-gray-200"><li><a href="#" class="hover:underline hover:text-white">Warranty Info</a></li><li><a href="#" class="hover:underline hover:text-white">Terms & Condition</a></li><li><a href="#" class="hover:underline hover:text-white">Get In Touch</a></li></ul></div>
+            <div class="space-y-4"><h4 class="text-lg font-bold">Company Address</h4><p class="text-sm leading-relaxed text-gray-200">Room 307, Unit B, Building 2, No. 399 Danfeng Road, Binjiang District, Hangzhou, Zhejiang Province, China</p><p class="text-sm font-bold mt-4">970-809-5535</p></div>
+        </div>
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center mt-8 space-y-4 md:space-y-0 text-sm text-gray-300"><p>© 2026 HIKSEMI Tech. All rights reserved.</p><img src="assets/hiksemi logo bg removed.png" alt="HIKSEMI logo" class="h-10 w-auto" onerror="this.src='https://via.placeholder.com/120x40?text=HIKSEMI'"></div>
+    </footer>
+
+
+    <script>
+        (function() {
+       
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuOverlay = document.getElementById('menuOverlay');
+            const closeMobile = document.getElementById('closeMobileMenu');
+            function openMobile() { mobileMenu.classList.add('open'); menuOverlay.classList.add('open'); document.body.style.overflow = 'hidden'; }
+            function closeMobileMenuFn() { mobileMenu.classList.remove('open'); menuOverlay.classList.remove('open'); document.body.style.overflow = ''; document.querySelectorAll('.mobile-submenu').forEach(s=>s.classList.remove('open')); document.querySelectorAll('.dropdown-icon').forEach(i=>i.style.transform='rotate(0)'); }
+            if(mobileBtn) mobileBtn.addEventListener('click', openMobile);
+            if(closeMobile) closeMobile.addEventListener('click', closeMobileMenuFn);
+            if(menuOverlay) menuOverlay.addEventListener('click', closeMobileMenuFn);
+            document.querySelectorAll('.mobile-nav-trigger').forEach(t=>{ t.addEventListener('click',(e)=>{ e.preventDefault(); const target=t.dataset.target, sub=document.getElementById(`submenu-${target}`), icon=t.querySelector('.dropdown-icon'); if(sub){ sub.classList.toggle('open'); if(icon) icon.style.transform = sub.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0)'; } }); });
+            // mega menu data
+            const megaMenu = document.getElementById('mega-menu'), navTriggers = document.querySelectorAll('.nav-trigger'), menuList = document.getElementById('menu-list'), categoryLabel = document.getElementById('menu-category-label');
+            const menuData = { products: { label:"HIKSEMI Storage", items:["Industrial SSDs","Surveillance Cards","Data Center SSDs","Embedded Storage","Consumer Drives"] }, solutions: { label:"Applications", items:["Industrial Control","Video Surveillance","Data Centers","Consumer Electronics"] }, support: { label:"Customer Service", items:["Overview","Firmware Updates","Warranty Status","Technical Support"] }, company: { label:"About HIKSEMI", items:["Brand Story","Certifications","Newsroom","Contact Us"] } };
+            function clearActiveTriggers(){ navTriggers.forEach(b=>b.classList.remove('active-mega')); }
+            navTriggers.forEach(btn=>{ btn.addEventListener('click',(e)=>{ e.stopPropagation(); const target=btn.dataset.target; if(!target){ megaMenu.classList.add('opacity-0','-translate-y-2'); setTimeout(()=>megaMenu.classList.add('hidden'),300); clearActiveTriggers(); return; } const data=menuData[target]; if(data){ categoryLabel.textContent = data.label; menuList.innerHTML = data.items.map(i=>`<li class="group cursor-pointer"><span class="text-2xl font-medium block group-hover:translate-x-2 transition-transform hover:text-brandRed">${i}</span></li>`).join(''); megaMenu.classList.remove('hidden'); setTimeout(()=>megaMenu.classList.remove('opacity-0','-translate-y-2'),10); clearActiveTriggers(); btn.classList.add('active-mega'); } }); });
+            document.addEventListener('click',(e)=>{ if(!megaMenu.contains(e.target) && !e.target.classList.contains('nav-trigger')){ megaMenu.classList.add('opacity-0','-translate-y-2'); setTimeout(()=>megaMenu.classList.add('hidden'),300); clearActiveTriggers(); } });
+            const nav = document.getElementById('main-nav');
+            window.addEventListener('scroll',()=>{ if(window.scrollY>50) nav.classList.add('bg-white/70','backdrop-blur-xl','shadow-md'); else nav.classList.remove('bg-white/70','backdrop-blur-xl','shadow-md'); });
+
+            // ----- COUNTERS (stats) -----
+            const counterNumbers = document.querySelectorAll('.counter-number');
+            function startCounter(el) { const target=parseInt(el.dataset.target,10); if(isNaN(target)) return; let current=0, increment=target/45; function update(){ current+=increment; if(current<target){ el.innerText=Math.ceil(current); requestAnimationFrame(update); } else el.innerText=target; } requestAnimationFrame(update); }
+            const counterObserver = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting){ let el=e.target; if(!el.dataset.animated){ el.dataset.animated='true'; startCounter(el); counterObserver.unobserve(el); } } }); },{threshold:0.5});
+            counterNumbers.forEach(c=>counterObserver.observe(c));
+            window.addEventListener('load',()=>{ counterNumbers.forEach(el=>{ const rect=el.getBoundingClientRect(); if(rect.top<window.innerHeight && rect.bottom>0 && !el.dataset.animated){ el.dataset.animated='true'; startCounter(el); } }); });
+
+            // ----- SCROLL REVEAL (fade-up-scroll) + timeline progress -----
+            const scrollElements = document.querySelectorAll('.fade-up-scroll');
+            const scrollObserver = new IntersectionObserver((entries)=>{ entries.forEach(entry=>{ if(entry.isIntersecting){ entry.target.classList.add('visible'); scrollObserver.unobserve(entry.target); } }); },{ threshold:0.2, rootMargin:'0px 0px -50px 0px' });
+            scrollElements.forEach(el=>scrollObserver.observe(el));
+
+            // timeline fill when global section comes into view
+            const timelineFill = document.getElementById('timelineFill');
+            const globalSection = document.getElementById('global-timeline-section');
+            if(timelineFill && globalSection) {
+                const tlObserver = new IntersectionObserver((entries)=>{ entries.forEach(e=>{ if(e.isIntersecting){ timelineFill.style.width = '75%'; tlObserver.unobserve(e.target); } }); },{ threshold:0.3 });
+                tlObserver.observe(globalSection);
+            }
+        })();
+    </script>
+</body>
+</html>

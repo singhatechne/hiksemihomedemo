@@ -1,0 +1,1802 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gods Life Health Care - Terms & Privacy</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Add Inter font from code 2 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* ----- Base Styles from code 2 ----- */
+        .goog-te-banner-frame, #goog-gt-tt, .goog-te-gadget-icon, .goog-te-gadget-simple, .skiptranslate {
+            display: none !important;
+        }
+        body { 
+            top: 0 !important; 
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+        }
+        .notranslate, [translate="no"] { unicode-bidi: isolate; }
+        
+        /* Language buttons */
+        .lang-btn.active-lang {
+            background: #E60012 !important;
+            border-color: #E60012 !important;
+            color: white !important;
+        }
+        
+        /* Navigation */
+        nav { 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        
+        /* Mega Menu */
+        #mega-menu { 
+            transition: transform 0.3s ease, opacity 0.3s ease; 
+        }
+        
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 75%;
+            max-width: 320px;
+            height: 100vh;
+            background: white;
+            z-index: 1000;
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: -5px 0 30px rgba(0,0,0,0.15);
+            padding: 2rem 1.5rem;
+            overflow-y: auto;
+        }
+        .mobile-menu.open { right: 0; }
+        
+        .mobile-menu-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.4);
+            backdrop-filter: blur(3px);
+            z-index: 999;
+            display: none;
+        }
+        .mobile-menu-overlay.open { display: block; }
+        
+        /* Mobile Submenu */
+        .mobile-submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: #f9f9f9;
+            border-radius: 0.5rem;
+            margin-top: 0.25rem;
+            margin-bottom: 0.25rem;
+        }
+        .mobile-submenu.open {
+            max-height: 300px;
+        }
+        .mobile-submenu ul {
+            padding: 0.75rem 1rem;
+        }
+        .mobile-submenu li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9rem;
+        }
+        .mobile-submenu li:last-child { border-bottom: none; }
+        
+        /* Navigation trigger active state */
+        .nav-trigger.active-mega {
+            color: #E60012;
+            font-weight: 600;
+            position: relative;
+        }
+        .nav-trigger.active-mega::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #E60012;
+            border-radius: 2px;
+        }
+        
+        /* Mobile language bar */
+        .mobile-lang-bar {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            background: #f1f1f1;
+            border-radius: 30px;
+            padding: 0.2rem;
+            margin-right: 0.5rem;
+        }
+        .mobile-lang-bar .lang-btn {
+            padding: 0.25rem 0.7rem;
+            font-size: 0.8rem;
+            border-radius: 30px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+        }
+        .mobile-lang-bar .lang-btn.active-lang {
+            background: #E60012;
+            color: white;
+        }
+        
+        /* Footer social icons */
+        .footer-social-icon { 
+            background: #1a1c1e; 
+            padding: 8px; 
+            border-radius: 6px; 
+            display: inline-flex; 
+            align-items: center; 
+            justify-content: center; 
+            width: 32px; 
+            height: 32px; 
+            transition: background 0.2s;
+        }
+        .footer-social-icon:hover {
+            background: #E60012;
+        }
+        .footer-social-icon i { 
+            color: white; 
+            font-size: 16px; 
+        }
+        
+        /* Footer section */
+        .footer-section {
+            background-color: #505050 !important;
+        }
+        
+        /* Desktop navigation items */
+        @media (min-width: 768px) {
+            .nav-trigger {
+                background: none;
+                border: none;
+                font-size: 15px;
+                font-weight: 500;
+                color: #374151;
+                cursor: pointer;
+                padding: 0.5rem 0;
+            }
+        }
+        
+        /* Mega menu styles */
+        #mega-menu.hidden {
+            display: none;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        /* Cookie Consent Popup */
+        #cookie-consent-popup {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+            transform: translateY(100%);
+            transition: transform 0.5s ease;
+        }
+
+        #cookie-consent-popup.show {
+            transform: translateY(0);
+        }
+
+        .cookie-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+        }
+
+        .cookie-content {
+            flex: 1;
+            padding-right: 40px;
+        }
+
+        .cookie-content h3 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .cookie-content p {
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        .cookie-content a {
+            color: #2c3e50;
+            text-decoration: underline;
+        }
+
+        .cookie-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .cookie-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .cookie-accept {
+            background: #2c3e50;
+            color: white;
+        }
+
+        .cookie-accept:hover {
+            background: #2c3e50;
+        }
+
+        .cookie-settings {
+            background: transparent;
+            color: white;
+            border: 1px solid #2c3e50;
+        }
+
+        .cookie-settings:hover {
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .cookie-close-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: none;
+            border: none;
+            color: #bdc3c7;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .cookie-close-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        #cookie-settings-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        }
+
+        #cookie-settings-modal.show {
+            display: flex;
+        }
+
+        .cookie-modal-content {
+            background: white;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 10px;
+            padding: 30px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .cookie-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cookie-modal-header h2 {
+            color: #2c3e50;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #7f8c8d;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .close-modal:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .cookie-option {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cookie-option-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .cookie-option-header h3 {
+            color: #2c3e50;
+            font-size: 1.1rem;
+        }
+
+        .cookie-toggle {
+            position: relative;
+            width: 50px;
+            height: 24px;
+        }
+
+        .cookie-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .cookie-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .cookie-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .cookie-slider {
+            background-color: #ac1e1e;
+        }
+
+        input:checked + .cookie-slider:before {
+            transform: translateX(26px);
+        }
+
+        .cookie-option p {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .cookie-modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .cookie-save {
+            background: #ac1e1e;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .cookie-save:hover {
+            background: #2980b9;
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .fade-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-left.animated {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .fade-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in-right.animated {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .scale-in {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .scale-in.animated {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .stagger-animation > * {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .stagger-animation.animated > * {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .stagger-animation.animated > *:nth-child(1) { transition-delay: 0.1s; }
+        .stagger-animation.animated > *:nth-child(2) { transition-delay: 0.2s; }
+        .stagger-animation.animated > *:nth-child(3) { transition-delay: 0.3s; }
+        .stagger-animation.animated > *:nth-child(4) { transition-delay: 0.4s; }
+        .stagger-animation.animated > *:nth-child(5) { transition-delay: 0.5s; }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #2c3e50;
+            padding: 20px;
+            background: linear-gradient(135deg, #1a4a6a, #2c3e50);
+            color: white;
+        }
+
+        .page-title h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .page-title p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .tab-container {
+            width: 90%;
+            margin: 50px auto;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .tab-buttons {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            flex: 1;
+            padding: 15px 20px;
+            text-align: center;
+            cursor: pointer;
+            background-color: #eee;
+            color: #555;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+            min-width: 120px;
+        }
+
+        .tab-button.active {
+            background-color: #fff;
+            color: #333;
+            border-bottom: 3px solid #ca2020;
+            margin-bottom: -1px;
+        }
+
+        .tab-button:not(.active):hover {
+            background-color: #e0e0e0;
+        }
+
+        .tab-content {
+            padding: 30px;
+            display: none;
+            min-height: 600px;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-section {
+            margin-bottom: 30px;
+        }
+
+        .content-section h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeaea;
+        }
+
+        .content-section h3 {
+            color: #2c3e50;
+            margin: 20px 0 10px;
+            font-size: 1.4rem;
+        }
+
+        .content-section p {
+            margin-bottom: 15px;
+            color: #555;
+            line-height: 1.7;
+        }
+
+        .content-section ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .content-section li {
+            margin-bottom: 10px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .highlight-box {
+            background: #f0f7ff;
+            border-left: 4px solid #ac1e1e;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            flex: 1;
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #ac1e1e;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+            outline: none;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .required {
+            color: #e74c3c;
+        }
+
+        .submit-btn {
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+            display: block;
+            width: 100%;
+            max-width: 300px;
+            margin: 30px auto 0;
+        }
+
+        .submit-btn:hover {
+            background: #128C7E;
+            transform: translateY(-2px);
+        }
+
+        .form-note {
+            text-align: center;
+            margin-top: 15px;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 40px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .success-message i {
+            font-size: 4rem;
+            color: #2ecc71;
+            margin-bottom: 20px;
+        }
+
+        .success-message h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .success-message p {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive Table Styles */
+        .warranty-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .warranty-table th {
+            background-color: #2c3e50;
+            color: white;
+            padding: 0.75rem;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .warranty-table td {
+            border: 1px solid #ddd;
+            padding: 0.6rem 0.75rem;
+            vertical-align: top;
+        }
+        
+        .warranty-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        /* Mobile Responsive Table */
+        @media screen and (max-width: 768px) {
+            .warranty-table {
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                white-space: nowrap;
+            }
+            
+            .warranty-table td {
+                white-space: normal;
+                min-width: 200px;
+            }
+            
+            .warranty-table td:first-child {
+                min-width: 180px;
+            }
+            
+            .warranty-table td:nth-child(2) {
+                min-width: 280px;
+            }
+            
+            .warranty-table td:last-child {
+                min-width: 120px;
+            }
+        }
+
+        /* Card view for very small screens */
+        @media screen and (max-width: 480px) {
+            .warranty-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            
+            .warranty-table td {
+                white-space: normal;
+                min-width: 160px;
+            }
+            
+            .warranty-table td:first-child {
+                min-width: 140px;
+            }
+            
+            .warranty-table td:nth-child(2) {
+                min-width: 220px;
+            }
+        }
+
+        .warranty-note {
+            font-size: 0.85rem;
+            color: #2c3e50;
+            background: #fef9e7;
+            padding: 1rem;
+            border-radius: 6px;
+            border-left: 3px solid #f1c40f;
+            margin-top: 1rem;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            hyphens: auto;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 900px) {
+            .cookie-container {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .cookie-content {
+                padding-right: 0;
+                padding-top: 10px;
+            }
+            
+            .cookie-buttons {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .cookie-btn {
+                padding: 8px 16px;
+                font-size: 0.9rem;
+            }
+            
+            .tab-container {
+                width: 95%;
+                margin: 20px auto;
+            }
+            
+            .page-title {
+                margin-bottom: 20px;
+                padding: 15px;
+            }
+            
+            .page-title h1 {
+                font-size: 1.8rem;
+            }
+            
+            .page-title p {
+                font-size: 1rem;
+            }
+            
+            .tab-content {
+                padding: 20px;
+                min-height: auto;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .tab-buttons {
+                flex-wrap: wrap;
+            }
+            
+            .tab-button {
+                flex: 1 1 auto;
+                min-width: 100%;
+                border-bottom: 1px solid #ddd;
+            }
+            
+            .tab-button.active {
+                border-bottom: 3px solid #ac1e1e;
+            }
+            
+            .content-section h2 {
+                font-size: 1.5rem;
+            }
+            
+            .content-section h3 {
+                font-size: 1.2rem;
+            }
+            
+            .highlight-box {
+                padding: 12px 15px;
+            }
+        }
+
+        /* Small mobile devices */
+        @media (max-width: 480px) {
+            .tab-button {
+                padding: 12px 10px;
+                font-size: 0.9rem;
+            }
+            
+            .content-section h2 {
+                font-size: 1.3rem;
+            }
+            
+            .content-section h3 {
+                font-size: 1.1rem;
+            }
+            
+            .cookie-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .cookie-btn {
+                width: 100%;
+            }
+            
+            .cookie-close-btn {
+                top: 5px;
+                right: 5px;
+            }
+            
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 10px 12px;
+                font-size: 14px;
+            }
+            
+            .submit-btn {
+                padding: 12px 20px;
+                font-size: 14px;
+                max-width: 100%;
+            }
+            
+            .success-message {
+                padding: 20px;
+            }
+            
+            .success-message h3 {
+                font-size: 1.3rem;
+            }
+            
+            .success-message i {
+                font-size: 3rem;
+            }
+            
+            .warranty-note {
+                font-size: 0.8rem;
+                padding: 0.75rem;
+            }
+            
+            .footer-section {
+                padding: 12px 8px 8px;
+            }
+            
+            .footer-section .grid {
+                gap: 8px;
+            }
+        }
+
+        /* Extra small devices */
+        @media (max-width: 360px) {
+            .tab-button {
+                font-size: 0.8rem;
+                padding: 10px 5px;
+            }
+            
+            .content-section h2 {
+                font-size: 1.2rem;
+            }
+            
+            .content-section h3 {
+                font-size: 1rem;
+            }
+            
+            .form-group label {
+                font-size: 0.9rem;
+            }
+            
+            .warranty-table {
+                font-size: 0.8rem;
+            }
+            
+            .warranty-table td {
+                padding: 0.4rem 0.5rem;
+            }
+        }
+
+        /* Ensure images are responsive */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Improve readability on mobile */
+        p, li {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+    </style>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brandRed: '#E60012',
+                        brandGray: '#555555',
+                        brandTeal: '#00A99D',
+                        bgOffWhite: '#F8F9FA',
+                        textDark: '#111111'
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Translate Script -->
+    <script>
+        (function() {
+            "use strict";
+            const MAP = { "en": "en", "np": "ne" };
+            const STORAGE_KEY = "hiksemi_lang";
+
+            function uniqueTargets() { return Array.from(new Set(Object.values(MAP))).join(','); }
+            function setHtmlLangDir(code) { document.documentElement.lang = code; document.documentElement.dir = "ltr"; }
+            function getSavedLang() { const saved = localStorage.getItem(STORAGE_KEY); return (saved && MAP[saved]) ? saved : "en"; }
+
+            function setLanguage(appValue, reload = true) {
+                const target = MAP[appValue] || "en";
+                setHtmlLangDir(target);
+                localStorage.setItem(STORAGE_KEY, appValue);
+                const cookieVal = "/auto/" + target;
+                const expires = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toUTCString();
+                document.cookie = "googtrans=" + cookieVal + "; expires=" + expires + "; path=/";
+                document.cookie = "googtrans=" + cookieVal + "; expires=" + expires + "; path=/; domain=" + location.hostname;
+                
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    const val = btn.getAttribute('data-lang');
+                    if (val === appValue) btn.classList.add('active-lang');
+                    else btn.classList.remove('active-lang');
+                });
+                if (reload) location.reload();
+            }
+
+            window.googleTranslateElementInit = function() {
+                new google.translate.TranslateElement({
+                    pageLanguage: 'en',
+                    includedLanguages: uniqueTargets(),
+                    autoDisplay: false,
+                    multilanguagePage: true
+                }, 'google_translate_element');
+                const saved = getSavedLang();
+                setLanguage(saved, false);
+                setTimeout(() => {
+                    const select = document.querySelector('select.goog-te-combo');
+                    if (select) { select.value = MAP[saved] || "en"; select.dispatchEvent(new Event('change')); }
+                }, 300);
+            };
+
+            const s = document.createElement('script');
+            s.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+            s.defer = true;
+            document.head.appendChild(s);
+
+            window.triggerLanguage = function(langKey) { if (MAP[langKey]) setLanguage(langKey, true); };
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const saved = getSavedLang();
+                document.querySelectorAll('.lang-btn').forEach(btn => {
+                    const val = btn.getAttribute('data-lang');
+                    if (val === saved) btn.classList.add('active-lang');
+                    btn.addEventListener('click', (e) => { e.preventDefault(); triggerLanguage(btn.getAttribute('data-lang')); });
+                });
+            });
+        })();
+    </script>
+    <div id="google_translate_element" style="display:none"></div>
+</head>
+<body class="font-sans text-textDark bg-white">
+
+    <!-- Google Translate Element (hidden) -->
+    <div id="google_translate_element" style="display:none"></div>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" id="menuOverlay"></div>
+    
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="flex justify-end mb-8">
+            <button id="closeMobileMenu" class="text-2xl text-gray-500 hover:text-black">&times;</button>
+        </div>
+        <ul class="space-y-4 text-lg font-medium" id="mobile-main-menu">
+            <li><a href="#" class="block py-2 hover:text-brandRed">Home</a></li>
+            <li>
+                <div class="flex justify-between items-center py-2 mobile-nav-trigger cursor-pointer" data-target="products">
+                    <span>Products</span>
+                    <i class="fa-solid fa-chevron-down text-sm transition-transform dropdown-icon"></i>
+                </div>
+                <div class="mobile-submenu" id="submenu-products">
+                    <ul>
+                        <li class="cursor-pointer hover:text-brandRed">Industrial SSDs</li>
+                        <li class="cursor-pointer hover:text-brandRed">Surveillance Cards</li>
+                        <li class="cursor-pointer hover:text-brandRed">Data Center SSDs</li>
+                        <li class="cursor-pointer hover:text-brandRed">Embedded Storage</li>
+                        <li class="cursor-pointer hover:text-brandRed">Consumer Drives</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <div class="flex justify-between items-center py-2 mobile-nav-trigger cursor-pointer" data-target="solutions">
+                    <span>Solutions</span>
+                    <i class="fa-solid fa-chevron-down text-sm transition-transform dropdown-icon"></i>
+                </div>
+                <div class="mobile-submenu" id="submenu-solutions">
+                    <ul>
+                        <li class="cursor-pointer hover:text-brandRed">Industrial Control</li>
+                        <li class="cursor-pointer hover:text-brandRed">Video Surveillance</li>
+                        <li class="cursor-pointer hover:text-brandRed">Data Centers</li>
+                        <li class="cursor-pointer hover:text-brandRed">Consumer Electronics</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <div class="flex justify-between items-center py-2 mobile-nav-trigger cursor-pointer" data-target="support">
+                    <span>Support</span>
+                    <i class="fa-solid fa-chevron-down text-sm transition-transform dropdown-icon"></i>
+                </div>
+                <div class="mobile-submenu" id="submenu-support">
+                    <ul>
+                        <li class="cursor-pointer hover:text-brandRed">Overview</li>
+                        <li class="cursor-pointer hover:text-brandRed">Firmware Updates</li>
+                        <li class="cursor-pointer hover:text-brandRed">Warranty Status</li>
+                        <li class="cursor-pointer hover:text-brandRed">Technical Support</li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <div class="flex justify-between items-center py-2 mobile-nav-trigger cursor-pointer" data-target="company">
+                    <span>Company</span>
+                    <i class="fa-solid fa-chevron-down text-sm transition-transform dropdown-icon"></i>
+                </div>
+                <div class="mobile-submenu" id="submenu-company">
+                    <ul>
+                        <li class="cursor-pointer hover:text-brandRed">Brand Story</li>
+                        <li class="cursor-pointer hover:text-brandRed">Certifications</li>
+                        <li class="cursor-pointer hover:text-brandRed">Newsroom</li>
+                        <li class="cursor-pointer hover:text-brandRed">Contact Us</li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Navigation Bar (Header) -->
+    <nav id="main-nav" class="flex items-center justify-between px-6 lg:px-12 py-4 bg-white sticky top-0 z-50">
+        <a href="#" class="flex items-center">
+            <img src="assets/hiksemi logo bg removed.png" alt="Gods Life Health Care" class="h-10 w-auto rounded-full" onerror="this.src='https://via.placeholder.com/120x40?text=Gods+Life'">
+        </a>
+
+        <ul class="hidden md:flex items-center gap-10 text-[15px] font-medium text-gray-700">
+            <li><button class="nav-trigger hover:text-brandRed transition-colors">Home</button></li>
+            <li><button class="nav-trigger hover:text-brandRed transition-colors" data-target="products">Products</button></li>
+            <li><button class="nav-trigger hover:text-brandRed transition-colors" data-target="solutions">Solutions</button></li>
+            <li><button class="nav-trigger hover:text-brandRed transition-colors" data-target="support">Support</button></li>
+            <li><button class="nav-trigger hover:text-brandRed transition-colors" data-target="company">Company</button></li>
+        </ul>
+
+        <div class="hidden md:flex items-center gap-6">
+            <div class="flex items-center bg-gray-100 rounded-full p-1 text-sm font-medium notranslate" translate="no">
+                <button data-lang="en" class="lang-btn px-4 py-1.5 rounded-full transition hover:text-white hover:bg-brandRed">EN</button>
+                <button data-lang="np" class="lang-btn px-4 py-1.5 rounded-full transition hover:text-white hover:bg-brandRed">NP</button>
+            </div>
+            <span class="text-xs text-gray-400 notranslate" translate="no">इन / नेप</span>
+            <button aria-label="Search" class="text-gray-700 hover:text-black">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
+        </div>
+
+        <div class="flex items-center md:hidden gap-2">
+            <div class="mobile-lang-bar notranslate" translate="no">
+                <button data-lang="en" class="lang-btn px-2 py-1 text-xs">EN</button>
+                <button data-lang="np" class="lang-btn px-2 py-1 text-xs">NP</button>
+            </div>
+            <button id="mobile-menu-btn" class="text-textDark text-2xl">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mega Menu Desktop -->
+    <div id="mega-menu" class="hidden fixed top-[72px] inset-x-0 bg-white z-40 border-t shadow-2xl overflow-hidden opacity-0 -translate-y-2">
+        <div class="max-w-7xl mx-auto flex h-[450px]">
+            <div class="w-1/3 border-r py-8 px-12">
+                <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6" id="menu-category-label">Category</p>
+                <ul class="space-y-4" id="menu-list"></ul>
+            </div>
+            <div class="w-1/3 bg-gray-50 p-12 border-r">
+                <ul class="space-y-4 text-sm font-medium text-gray-600" id="sub-menu-list">
+                    <li class="border-b pb-2 hover:text-black cursor-pointer">Advisory Board</li>
+                    <li class="border-b pb-2 hover:text-black cursor-pointer">Resources</li>
+                </ul>
+            </div>
+            <div class="w-1/3 p-12 flex flex-col justify-center">
+                <div class="relative rounded-xl overflow-hidden aspect-video bg-black group cursor-pointer shadow-lg">
+                    <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform" alt="Video Preview">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center pl-1 shadow-md">
+                            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-4 text-center">See the advantages you get with HIKSEMI</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Consent Popup -->
+    <div id="cookie-consent-popup">
+        <div class="cookie-container">
+            <button class="cookie-close-btn" id="cookie-close-btn">&times;</button>
+            <div class="cookie-content">
+                <h3>Cookie Consent</h3>
+                <p>We use cookies to enhance your browsing experience, serve personalized content, and analyze our traffic. By clicking "Accept All", you consent to our use of cookies. You can manage your preferences in Cookie Settings. For more information, please read our <a href="#" onclick="openTab(event, 'privacy')">Privacy Policy</a>.</p>
+            </div>
+            <div class="cookie-buttons">
+                <button class="cookie-btn cookie-settings" id="cookie-settings-btn">Cookie Settings</button>
+                <button class="cookie-btn cookie-accept" id="cookie-accept-btn">Accept All</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cookie Settings Modal -->
+    <div id="cookie-settings-modal">
+        <div class="cookie-modal-content">
+            <div class="cookie-modal-header">
+                <h2>Cookie Preferences</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <p>You can set your preferences for how we use cookies on our website. You can change these settings at any time by clicking "Cookie Settings" in the footer.</p>
+            
+            <div class="cookie-option">
+                <div class="cookie-option-header">
+                    <h3>Essential Cookies</h3>
+                    <label class="cookie-toggle">
+                        <input type="checkbox" id="essential-cookies" checked disabled>
+                        <span class="cookie-slider"></span>
+                    </label>
+                </div>
+                <p>These cookies are necessary for the website to function and cannot be switched off. They are usually only set in response to actions made by you such as setting your privacy preferences, logging in or filling in forms.</p>
+            </div>
+            
+            <div class="cookie-option">
+                <div class="cookie-option-header">
+                    <h3>Analytics Cookies</h3>
+                    <label class="cookie-toggle">
+                        <input type="checkbox" id="analytics-cookies">
+                        <span class="cookie-slider"></span>
+                    </label>
+                </div>
+                <p>These cookies allow us to count visits and traffic sources so we can measure and improve the performance of our site. They help us to know which pages are the most and least popular and see how visitors move around the site.</p>
+            </div>
+            
+            <div class="cookie-option">
+                <div class="cookie-option-header">
+                    <h3>Marketing Cookies</h3>
+                    <label class="cookie-toggle">
+                        <input type="checkbox" id="marketing-cookies">
+                        <span class="cookie-slider"></span>
+                    </label>
+                </div>
+                <p>These cookies may be set through our site by our advertising partners. They may be used by those companies to build a profile of your interests and show you relevant adverts on other sites.</p>
+            </div>
+            
+            <div class="cookie-modal-actions">
+                <button class="cookie-save" id="save-cookie-settings">Save Preferences</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Title -->
+    <div class="page-title animate-on-scroll">
+        <h1>Legal & Consultation</h1>
+        <p>Review our policies and book your medical consultation</p>
+    </div>
+
+    <!-- Tab Container -->
+    <div class="tab-container">
+        <div class="tab-buttons">
+            <div class="tab-button active" onclick="openTab(event, 'terms')">Terms & Conditions</div>
+            <div class="tab-button" onclick="openTab(event, 'privacy')">Privacy Policy</div>
+            <div class="tab-button" onclick="openTab(event, 'consultation')">Book Consultation</div>
+        </div>
+
+        <!-- Terms & Conditions Tab (RMA POLICY) -->
+        <div id="terms" class="tab-content active">
+            <div class="content-section animate-on-scroll">
+                <h2>Hangzhou Hikstorage Technology Co., LTD. RMA POLICY</h2>
+                <div class="highlight-box">
+                    <p><strong>Last Updated:</strong> January 1, 2025</p>
+                </div>
+                <h3>1. Document Purpose and Scope</h3>
+                <p>This document addresses RMA policies applicable to the products purchased by customers ("Customers") that are returned to Hangzhou Hikstorage Technology Co. Ltd. ("Hikstorage") for repair or replacement. To the extent that governing law where the sale of product took place is inconsistent with a provision herein, and such governing law prohibit waiver by contractual agreement, then such governing law shall apply only to the extent of the inconsistency. Any exceptions to this Policy requested by Customers must be approved in writing by Hikstorage.</p>
+                
+                <h3>2. Amending this Policy</h3>
+                <p>Hikstorage may amend the Policy from time to time, in part or entirety, without prior notice.</p>
+                
+                <h3>3. Hikstorage's Responsibility</h3>
+                <p>Except as otherwise agreed by the parties, Hikstorage's sole responsibility under Hikstorage's warranty is limited to repairing or replacing the defective products returned by Customers if the product is still within the warranty period. For details on the product warranty provided by Hikstorage, please refer to the following:</p>
+                
+                <div class="warranty-table-container">
+                    <table class="warranty-table">
+                        <thead>
+                            <tr>
+                                <th>Product Type</th>
+                                <th>Series</th>
+                                <th>Default Warranty Period</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="5">Consumer storage device – portable storage</td>
+                                <td>Classic Series: M200, Rotary Series: M200S, RNB Series: M200R, CAP Series: M220P, Dual Slim Series: E307C, Blade Series: E301, SYNC Series: E327C/S450/S200, Blink Series: E302, Elite Series: Elite 7S, Ultra Series: S306C, Rapids Series: S560, S1000</td>
+                                <td>Five years</td>
+                            </tr>
+                            <tr>
+                                <td>Pocket Series: T100, Spear Series: T200N, Dagger Series: T200N MINI, Shield Series: T300S, T300S NY, Elite Series: Elite, Swift Series: S309C</td>
+                                <td>Three years</td>
+                            </tr>
+                            <tr>
+                                <td>NAS: S1H1, Mage20Pro-A, R1-A</td>
+                                <td>Two years</td>
+                            </tr>
+                            <tr>
+                                <td>Consumer SSD: Neo Series: C100, City Series: E100, E100N, E1000, E2000, Wave Series: WAVE(S), WAVE(N), WAVE(P), Radiator Series</td>
+                                <td>Three years</td>
+                            </tr>
+                            <tr>
+                                <td>E3000, WAVE Pro(P), Future Series SSD</td>
+                                <td>Five Years</td>
+                            </tr>
+                            <tr>
+                                <td>Surveillance SSD</td>
+                                <td>V300, V310 Series</td>
+                                <td>Three years</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3">Consumer memory card</td>
+                                <td>NEO Series: C1, NEO Home Series: D1, NEO LUX Series: D3, NEO PLUS Series: E1, Future Series: G3, CAPTURE Series: E3, E30, E60, E90, E300A</td>
+                                <td>Seven years</td>
+                            </tr>
+                            <tr>
+                                <td>CAPTURE Series: E300</td>
+                                <td>Ten years</td>
+                            </tr>
+                            <tr>
+                                <td>CITY FUN Series: G2, CAPTURE Series: E300 PRO, Future Series: G3 PRO</td>
+                                <td>Lifetime limited warranty</td>
+                            </tr>
+                            <tr>
+                                <td>Surveillance memory card</td>
+                                <td>CITY GO Series: M1, GUARD Series: P10, P1, L2</td>
+                                <td>Two years</td>
+                            </tr>
+                            <tr>
+                                <td>DRAM</td>
+                                <td>Hiker Series: S1, U1, Armor/Future Series: U10, Akira/Wave/Sword/Future Series: U100</td>
+                                <td>DRAM lifespan</td>
+                            </tr>
+                            <tr>
+                                <td>Accessory</td>
+                                <td>ENCLOSURE Series: MD202, MDS1, MDC1, MDR1, MDS4, MGS1, MHB201, MHC201, Card Reader Series: CR01, CR01 mini, HUB Series: DS8, DS11, Fast Charger Series: CBC2C, GaN33, GaN67, Power Bank Series: W050/S100/M050</td>
+                                <td>One year</td>
+                            </tr>
+                            <tr>
+                                <td>EMMC</td>
+                                <td>Commercial eMMC</td>
+                                <td>Two years</td>
+                            </tr>
+                            <tr>
+                                <td>Industrial eMMC, DDR4, LPDDR4X, SPI NAND</td>
+                                <td>-</td>
+                                <td>Five Years / One year (SPI NAND)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="warranty-note">
+                    <p>* Warranty period for the peripheral such as hard disk drives shall be subject to the warranty period which is provided at the time of purchase of such equipment.</p>
+                    <p>* Warranty period for Consumer, Industrial, Enterprise and Surveillance SSD products, whichever occurs first: 1) Three years from the date of purchase by the original customer, or 2) The standard service life of the memory card is exceeded, inspected by S.M.A.R.T. tool. Disassembly or man-made damage of products is not covered by the warranty , including but not limited to: product label tearing; unpacking of the shell; Shell breakage/SAG/scratch/wear (no impact on hard disk body); IC missing, IC drop, IC breakage rejection repair; Transfer card burned, fractured, artificially scratched, etc..</p>
+                    <p>* Warranty period for consumer memory card products, whichever occurs first: 1) Seven years from the date of purchase by the original customer, or 2) The standard service life of the memory card is exceeded, inspected by S.M.A.R.T. tool.</p>
+                    <p>* Warranty period for surveillance memory card products, whichever occurs first: 1) Two years from the date of purchase by the original customer, or 2) The standard service life of the memory card is exceeded, inspected by S.M.A.R.T. tool.</p>
+                    <p>* The warranty does not cover use of Consumer memory card and SSD or HDD products in relation to the following occasions or devices (as defined by Hikstorage): (1) normal wear and tear, drop, (2) IP and network cameras, (3) display devices for loop playback, (4) video monitoring, security and surveillance devices, (5) on-board recording devices and dashcams, (6) continuous recording devices, (7) continuous data storage devices such as servers, or (8) other overuse that exceed standard range of application defined in manuals.</p>
+                </div>
+
+                <h3>4. Warranty Scope</h3>
+                <p>Hikstorage's products in any of the following circumstances are excluded from Hikstorage's free-of-charge warranty. However, users may choose Out-of-warranty repairs.</p>
+                <ul>
+                    <li>4.1 Valid warranty document and original purchase invoice or receipt cannot be shown, and the former serial number label is altered, changed or torn down, there is no serial number or the product model or number on the warranty document is inconsistent with the product.</li>
+                    <li>4.2 The warranty period specified by HIKSTORAGE is exceeded.</li>
+                    <li>4.3 Malfunctions and damages resulting from failure of use, maintenance and storage according to the user manual or the working environment indicated in the user manual.</li>
+                    <li>4.4 Malfunctions or damages resulting from installation, repairs, changes or dis-assembly by the organizations NOT authorized by Hikstorage.</li>
+                    <li>4.5 Damages resulting from accidents or other force majeure.</li>
+                </ul>
+
+                <h3>5. Limitation of Liability</h3>
+                <p>If Hikstorage breaches the contract or needs to bear other responsibilities, customers can request Hikstorage to compensate for the losses. However, the compensation liability of Hikstorage is limited to customers actual direct losses and does not assume any responsibility for the following: <br>① the amount exceeding the actual payment price for the product customers purchased; <br>② Any costs and expenses related to obtaining alternative goods, technology, services, or rights; <br>③ Data damage or loss; <br>④ Losses caused by interruptions or delays in use.<br>This liability limitation also applies to product sellers and service providers. This is the maximum compensation limit jointly borne by Hikstorage and product sellers and service providers. The above liability limitations apply only to the extent permitted by law and do not apply to liabilities that cannot be excluded or limited by contract or other means in accordance with the law.</p>
+            </div>
+        </div>
+
+        <!-- Privacy Policy Tab (Quality & Manufacturing) -->
+        <div id="privacy" class="tab-content">
+            <div class="content-section animate-on-scroll">
+                <h2>Quality Management & Manufacturing System</h2>
+                <div class="highlight-box">
+                    <p><strong>Commitment to Excellence</strong></p>
+                </div>
+                <h3>Quality management</h3>
+                <p>Adhering to the principle that "reliability comes first," HIKSEMI has built a rigorous quality management system across R&D and production. The company is certified to ISO 9001:2008 for quality management and ISO 14001:2004 for environmental management, demonstrating its commitment to product excellence and sustainability.</p>
+                <p>End-to-end quality control is achieved through advanced 6S management and full supply chain traceability enabled by the SAP system, covering all stages from incoming materials to final delivery. HIKSEMI operates a 1,300-square-meter testing center with over 100 high-precision instruments for thermal, salt spray, vibration, and reliability demonstration testing (RDT), ensuring stable, reliable performance and continuous improvement.</p>
+                <p>All products meet applicable regulatory requirements in their target markets and hold key international certifications, including FCC, CE, CCC, as well as RoHS, REACH, and WEEE. Solutions for specialized industries also comply with relevant sector-specific standards and certifications.</p>
+                
+                <h3>Manufacturing system</h3>
+                <p>As a global provider of storage products and solutions, HIKSEMI possesses end-to-end capabilities in design, manufacturing, and development from chips to finished goods. The company operates two smart factories in Wuhan and Hangzhou and has established strategic partnerships with leading global wafer foundries as well as packaging and testing providers to strengthen upstream and downstream integration and enhance supply chain resilience.</p>
+                <p>The Wuhan facility, operational since 2023, is equipped with advanced packaging and testing lines featuring DB, WB, MD, and FC equipment. It supports mass production of BGA, UFS, and TF products and fulfills 90% of low- to mid-range Flash testing requirements. The Hangzhou plant runs multiple fully automated SMT lines deeply integrated with MES, APS, PDM, and ERP systems, enabling large-scale flexible manufacturing.</p>
+                <p>Leveraging an industrial interconnection platform, automated data acquisition, predictive analytics, and other digital technologies, HIKSEMI has built a lean intelligent manufacturing system that tightly combines lean principles, automation, and digitalization for end-to-end operational efficiency.</p>
+                <p>In addition, logistics between warehouses and production plants are fully automated through a warehouse management system and intelligent robotics independently developed by Hikvision's Robotics Division.</p>
+            </div>
+        </div>
+
+        <!-- Book Consultation Tab (WhatsApp integration) -->
+        <div id="consultation" class="tab-content">
+            <div class="form-container">
+                <div class="content-section animate-on-scroll">
+                    <h2>Book Your Consultation</h2>
+                    <p>Fill out the form below to schedule a consultation with our medical experts. We'll get back to you within 24 hours. For more about our company, visit <a href="https://www.hiksemitech.com/en/hiksemi.html" target="_blank" class="text-brandRed underline">hiksemitech.com</a>.</p>
+                </div>
+                
+                <form id="consultation-form" class="stagger-animation">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="first-name">First Name <span class="required">*</span></label>
+                            <input type="text" id="first-name" name="first-name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="last-name">Last Name <span class="required">*</span></label>
+                            <input type="text" id="last-name" name="last-name" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="phone">Phone Number (with country code) <span class="required">*</span></label>
+                            <input type="tel" id="phone" name="phone" required placeholder="e.g. +977 9708095535">
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="form-group">
+                        <label for="condition">Service Requirement <span class="required">*</span></label>
+                        <textarea id="condition" name="condition" placeholder="Please describe your medical condition, symptoms, and any previous treatments..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="preferred-date">Preferred Consultation Date</label>
+                        <input type="date" id="preferred-date" name="preferred-date">
+                    </div>
+                    
+                   
+                    <div class="form-group">
+                        <label for="additional-info">Additional Information</label>
+                        <textarea id="additional-info" name="additional-info" placeholder="Any additional information that might help us understand your needs better..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn"><i class="fab fa-whatsapp mr-2"></i>Submit via WhatsApp</button>
+                    
+                    <p class="form-note">By submitting this form, you agree to our <a href="#" onclick="openTab(event, 'terms')">Terms & Conditions</a> and <a href="#" onclick="openTab(event, 'privacy')">Privacy Policy</a>.</p>
+                </form>
+                
+                <div id="success-message" class="success-message">
+                    <i class="fas fa-check-circle"></i>
+                    <h3>Thank You for Your Consultation Request!</h3>
+                    <p>We have received your information and our medical team will contact you within 24 hours to schedule your consultation.</p>
+                    <p>For urgent matters, please call us at <strong>+977 9708095535</strong>.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer-section text-white pt-16 pb-8 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/20 pb-16">
+            <div class="space-y-6">
+                <h4 class="text-lg font-bold">About Hiksemi</h4>
+                <p class="text-sm leading-relaxed text-gray-200">
+                    As a global provider of ultimate storage products and solutions, we are committed to continuous innovation to meet the diverse needs of applications including industrial control, video surveillance, data centers, and consumer electronics.
+                </p>
+                <div class="flex space-x-3">
+                    <a href="#" class="footer-social-icon"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="footer-social-icon"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="footer-social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="footer-social-icon"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            
+            <div class="space-y-4">
+                <h4 class="text-lg font-bold">Products</h4>
+                <ul class="text-sm space-y-2 text-gray-200">
+                    <li><a href="#" class="hover:underline hover:text-white">Industrial SSDs</a></li>
+                    <li><a href="#" class="hover:underline hover:text-white">Surveillance Cards</a></li>
+                    <li><a href="#" class="hover:underline hover:text-white">Data Center SSDs</a></li>
+                    <li><a href="#" class="hover:underline hover:text-white">Embedded Storage</a></li>
+                    <li><a href="#" class="hover:underline hover:text-white">Consumer Drives</a></li>
+                    <li><a href="#" class="hover:underline hover:text-white">Memory Modules</a></li>
+                </ul>
+            </div>
+            
+            <div class="space-y-4">
+                <h4 class="text-lg font-bold">Support</h4>
+                <ul class="text-sm space-y-2 text-gray-200">
+                    <li><a href="#" class="hover:underline hover:text-white">Warranty Info</a></li>
+                    <li><a href="#" class="hover:underline hover:text-white">Terms & Condition</a></li>
+                    <li><a href="#" class="hover:underline hover:text-white">Get In Touch</a></li>
+                </ul>
+            </div>
+            
+            <div class="space-y-4">
+                <h4 class="text-lg font-bold">Company Address</h4>
+                <p class="text-sm leading-relaxed text-gray-200">
+                    Room 307, Unit B, Building 2, No. 399 Danfeng Road, Binjiang District, Hangzhou, Zhejiang Province, China
+                </p>
+                <p class="text-sm font-bold mt-4">970-809-5535</p>
+            </div>
+        </div>
+        
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center mt-8 space-y-4 md:space-y-0 text-sm text-gray-300">
+            <p>© 2026 HIKSEMI Tech. All rights reserved.</p>
+            <img src="assets/hiksemi logo bg removed.png" alt="Gods Life Health Care" class="h-10 w-auto rounded-full" onerror="this.src='https://via.placeholder.com/120x40?text=Gods+Life'">
+        </div>
+    </footer>
+
+    <script>
+        // Cookie Consent Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const cookiePopup = document.getElementById('cookie-consent-popup');
+            const cookieSettingsModal = document.getElementById('cookie-settings-modal');
+            const cookieAcceptBtn = document.getElementById('cookie-accept-btn');
+            const cookieSettingsBtn = document.getElementById('cookie-settings-btn');
+            const cookieCloseBtn = document.getElementById('cookie-close-btn');
+            const closeModalBtn = document.querySelector('.close-modal');
+            const saveCookieSettingsBtn = document.getElementById('save-cookie-settings');
+            
+            if (!localStorage.getItem('cookieConsent')) {
+                setTimeout(() => {
+                    cookiePopup.classList.add('show');
+                }, 1000);
+            }
+            
+            cookieAcceptBtn.addEventListener('click', function() {
+                localStorage.setItem('cookieConsent', 'all');
+                cookiePopup.classList.remove('show');
+            });
+            
+            cookieCloseBtn.addEventListener('click', function() {
+                localStorage.setItem('cookieConsent', 'rejected');
+                cookiePopup.classList.remove('show');
+            });
+            
+            cookieSettingsBtn.addEventListener('click', function() {
+                cookieSettingsModal.classList.add('show');
+            });
+            
+            closeModalBtn.addEventListener('click', function() {
+                cookieSettingsModal.classList.remove('show');
+            });
+            
+            saveCookieSettingsBtn.addEventListener('click', function() {
+                const analyticsChecked = document.getElementById('analytics-cookies').checked;
+                const marketingChecked = document.getElementById('marketing-cookies').checked;
+                
+                localStorage.setItem('cookieConsent', 'custom');
+                localStorage.setItem('analyticsCookies', analyticsChecked);
+                localStorage.setItem('marketingCookies', marketingChecked);
+                
+                cookieSettingsModal.classList.remove('show');
+                cookiePopup.classList.remove('show');
+            });
+            
+            cookieSettingsModal.addEventListener('click', function(e) {
+                if (e.target === cookieSettingsModal) {
+                    cookieSettingsModal.classList.remove('show');
+                }
+            });
+
+            // Set minimum date for consultation
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const minDate = tomorrow.toISOString().split('T')[0];
+            const preferredDate = document.getElementById('preferred-date');
+            if (preferredDate) {
+                preferredDate.min = minDate;
+            }
+        });
+
+        function openTab(evt, tabName) {
+            var i, tabContent, tabButtons;
+
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].classList.remove("active");
+            }
+
+            tabButtons = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+            
+            // Scroll to top of tab content smoothly
+            document.querySelector('.tab-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Form submission handling - WhatsApp integration
+        document.getElementById('consultation-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const firstName = document.getElementById('first-name').value.trim();
+            const lastName = document.getElementById('last-name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const country = document.getElementById('country').value;
+            const department = document.getElementById('department').value;
+            const condition = document.getElementById('condition').value.trim();
+            const preferredDate = document.getElementById('preferred-date').value;
+            const timeZone = document.getElementById('time-zone').value;
+            const additionalInfo = document.getElementById('additional-info').value.trim();
+
+            if (!firstName || !lastName || !email || !phone || !country || !department || !condition) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+
+            const message = `*New Consultation Request*%0A%0A` +
+                `*Name:* ${firstName} ${lastName}%0A` +
+                `*Email:* ${email}%0A` +
+                `*Phone:* ${phone}%0A` +
+                `*Country:* ${country}%0A` +
+                `*Department:* ${department}%0A` +
+                `*Condition:* ${condition}%0A` +
+                (preferredDate ? `*Preferred Date:* ${preferredDate}%0A` : '') +
+                (timeZone ? `*Time Zone:* ${timeZone}%0A` : '') +
+                (additionalInfo ? `*Additional Info:* ${additionalInfo}%0A` : '');
+
+            const whatsappNumber = '9779708095535';
+            const url = `https://wa.me/${whatsappNumber}?text=${message}`;
+            
+            window.open(url, '_blank');
+
+            document.getElementById('consultation-form').style.display = 'none';
+            document.getElementById('success-message').style.display = 'block';
+            document.getElementById('success-message').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
+                rect.bottom >= 0
+            );
+        }
+
+        function handleScrollAnimation() {
+            const elements = document.querySelectorAll('.animate-on-scroll, .fade-in-left, .fade-in-right, .scale-in, .stagger-animation');
+            elements.forEach(element => {
+                if (isElementInViewport(element)) {
+                    element.classList.add('animated');
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            handleScrollAnimation();
+            window.addEventListener('scroll', handleScrollAnimation);
+        });
+
+        // Mobile menu functionality
+        document.addEventListener('DOMContentLoaded', () => {
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const menuOverlay = document.getElementById('menuOverlay');
+            const closeMobile = document.getElementById('closeMobileMenu');
+
+            function openMobile() {
+                mobileMenu.classList.add('open');
+                menuOverlay.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function closeMobileMenuFn() {
+                mobileMenu.classList.remove('open');
+                menuOverlay.classList.remove('open');
+                document.body.style.overflow = '';
+                document.querySelectorAll('.mobile-submenu').forEach(sub => sub.classList.remove('open'));
+                document.querySelectorAll('.dropdown-icon').forEach(icon => {
+                    icon.style.transform = 'rotate(0)';
+                });
+            }
+            
+            if (mobileBtn) mobileBtn.addEventListener('click', openMobile);
+            if (closeMobile) closeMobile.addEventListener('click', closeMobileMenuFn);
+            if (menuOverlay) menuOverlay.addEventListener('click', closeMobileMenuFn);
+
+            const mobileTriggers = document.querySelectorAll('.mobile-nav-trigger');
+            mobileTriggers.forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const target = trigger.dataset.target;
+                    if (!target) return;
+                    const submenu = document.getElementById(`submenu-${target}`);
+                    const icon = trigger.querySelector('.dropdown-icon');
+                    if (submenu) {
+                        submenu.classList.toggle('open');
+                        if (icon) {
+                            icon.style.transform = submenu.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0)';
+                        }
+                    }
+                });
+            });
+
+            // Desktop mega menu
+            const megaMenu = document.getElementById('mega-menu');
+            const navTriggers = document.querySelectorAll('.nav-trigger');
+            const menuList = document.getElementById('menu-list');
+            const categoryLabel = document.getElementById('menu-category-label');
+            
+            const menuData = {
+                products: { label: "HIKSEMI Storage", items: ["Industrial SSDs", "Surveillance Cards", "Data Center SSDs", "Embedded Storage", "Consumer Drives"] },
+                solutions: { label: "Applications", items: ["Industrial Control", "Video Surveillance", "Data Centers", "Consumer Electronics"] },
+                support: { label: "Customer Service", items: ["Overview", "Firmware Updates", "Warranty Status", "Technical Support"] },
+                company: { label: "About HIKSEMI", items: ["Brand Story", "Certifications", "Newsroom", "Contact Us"] }
+            };
+            
+            function clearActiveTriggers() { navTriggers.forEach(btn => btn.classList.remove('active-mega')); }
+
+            navTriggers.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const target = btn.dataset.target;
+                    if (!target) {
+                        megaMenu.classList.add('opacity-0', '-translate-y-2');
+                        setTimeout(() => megaMenu.classList.add('hidden'), 300);
+                        clearActiveTriggers();
+                        return;
+                    }
+                    const data = menuData[target];
+                    if (data) {
+                        categoryLabel.textContent = data.label;
+                        menuList.innerHTML = data.items.map(item => 
+                            `<li class="group cursor-pointer"><span class="text-2xl font-medium block group-hover:translate-x-2 transition-transform hover:text-brandRed">${item}</span></li>`
+                        ).join('');
+                        megaMenu.classList.remove('hidden');
+                        setTimeout(() => megaMenu.classList.remove('opacity-0', '-translate-y-2'), 10);
+                        clearActiveTriggers();
+                        btn.classList.add('active-mega');
+                    }
+                });
+            });
+            
+            document.addEventListener('click', (e) => {
+                if (!megaMenu.contains(e.target) && !e.target.classList.contains('nav-trigger')) {
+                    megaMenu.classList.add('opacity-0', '-translate-y-2');
+                    setTimeout(() => megaMenu.classList.add('hidden'), 300);
+                    clearActiveTriggers();
+                }
+            });
+
+            const nav = document.getElementById('main-nav');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    nav.classList.add('bg-white/70', 'backdrop-blur-xl', 'shadow-md');
+                } else {
+                    nav.classList.remove('bg-white/70', 'backdrop-blur-xl', 'shadow-md');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
