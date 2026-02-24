@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Hiksemi </title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+  
+        .card-hover {
+            transition: transform 0.2s ease, box-shadow 0.25s ease, border-color 0.2s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 280px;
+        }
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 30px -10px rgba(0,0,0,0.1), 0 8px 15px -6px rgba(0,120,255,0.1);
+            border-color: rgba(59,130,246,0.3) !important;
+        }
+       
+        .explore-btn {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+            pointer-events: none;
+            margin-top: 0.5rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255,255,255,0.9);
+            backdrop-filter: blur(4px);
+            padding: 0.3rem 1rem 0.3rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: #b05454;
+            border: 1px solid rgba(37,99,235,0.2);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+        }
+        .card-hover:hover .explore-btn {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .explore-btn i {
+            transition: transform 0.15s;
+        }
+        .explore-btn:hover i {
+            transform: translateX(4px);
+        }
+    
+        .filter-panel {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-right: 1px solid rgba(0,0,0,0.05);
+        }
+        .dark .filter-panel {
+            background: rgba(17,24,39,0.85);
+            border-right: 1px solid rgba(255,255,255,0.05);
+        }
+        .filter-section summary {
+            font-weight: 600;
+            cursor: pointer;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            padding: 6px 0;
+        }
+        .filter-section summary::after {
+            content: "＋";
+            font-size: 13px;
+            opacity: 0.6;
+        }
+        .filter-section[open] summary::after {
+            content: "−";
+        }
+        .filter-checkbox label, .filter-section label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.8rem;
+            padding: 3px 0;
+        }
+        .cart-badge {
+            position: absolute;
+            top: -6px;
+            right: -8px;
+            background: #af4848;
+            color: white;
+            border-radius: 999px;
+            font-size: 11px;
+            padding: 2px 6px;
+            min-width: 18px;
+            text-align: center;
+        }
+        .product-img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 14px;
+            background: #f0f4fa;
+        }
+        .dark .product-img {
+            background: #1e2632;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hero-bg {
+            background: linear-gradient(98deg, rgba(187, 189, 192, 0.082) 0%, rgba(31,58,96,0.5) 100%), url('hiksemicproducts1.png');
+            background-size: cover;
+            background-position: center;
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+        }
+        #mobileFilterDrawer {
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(100%);
+        }
+        #mobileFilterDrawer.show {
+            transform: translateX(0);
+        }
+      
+        .series-mini-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end; 
+            background-size: cover !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            border-radius: 20px;
+            padding: 12px 8px 8px 8px;
+            min-width: 150px;
+            min-height: 100px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            font-weight: bold;
+        }
+
+        .series-mini-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(0deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.1) 100%);
+            border-radius: 20px;
+            z-index: 1;
+        }
+
+        .series-mini-card img {
+            display: none;
+        }
+
+        .series-mini-card span {
+            position: relative;
+            z-index: 2;
+            font-size: 0.9rem;
+            background: rgba(0,0,0,0.3);
+            backdrop-filter: blur(4px);
+            padding: 4px 12px;
+            border-radius: 40px;
+            width: fit-content;
+            margin-top: auto;
+        }
+
+        .series-mini-card.active {
+            transform: scale(1.05);
+            border: 2px solid #2563eb;
+            box-shadow: 0 12px 24px rgba(37,99,235,0.3);
+        }
+
+        .dark .series-mini-card.active {
+            border-color: #60a5fa;
+        }
+
+        .mobile-filter-bar {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-filter-bar {
+                display: block;
+                width: 100%;
+                margin-bottom: 16px;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-[#0f1217] font-sans antialiased text-gray-800 dark:text-gray-200">
+
+    <!-- Navbar -->
+    <div class="sticky top-0 z-40 bg-white/95 dark:bg-gray-900/95 backdrop-blur-md border-b border-gray-200 dark:border-gray-800">
+        <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
+            <div class="font-bold text-2xl tracking-tight text-gray-800 dark:text-white">hiksemi<span class="text-red-600">.</span></div>
+            <div class="flex items-center gap-4">
+                
+                <div class="relative cursor-pointer" id="cartIconWrapper">
+                    <i class="fa-solid fa-cart-shopping text-xl"></i>
+                    <span id="cartCounter" class="cart-badge">0</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- mobile filter drawer -->
+    <div id="mobileFilterDrawer" class="fixed top-0 right-0 w-80 h-full bg-white dark:bg-gray-900 z-50 shadow-2xl p-5 overflow-y-auto border-l border-gray-200 dark:border-gray-700 md:hidden">
+        <div class="flex justify-between items-center mb-4">
+            <span class="font-bold text-lg">Filters</span>
+            <button id="closeMobileFilter" class="text-2xl"><i class="fa-regular fa-circle-xmark"></i></button>
+        </div>
+        <div id="mobileFilterContent" class="space-y-4">
+            <!-- injected via js same as desktop filters -->
+        </div>
+        <button id="applyMobileFilters" class="mt-6 w-full bg-red-600 text-white py-3 rounded-xl font-medium">Apply filters</button>
+    </div>
+
+    <!-- HERO SECTION  -->
+    <div class="hero-bg w-full text-white px-6 md:px-12 lg:px-20">
+        <div class="max-w-4xl">
+            <h1 class="text-3xl md:text-5xl font-bold leading-tight text-gray-800">XYZ TOPIC</h1>
+            <p class="text-lg md:text-xl text-gray-700 mt-4 max-w-2xl">DEscriptions fljakdblajsdas </p>
+            <button class="mt-8 bg-white text-red-900 px-8 py-3 rounded-full font-medium text-sm hover:bg-red-50 transition shadow-md flex items-center gap-2"><span>Shop Drives</span> <i class="fa-solid fa-arrow-right"></i></button>
+        </div>
+    </div>
+
+    <!-- main container: left filter  -->
+    <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col md:flex-row gap-6">
+        <!-- DESKTOP LEFT FILTER PANEL -->
+        <div class="filter-panel w-full md:w-80 rounded-2xl p-5 h-fit border border-gray-200 dark:border-gray-800 text-sm space-y-5 hidden md:block" id="filterPanel">
+            <div class="font-semibold text-base flex items-center gap-2"><i class="fa-solid fa-sliders"></i> <span id="filterCategoryTitle">Filters</span></div>
+            <div id="dynamicFilterSections" class="space-y-4"></div>
+            
+        </div>
+
+        <!-- RIGHT CONTENT -->
+        <div class="flex-1">
+            <!-- Mobile filter button -->
+            <div class="mobile-filter-bar">
+                <button id="mobileFilterToggle" class="w-full bg-red-600 text-white py-3 rounded-xl font-medium flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-sliders"></i> Show Filters
+                </button>
+            </div>
+            
+            <div class="overflow-x-auto hide-scrollbar pb-6 pt-2">
+                <div class="flex gap-4 min-w-max">
+                    <button class="series-mini-card series-tab active" data-series="all" style="background-image: url('hiksemicproducts.png');">
+                        <span>All</span>
+                    </button>
+                    <button class="series-mini-card series-tab" data-series="ssd" style="background-image: url('https://www.integralmemory.com/wp-content/uploads/2024/11/SATA-V-Series.jpg');">
+                        <span>SSD</span>
+                    </button>
+                    <button class="series-mini-card series-tab" data-series="memorycard" style="background-image: url('https://media.assettype.com/digitalterminal%2F2023-12%2Fcabbe878-3ce1-4542-842a-28d53ae4bd38%2FWestern_Digital__3_.jpg?w=640&auto=format%2Ccompress');">
+                        <span>Memory Card</span>
+                    </button>
+                    <button class="series-mini-card series-tab" data-series="nas" style="background-image: url('https://media.istockphoto.com/id/517709366/photo/nas-at-6-compartments-for-hd.jpg?s=612x612&w=0&k=20&c=1HhtFiWLmYl9tMwKZk0Kb5jAeXOcQjAQuNlAztglXv0=');">
+                        <span>Home NAS</span>
+                    </button>
+                    <button class="series-mini-card series-tab" data-series="embedded" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzRX5g6Oa4SRldKnITgKEo07dWINCzX94xhg&s');">
+                        <span>Embedded</span>
+                    </button>
+                    <button class="series-mini-card series-tab" data-series="memory" style="background-image: url('https://lh6.googleusercontent.com/proxy/3xZNAosj5aW9kXjf50kq1t_2jQUz1bVExgVpuHaHFCjrzVHXaa0NcogswK_3EhW4jBZLl1tVyxRILPcikoMZoXzdeMAV-MnCbF0oLXYd79pi82HAgiBMD6fI');">
+                        <span>Memory</span>
+                    </button>
+                    <button class="series-mini-card series-tab" data-series="external" style="background-image: url('https://4.imimg.com/data4/XT/JG/MY-9557037/external-hard-disk.jpg');">
+                        <span>External</span>
+                    </button>
+                    <button class="series-mini-card series-tab" data-series="accessories" style="background-image: url('https://t3.ftcdn.net/jpg/01/50/09/82/360_F_150098256_gQSZd7mWH7b7CQGJwfRcvWp8BuxOtvWQ.jpg');">
+                        <span>Accessories</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- product grid  -->
+            <div id="productGrid" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 md:gap-5 gap-y-6 mt-4"></div>
+            <!-- load more -->
+            <div class="flex justify-center mt-10 mb-8">
+                <button id="loadMoreBtn" class="px-8 py-3 border border-gray-300 dark:border-gray-700 rounded-full text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-900 transition flex items-center gap-2"><i class="fa-regular fa-rotate-right"></i> Load more (30)</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        (function() {
+          
+            const baseProducts = [
+                // ssd 
+                { name: "FUTURE Core PCIe 5.0 NVMe", desc: "Unparalleled Performance • Low Power • Data Protection", series: "ssd", cat: "Consumer SSD", speed: 7450, capacity: "1TB", interface: "PCIe 5.0" },
+                { name: "WAVE PRO PCIe 3.0 NVMe", desc: "Ultra-thin Laptops • Reliable", series: "ssd", cat: "Consumer SSD", speed: 3520, capacity: "512GB", interface: "PCIe 3.0" },
+                { name: "V310 Surveillance SSD", desc: "Industrial-Grade • 24/7 Recording", series: "ssd", cat: "Video Surveillance SSD", speed: 560, capacity: "1TB", interface: "SATA" },
+                { name: "FUTUREX PCIe 5.0 Heatsink", desc: "Active cooling • 10,000 MB/s", series: "ssd", cat: "Consumer SSD", speed: 10000, capacity: "2TB", interface: "PCIe 5.0" },
+                { name: "Enterprise D300", desc: "Power-loss protection • 3.84TB", series: "ssd", cat: "Enterprise SSD", speed: 3500, capacity: "3.84TB", interface: "PCIe 4.0" },
+                { name: "Industrial I100", desc: "Wide temp -40~85°C", series: "ssd", cat: "Industrial SSD", speed: 550, capacity: "256GB", interface: "SATA" },
+                { name: "Pro NVMe M.2", desc: "High endurance", series: "ssd", cat: "Consumer SSD", speed: 5000, capacity: "2TB", interface: "PCIe 4.0" },
+                { name: "Edge PCIe 4.0", desc: "Low latency", series: "ssd", cat: "Consumer SSD", speed: 7000, capacity: "1TB", interface: "PCIe 4.0" },
+                { name: "Datacenter D5", desc: "Dual port", series: "ssd", cat: "Enterprise SSD", speed: 3800, capacity: "1.92TB", interface: "NVMe" },
+                // nas 
+                { name: "Mage20 Pro NAS", desc: "Personal cloud • 40TB max", series: "nas", storage: "32TB – 40TB", ram: "8GB", net: "2.5GbE", capacity: "40TB" },
+                { name: "HomeNAS R1", desc: "Various Interfaces • DDR5", series: "nas", storage: "16TB – 32TB", ram: "16GB", net: "10GbE", capacity: "32TB" },
+                { name: "S1H1 Smart NAS", desc: "Huge Capacity", series: "nas", storage: "40TB+", ram: "4GB", net: "1GbE", capacity: "48TB" },
+                { name: "T2 Mini", desc: "2-bay", series: "nas", storage: "8TB – 16TB", ram: "8GB", net: "2.5GbE", capacity: "16TB" },
+                // memorycard 
+                { name: "GUARD PRO microSD", desc: "A2 • U3 • 4K", series: "memorycard", usage: "Action Camera", readSpeed: "160 MB/s", capacity: "256GB", video: "4K" },
+                { name: "CAPTURE CFexpress", desc: "8K video", series: "memorycard", usage: "8K Video", readSpeed: "900 MB/s", capacity: "512GB", video: "8K" },
+                { name: "ACTION PRO", desc: "Waterproof", series: "memorycard", usage: "Action Camera", readSpeed: "190 MB/s", capacity: "128GB", video: "4K" },
+                { name: "PRO Photography 64", desc: "RAW", series: "memorycard", usage: "Photography", readSpeed: "280 MB/s", capacity: "64GB", video: "Full HD" },
+                { name: "Drone X", desc: "4K HDR", series: "memorycard", usage: "Drone", readSpeed: "160 MB/s", capacity: "128GB", video: "4K" },
+                // embedded 
+                { name: "Auto eMMC 5.1", desc: "AEC-Q100", series: "embedded", productCat: "eMMC", appSegment: "Automotive", interfaceType: "eMMC 5.1", capacity: "64GB" },
+                { name: "Industrial eMMC", desc: "Wide temp", series: "embedded", productCat: "eMMC", appSegment: "Industrial", interfaceType: "eMMC 5.1", capacity: "32GB" },
+                { name: "DDR4 Auto", desc: "LPDDR4", series: "embedded", productCat: "DRAM", appSegment: "Automotive", interfaceType: "DDR4", capacity: "16GB" },
+                // memory 
+                { name: "DDR5 UDIMM 16GB", desc: "6000MHz", series: "memory", memType: "DDR5", form: "UDIMM", rgb: "RGB", capacity: "16GB", freq: "6000 MHz" },
+                { name: "DDR4 SODIMM 8GB", desc: "3200MHz", series: "memory", memType: "DDR4", form: "SODIMM", rgb: "Non-RGB", capacity: "8GB", freq: "3200 MHz" },
+                // external
+                { name: "Portable SSD PSSD", desc: "USB 3.2 Gen2", series: "external", prodType: "Portable SSD", extInterface: "USB 3.2 Gen 2", speedRange: "500 – 1000 MB/s", capacity: "1TB" },
+                { name: "Dual USB Drive", desc: "Type‑C+ A", series: "external", prodType: "Dual Interface Drive", extInterface: "Dual", speedRange: "0 – 500 MB/s", capacity: "128GB" },
+                // accessories 
+                { name: "M.2 Heatsink RGB", desc: "cooling", series: "accessories", accType: "SSD Enclosures", compat: "Windows" },
+                { name: "USB-C Hub 7in1", desc: "4K HDMI", series: "accessories", accType: "USB Hubs / Docking Stations", compat: "Ultrabook" },
+            ];
+       
+            let products = [];
+            for (let i=0; i<9; i++) {
+                baseProducts.forEach((p, idx) => {
+                    products.push({ ...p, name: p.name + (i>0 ? ' '+i : ''), id: p.name+'_'+i });
+                });
+            }
+        
+            products = products.slice(0, 240);
+
+           
+            function getProductImageUrl(p) {
+                if (p.series === 'ssd') return 'https://dmassets.micron.com/is/image/microntechnology/product-micro-sd-1.5tb-angle';
+                if (p.series === 'nas') return 'https://www.tekwind.co.jp/og_image.php?dir=column&id=283';
+                if (p.series === 'memorycard') return 'https://img.kentfaith.com/cache/catalog/products/us/KF42.0013/KF42.0013-1-518x518.jpg';
+                if (p.series === 'embedded') return 'https://5.imimg.com/data5/YI/PA/MY-6062574/m2-ssd-card-500x500.jpg';
+                if (p.series === 'memory') return 'https://img.kentfaith.com/cache/catalog/products/us/KF42.0013/KF42.0013-1-518x518.jpg';
+                return 'https://images.unsplash.com/photo-1597872200969-2b65d56bd16b?w=400&h=300&fit=crop';
+            }
+
+            // cart
+            let cartItems = [];
+            const cartCounter = document.getElementById('cartCounter');
+            const whatsappNumber = '9779708095535';
+            function updateCartCounter() {
+                cartCounter.innerText = cartItems.reduce((acc, i) => acc + i.quantity, 0);
+            }
+            function addToCart(product) {
+                const existing = cartItems.find(item => item.id === product.name);
+                existing ? existing.quantity++ : cartItems.push({ id: product.name, name: product.name, quantity: 1 });
+                updateCartCounter();
+            }
+            function removeOneFromCart(productName) {
+                const idx = cartItems.findIndex(i => i.id === productName);
+                if (idx !== -1) {
+                    cartItems[idx].quantity > 1 ? cartItems[idx].quantity-- : cartItems.splice(idx, 1);
+                }
+                updateCartCounter();
+            }
+            document.getElementById('cartIconWrapper').addEventListener('click', ()=>{
+                if (!cartItems.length) { alert('Cart empty'); return; }
+                let msg = 'Hi, I want to order:%0A';
+                cartItems.forEach(item => msg += `• ${item.name} x${item.quantity}%0A`);
+                window.open(`https://wa.me/${whatsappNumber}?text=${msg}`, '_blank');
+            });
+
+            // filter definitions 
+            const filterDefinitions = {
+                ssd: { title: 'SSD Filters', sections: [
+                    { name: 'Category', options: ['Consumer SSD','Enterprise SSD','Video Surveillance SSD','Industrial SSD'] },
+                    { name: 'Interface', options: ['PCIe 5.0','PCIe 4.0','PCIe 3.0','SATA','NVMe'] },
+                    { name: 'Capacity', options: ['256GB','512GB','1TB','2TB','4TB+'] }
+                ]},
+                nas: { title: 'NAS Filters', sections: [
+                    { name: 'Storage Capacity', options: ['Up to 8TB','8TB – 16TB','16TB – 32TB','32TB – 40TB','40TB+'] },
+                    { name: 'RAM (Pre-installed)', options: ['4GB','8GB','16GB','32GB+'] },
+                    { name: 'Network', options: ['1GbE','2.5GbE','10GbE','Wi-Fi Support'] }
+                ]},
+                memorycard: { title: 'Memory Card Filters', sections: [
+                    { name: 'Usage', options: ['Gaming','4K Video','8K Video','Surveillance','Photography','Drone','Action Camera','Smartphone / Tablet'] },
+                    { name: 'Max Read Speed', options: ['0 – 100 MB/s','100 – 200 MB/s','200 – 300 MB/s','300 – 900 MB/s','900+ MB/s'] },
+                    { name: 'Video Recording', options: ['Full HD','4K','8K'] },
+                    { name: 'Capacity', options: ['32GB','64GB','128GB','256GB','512GB','1TB+'] }
+                ]},
+                embedded: { title: 'Embedded Filters', sections: [
+                    { name: 'Product Category', options: ['eMMC','DRAM','NAND Flash'] },
+                    { name: 'Application Segment', options: ['Automotive','Industrial','Consumer Electronics','IoT Devices','Networking Equipment','Smart Home','POS Systems','Medical Devices'] },
+                    { name: 'Interface Type', options: ['eMMC 5.1','eMMC 4.5','DDR4','LPDDR','SPI','QSPI'] },
+                    { name: 'Capacity Range', options: ['4GB','8GB','16GB','32GB','64GB','128GB+'] }
+                ]},
+                memory: { title: 'Memory Filters', sections: [
+                    { name: 'Memory Type', options: ['DDR4','DDR5'] },
+                    { name: 'Form Factor', options: ['UDIMM','SODIMM'] },
+                    { name: 'RGB Lighting', options: ['RGB','Non-RGB'] },
+                    { name: 'Capacity', options: ['4GB','8GB','16GB','32GB','64GB+'] },
+                    { name: 'Frequency', options: ['2666 MHz','3200 MHz','3600 MHz','4800 MHz','5200 MHz','6000 MHz+'] }
+                ]},
+                external: { title: 'External Filters', sections: [
+                    { name: 'Product Type', options: ['Portable SSD','USB Flash Drive','Dual Interface Drive','Magnetic SSD','Gaming SSD'] },
+                    { name: 'Interface', options: ['USB 3.2 Gen 2','USB 3.2 Gen 2x2','USB Type-C','USB Type-A','Dual','OTG Supported'] },
+                    { name: 'Max Read/Write Speed', options: ['0 – 500 MB/s','500 – 1000 MB/s','1000 – 2000 MB/s','2000 – 4000 MB/s'] },
+                    { name: 'Capacity', options: ['64GB','128GB','256GB','512GB','1TB','2TB','4TB'] }
+                ]},
+                accessories: { title: 'Accessories Filters', sections: [
+                    { name: 'Accessory Type', options: ['Cables','Card Readers','SSD Enclosures','HDD Enclosures','Chargers','USB Hubs / Docking Stations'] },
+                    { name: 'Compatibility', options: ['Windows','macOS','Android','Nintendo Switch','Ultrabook','iPad','PS5'] }
+                ]}
+            };
+
+            let activeSeries = 'all';
+            let currentPage = 1;
+            const pageSize = 30;
+            let activeFilters = {};
+
+            function buildFilterUI(targetDiv) {
+                if (activeSeries === 'all' || !filterDefinitions[activeSeries]) {
+                    targetDiv.innerHTML = `<div class="text-sm text-gray-500">Select a category to see filters.</div>`;
+                    return;
+                }
+                const def = filterDefinitions[activeSeries];
+                let html = '';
+                def.sections.forEach(s => {
+                    html += `<div class="filter-section" open><summary>${s.name}</summary><div class="mt-1 space-y-1 pl-1 filter-checkbox">`;
+                    s.options.forEach(opt => {
+                        const checked = activeFilters[`${s.name}_${opt}`] ? 'checked' : '';
+                        html += `<label><input type="checkbox" class="rounded filter-check" data-filter-cat="${s.name}" value="${opt}" ${checked}> ${opt}</label>`;
+                    });
+                    html += `</div></div>`;
+                });
+                targetDiv.innerHTML = html;
+            }
+
+            // filter function
+            function matchesProduct(p) {
+                if (activeSeries !== 'all' && p.series !== activeSeries) return false;
+                for (let key in activeFilters) {
+                    if (!activeFilters[key]) continue;
+                    const [cat, val] = key.split('_');
+                    if (cat === 'Category' && p.cat !== val) return false;
+                    if (cat === 'Interface' && p.interface !== val) return false;
+                    if (cat === 'Capacity' && p.capacity !== val && p.capacity !== val.replace('+','')) return false;
+                    if (cat === 'Storage Capacity' && p.storage !== val) return false;
+                    if (cat === 'RAM (Pre-installed)' && p.ram !== val) return false;
+                    if (cat === 'Network' && p.net !== val) return false;
+                    if (cat === 'Usage' && p.usage !== val) return false;
+                    if (cat === 'Max Read Speed' && p.readSpeed !== val) return false;
+                    if (cat === 'Video Recording' && p.video !== val) return false;
+                    if (cat === 'Product Category' && p.productCat !== val) return false;
+                    if (cat === 'Application Segment' && p.appSegment !== val) return false;
+                    if (cat === 'Interface Type' && p.interfaceType !== val) return false;
+                    if (cat === 'Memory Type' && p.memType !== val) return false;
+                    if (cat === 'Form Factor' && p.form !== val) return false;
+                    if (cat === 'RGB Lighting' && p.rgb !== val) return false;
+                    if (cat === 'Frequency' && p.freq !== val) return false;
+                    if (cat === 'Product Type' && p.prodType !== val) return false;
+                    if (cat === 'Accessory Type' && p.accType !== val) return false;
+                    if (cat === 'Compatibility' && p.compat !== val) return false;
+                }
+                return true;
+            }
+
+            function renderProducts() {
+                const filtered = products.filter(matchesProduct);
+                const end = currentPage * pageSize;
+                const toShow = filtered.slice(0, end);
+                let html = '';
+                toShow.forEach(p => {
+                    const imgUrl = getProductImageUrl(p);
+                    const descItems = (p.desc || '').split('•').filter(d => d.trim());
+                    html += `<div class="bg-white dark:bg-gray-900 rounded-2xl border border-gray-200/70 dark:border-gray-800 p-3 md:p-4 card-hover relative">
+                        <img class="product-img mb-2" src="${imgUrl}" loading="lazy">
+                        <span class="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-full">${p.cat || p.series}</span>
+                        <div class="mt-1"><h3 class="font-bold text-base md:text-lg">${p.name}</h3></div>
+                        <div class="text-xs mt-1 font-medium">${p.speed ? p.speed+' MB/s' : ''}</div>
+                        <div class="text-[15px] text-gray-500 space-y-0.5 mt-2 flex-grow">
+                            ${descItems.map(it => `<div class="flex gap-1"><span class="text-red-500">•</span><span>${it.trim()}</span></div>`).join('')}
+                        </div>
+                        <div class="explore-btn absolute bottom-16 right-2 text-[10px] md:text-xs">
+                            Explore <i class="fa-solid fa-arrow-right-long"></i>
+                        </div>
+                        <div class="mt-3 flex items-center justify-between border-t pt-2 border-gray-100 dark:border-gray-800">
+                            <div class="flex items-center border rounded-full dark:border-gray-700 text-base">  
+                                <button class="qty-decrease px-2 py-0.5" data-product="${p.name}">−</button>
+                                <span class="qty-show px-1 min-w-[22px] text-center" data-product="${p.name}">0</span>
+                                <button class="qty-increase px-2 py-0.5" data-product="${p.name}">+</button>
+                            </div>
+                            <button class="add-cart-btn bg-red-600 text-white px-2 py-1 md:px-3 md:py-1.5 rounded-full text-[10px] md:text-xs flex items-center gap-1" data-product="${p.name}">
+                                <i class="fa-solid fa-cart-plus"></i> Add
+                            </button>
+                        </div>
+                    </div>`;
+                });
+                document.getElementById('productGrid').innerHTML = html;
+                attachCardEvents();
+            }
+
+            function attachCardEvents() {
+                document.querySelectorAll('.qty-increase').forEach(btn => {
+                    btn.onclick = (e) => {
+                        e.stopPropagation(); const name = btn.dataset.product;
+                        const prod = products.find(p => p.name === name); if(prod) addToCart(prod);
+                        const span = document.querySelector(`.qty-show[data-product="${name}"]`);
+                        if(span) span.innerText = cartItems.find(i=>i.id===name)?.quantity || 0;
+                    };
+                });
+                document.querySelectorAll('.qty-decrease').forEach(btn => {
+                    btn.onclick = (e) => {
+                        e.stopPropagation(); const name = btn.dataset.product;
+                        removeOneFromCart(name);
+                        const span = document.querySelector(`.qty-show[data-product="${name}"]`);
+                        if(span) span.innerText = cartItems.find(i=>i.id===name)?.quantity || 0;
+                    };
+                });
+                document.querySelectorAll('.add-cart-btn').forEach(btn => {
+                    btn.onclick = (e) => {
+                        e.stopPropagation(); const name = btn.dataset.product;
+                        const prod = products.find(p => p.name === name); if(prod) addToCart(prod);
+                        const card = btn.closest('.card-hover');
+                        const span = card.querySelector('.qty-show');
+                        if(span) span.innerText = cartItems.find(i=>i.id===name)?.quantity || 0;
+                    };
+                });
+            }
+
+            // series tab click
+            document.querySelectorAll('.series-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    document.querySelectorAll('.series-tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    activeSeries = this.dataset.series;
+                    activeFilters = {}; 
+                    currentPage = 1;
+                    buildFilterUI(document.getElementById('dynamicFilterSections'));
+                    buildFilterUI(document.getElementById('mobileFilterContent'));
+                    renderProducts();
+                });
+            });
+
+            // filter checkbox listeners
+            document.addEventListener('change', (e) => {
+                if (e.target.classList.contains('filter-check')) {
+                    const cat = e.target.dataset.filterCat;
+                    const val = e.target.value;
+                    const key = cat + '_' + val;
+                    activeFilters[key] = e.target.checked;
+                    currentPage = 1;
+                    renderProducts();
+                }
+            });
+
+            // mobile drawer
+            const drawer = document.getElementById('mobileFilterDrawer');
+            document.getElementById('mobileFilterToggle').addEventListener('click', () => {
+                drawer.classList.add('show');
+                buildFilterUI(document.getElementById('mobileFilterContent'));
+            });
+            document.getElementById('closeMobileFilter').addEventListener('click', () => {
+                drawer.classList.remove('show');
+            });
+            document.getElementById('applyMobileFilters').addEventListener('click', () => {
+                drawer.classList.remove('show');
+               
+            });
+
+       
+            document.getElementById('loadMoreBtn').addEventListener('click', ()=>{
+                const filtered = products.filter(matchesProduct);
+                if (currentPage * pageSize < filtered.length) {
+                    currentPage++;
+                    renderProducts();
+                } else { alert('All products loaded'); }
+            });
+
+            // init
+            buildFilterUI(document.getElementById('dynamicFilterSections'));
+            buildFilterUI(document.getElementById('mobileFilterContent'));
+            renderProducts();
+        })();
+    </script>
+</body>
+</html>
